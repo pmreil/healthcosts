@@ -1,0 +1,31 @@
+<h1>Listing costs</h1>
+
+<table>
+  <tr>
+    <th>Drg code</th>
+    <th>Hospital ext</th>
+    <th>Year</th>
+    <th>Total discharges</th>
+    <th>Average total payment</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @costs.each do |cost| %>
+  <tr>
+    <td><%= cost.drg_code %></td>
+    <td><%= cost.hospital_ext_id %></td>
+    <td><%= cost.year %></td>
+    <td><%= cost.total_discharges %></td>
+    <td><%= cost.average_total_payment %></td>
+    <td><%= link_to 'Show', cost %></td>
+    <td><%= link_to 'Edit', edit_cost_path(cost) %></td>
+    <td><%= link_to 'Destroy', cost, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Cost', new_cost_path %>

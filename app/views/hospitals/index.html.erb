@@ -1,0 +1,35 @@
+<h1>Listing hospitals</h1>
+
+<table>
+  <tr>
+    <th>Ext</th>
+    <th>Name</th>
+    <th>Address</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Zipcode</th>
+    <th>Referral region</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @hospitals.each do |hospital| %>
+  <tr>
+    <td><%= hospital.ext_id %></td>
+    <td><%= hospital.name %></td>
+    <td><%= hospital.address %></td>
+    <td><%= hospital.city %></td>
+    <td><%= hospital.state %></td>
+    <td><%= hospital.zipcode %></td>
+    <td><%= hospital.referral_region %></td>
+    <td><%= link_to 'Show', hospital %></td>
+    <td><%= link_to 'Edit', edit_hospital_path(hospital) %></td>
+    <td><%= link_to 'Destroy', hospital, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Hospital', new_hospital_path %>

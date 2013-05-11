@@ -1,0 +1,25 @@
+<h1>Listing drgs</h1>
+
+<table>
+  <tr>
+    <th>Code</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @drgs.each do |drg| %>
+  <tr>
+    <td><%= drg.code %></td>
+    <td><%= drg.description %></td>
+    <td><%= link_to 'Show', drg %></td>
+    <td><%= link_to 'Edit', edit_drg_path(drg) %></td>
+    <td><%= link_to 'Destroy', drg, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Drg', new_drg_path %>

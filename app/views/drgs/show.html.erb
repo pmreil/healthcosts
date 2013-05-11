@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Code:</b>
+  <%= @drg.code %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @drg.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_drg_path(@drg) %> |
+<%= link_to 'Back', drgs_path %>

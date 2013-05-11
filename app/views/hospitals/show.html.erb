@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Ext:</b>
+  <%= @hospital.ext_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @hospital.name %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @hospital.address %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @hospital.city %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%= @hospital.state %>
+</p>
+
+<p>
+  <b>Zipcode:</b>
+  <%= @hospital.zipcode %>
+</p>
+
+<p>
+  <b>Referral region:</b>
+  <%= @hospital.referral_region %>
+</p>
+
+
+<%= link_to 'Edit', edit_hospital_path(@hospital) %> |
+<%= link_to 'Back', hospitals_path %>
