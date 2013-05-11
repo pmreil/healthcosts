@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '>=3.2.13'
 gem 'bootstrap-sass'
 gem 'jquery-rails'
+gem 'will_paginate'
 
 #update to support vulnerability
 gem 'json', '>= 1.7.7'

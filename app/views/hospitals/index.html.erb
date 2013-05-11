@@ -1,8 +1,7 @@
 <h1>Listing hospitals</h1>
 
-<table>
+<table class="table table-striped table-bordered table-hover">
   <tr>
-    <th>Ext</th>
     <th>Name</th>
     <th>Address</th>
     <th>City</th>
@@ -16,7 +15,6 @@
 
 <% @hospitals.each do |hospital| %>
   <tr>
-    <td><%= hospital.ext_id %></td>
     <td><%= hospital.name %></td>
     <td><%= hospital.address %></td>
     <td><%= hospital.city %></td>
@@ -30,6 +28,7 @@
 <% end %>
 </table>
 
+<%= will_paginate @hospitals %>
 <br />
 
 <%= link_to 'New Hospital', new_hospital_path %>
