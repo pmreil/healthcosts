@@ -34,7 +34,7 @@ group :development do
   gem 'mysql2'
   gem 'rspec-rails', '2.5.0'
   gem 'annotate', ">=2.5.0"
-  gem 'rb-readline'
+  gem 'rb-readline', '~> 0.4.2'
 end
 
 group :production do
