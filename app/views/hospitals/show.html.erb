@@ -35,6 +35,26 @@
   <%= @hospital.referral_region %>
 </p>
 
-
-<%= link_to 'Edit', edit_hospital_path(@hospital) %> |
-<%= link_to 'Back', hospitals_path %>
+<table class="table table-striped table-hover table-bordered">
+<caption>Health Care Costs for <%=@hospital.name%></caption>
+<thead>
+  <th>Drg code</th>
+  <th>Description</th>
+  <th>Year</th>
+  <th>Total Discharges</th>
+  <th>Average Covered Charge</th>
+  <th>Average Total Payment</th>
+</thead>
+<tbody>
+<% @costs.each do |cost| %>
+<tr>
+  <td><%= cost.drg_code %></td>
+  <td><%= cost.drg.description %></td>
+  <td><%= cost.year %></td>
+  <td><%= cost.total_discharges %></td>
+  <td style="text-align:right;">$<%= cost.average_covered_charges %>.00</td>
+  <td align="right">$<%= cost.average_total_payments %>.00</td>
+</tr>
+<% end %>
+</tbody>
+</table>
