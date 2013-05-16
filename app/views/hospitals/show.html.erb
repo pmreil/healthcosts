@@ -1,39 +1,39 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <b>Ext:</b>
-  <%= @hospital.ext_id %>
-</p>
+<div id="test" style="width:550px;height:300px;float:right;border:1px solid black"></div>
 
-<p>
-  <b>Name:</b>
-  <%= @hospital.name %>
-</p>
 
-<p>
-  <b>Address:</b>
-  <%= @hospital.address %>
-</p>
+  <h3><%= @hospital.name %></h3>
+  <p>
+  <%= @hospital.address %></br>
+  <%= @hospital.city %>, <%= @hospital.state %> <%= @hospital.zipcode %>
+  </p>
 
-<p>
-  <b>City:</b>
-  <%= @hospital.city %>
-</p>
+  <p><b>Region:</b> : <%= @hospital.referral_region %></p>
 
-<p>
-  <b>State:</b>
-  <%= @hospital.state %>
-</p>
+<div style="clear:both;"></div>
 
-<p>
-  <b>Zipcode:</b>
-  <%= @hospital.zipcode %>
-</p>
-
-<p>
-  <b>Referral region:</b>
-  <%= @hospital.referral_region %>
-</p>
+<script type="text/javascript">
+$("#map").gmap3({
+    marker:{
+      address: "<%= @hospital.address %>, <%= @hospital.city %>, <%= @hospital.state %> <%= @hospital.zipcode %>, USA"
+    },
+    map:{
+      options:{
+        zoom: 14
+      }
+    }
+  });
+$("#test").gmap3({
+    marker:{
+      address: "Haltern am See, Weseler Str. 151"
+    },
+    map:{
+      options:{
+        zoom: 14
+      }
+    }
+  });
+</script>
 
 <table class="table table-striped table-hover table-bordered">
 <caption>Health Care Costs for <%=@hospital.name%></caption>

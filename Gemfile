@@ -2,8 +2,10 @@ source 'https://rubygems.org'
 
 gem 'rails', '>=3.2.13'
 gem 'bootstrap-sass'
+gem 'font-awesome-sass-rails'
 gem 'jquery-rails'
 gem 'will_paginate'
+gem 'jquery-gmap3-rails'
 
 #update to support vulnerability
 gem 'json', '>= 1.7.7'

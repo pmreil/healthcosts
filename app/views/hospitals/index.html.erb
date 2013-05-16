@@ -9,7 +9,7 @@
 
 <% @hospitals.each do |hospital| %>
   <tr>
-    <td><%= link_to hospital.name, hospital %></td>
+    <td><i class="icon-h-sign"></i> <%= link_to hospital.name, hospital %></td>
     <td><%= hospital.address %>, <%= hospital.city %>, <%= hospital.state %> <%= hospital.zipcode %></td>
     <td><%= hospital.referral_region %></td>
   </tr>

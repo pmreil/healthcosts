@@ -3,6 +3,7 @@
 <head>
   <title>Healthcosts</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?sensor=true" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
@@ -12,16 +13,11 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="brand" href="#">Project name</a>
+          <a class="brand" href="/"><i class="icon-hospital"></i> Hospital Cost Compare</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
+              <li><a href="/hospitals/">Hospitals</a></li>
+              <li><a href="/drgs/">Diagnoses</a></li>
               <li><a href="#contact">Contact</a></li>
             </ul>
           </div><!--/.nav-collapse -->
