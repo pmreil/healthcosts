@@ -14,6 +14,8 @@ class DrgsController < ApplicationController
   # GET /drgs/1.json
   def show
     @drg = Drg.find(params[:id])
+    @costs =  @drg.costs.includes(:hospital)
+    @average = @costs.average('average_covered_charges')
 
     respond_to do |format|
       format.html # show.html.erb

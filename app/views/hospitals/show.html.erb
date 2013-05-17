@@ -13,26 +13,23 @@
 <div style="clear:both;"></div>
 
 <script type="text/javascript">
-$("#map").gmap3({
-    marker:{
-      address: "<%= @hospital.address %>, <%= @hospital.city %>, <%= @hospital.state %> <%= @hospital.zipcode %>, USA"
-    },
-    map:{
-      options:{
-        zoom: 14
+$( document ).ready(function() {
+
+  $("#test").gmap3({
+    getlatlng:{
+      address: "<%= @hospital.address %>, <%= @hospital.city %>, <%= @hospital.state %> <%= @hospital.zipcode %>",
+      callback: function(results){
+        if ( !results ) return;
+        $(this).gmap3({
+          marker:{
+            latLng:results[0].geometry.location
+          }
+        });
       }
     }
   });
-$("#test").gmap3({
-    marker:{
-      address: "Haltern am See, Weseler Str. 151"
-    },
-    map:{
-      options:{
-        zoom: 14
-      }
-    }
-  });
+
+});
 </script>
 
 <table class="table table-striped table-hover table-bordered">

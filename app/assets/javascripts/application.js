@@ -16,6 +16,3 @@
 
 // Loads all Bootstrap javascripts
 //= require bootstrap
-
-// Load gmap 3
-//= require gmap3

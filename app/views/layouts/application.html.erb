@@ -3,8 +3,9 @@
 <head>
   <title>Healthcosts</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?sensor=true" %>
   <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "http://maps.google.com/maps/api/js?sensor=false&amp;language=en" %>
+  <%= javascript_include_tag "/assets/gmap3.js?body=1" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
