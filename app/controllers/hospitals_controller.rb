@@ -16,6 +16,7 @@ class HospitalsController < ApplicationController
   # GET /hospitals/1.json
   def show
     @hospital = Hospital.find(params[:id])
+    @hospital.update_lat_lng
     @costs = @hospital.costs.includes(:drg)
 
     respond_to do |format|

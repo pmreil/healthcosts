@@ -2,8 +2,8 @@
 #
 # Table name: hospitals
 #
-#  id              :integer          not null, primary key
-#  ext_id          :integer
+#  id              :integer          not null
+#  ext_id          :integer          primary key
 #  name            :string(255)
 #  address         :string(255)
 #  city            :string(255)
@@ -12,6 +12,8 @@
 #  referral_region :string(255)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  latitude        :float
+#  longitude       :float
 #
 
 require 'spec_helper'
