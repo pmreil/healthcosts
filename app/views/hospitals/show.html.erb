@@ -1,6 +1,4 @@
-
-<div id="test" style="width:550px;height:300px;float:right;border:1px solid black"></div>
-
+<div id="map-canvas" style="width:550px;height:300px;float:right;border:1px solid black"></div>
 
   <h3><%= @hospital.name %></h3>
   <p>
@@ -13,23 +11,18 @@
 <div style="clear:both;"></div>
 
 <script type="text/javascript">
-$( document ).ready(function() {
+var map;
+function initialize() {
+  var mapOptions = {
+    zoom: 16,
+    center: new google.maps.LatLng(<%= @hospital.latitude %>, <%= @hospital.longitude %>),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+}
 
-  $("#test").gmap3({
-    getlatlng:{
-      address: "<%= @hospital.address %>, <%= @hospital.city %>, <%= @hospital.state %> <%= @hospital.zipcode %>",
-      callback: function(results){
-        if ( !results ) return;
-        $(this).gmap3({
-          marker:{
-            latLng:results[0].geometry.location
-          }
-        });
-      }
-    }
-  });
-
-});
+google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 
 <table class="table table-striped table-hover table-bordered">

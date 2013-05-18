@@ -11,17 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130510193507) do
+ActiveRecord::Schema.define(:version => 20130517165956) do
 
   create_table "costs", :force => true do |t|
     t.integer  "drg_code"
     t.integer  "hospital_ext_id"
     t.integer  "year"
     t.integer  "total_discharges"
+    t.integer  "average_covered_charges"
     t.integer  "average_total_payments"
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
-    t.integer  "average_covered_charges"
   end
 
   create_table "drgs", :force => true do |t|
@@ -37,10 +37,12 @@ ActiveRecord::Schema.define(:version => 20130510193507) do
     t.string   "address"
     t.string   "city"
     t.string   "state"
-    t.integer  "zipcode"
+    t.string   "zipcode"
     t.string   "referral_region"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
 end
