@@ -1,21 +1,16 @@
-<h1>Listing drgs</h1>
+<h3>Diagnosis Related Groups</h3>
 
-<table>
+<table id="costTable" class="table table-striped table-border table-hover">
+<thead>
   <tr>
     <th>Code</th>
     <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
   </tr>
-
+</thead>
 <% @drgs.each do |drg| %>
   <tr>
-    <td><%= drg.code %></td>
-    <td><%= drg.description %></td>
-    <td><%= link_to 'Show', drg %></td>
-    <td><%= link_to 'Edit', edit_drg_path(drg) %></td>
-    <td><%= link_to 'Destroy', drg, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to drg.code, drg %></td>
+    <td><%= link_to drg.description, drg %></td>
   </tr>
 <% end %>
 </table>
@@ -23,3 +18,11 @@
 <br />
 
 <%= link_to 'New Drg', new_drg_path %>
+
+<script>
+$(document).ready(function() 
+    { 
+        $("#costTable").tablesorter(); 
+    } 
+); 
+</script>

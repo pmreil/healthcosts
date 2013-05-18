@@ -12,3 +12,8 @@
  *= require_tree .
  *= require _font-awesome
  */
+
+ /*
+ *= require jquery-tablesorter/theme.bootstrap
+ *= require jquery-tablesorter/addons/pager/jquery.tablesorter.pager
+ */

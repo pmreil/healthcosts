@@ -6,6 +6,7 @@ gem 'font-awesome-sass-rails'
 gem 'jquery-rails'
 gem 'will_paginate'
 gem 'geocoder'
+gem 'jquery-tablesorter'
 
 #update to support vulnerability
 gem 'json', '>= 1.7.7'
