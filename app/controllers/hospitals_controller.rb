@@ -2,9 +2,9 @@ class HospitalsController < ApplicationController
   # GET /hospitals
   # GET /hospitals.json
   def index
-    #@hospitals = Hospital.all
+    @hospitals = Hospital.all
     #@hospitals = Hospital.paginate(:page => params[:page])
-    @hospitals = Hospital.order('referral_region').order('name').page(params[:page])
+    #@hospitals = Hospital.order('referral_region').order('name').page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

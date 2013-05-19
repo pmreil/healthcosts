@@ -1,6 +1,8 @@
-
-
-@baseFontSize 20px;
+@import "font-awesome";
+//$baseFontFamily: 'FontAwesome';
+$baseFontSize: 12px;
+@import "bootstrap";
+@import "bootstrap-responsive";
 
 body {
 	padding-top: 60px;

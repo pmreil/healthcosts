@@ -1,12 +1,14 @@
 <h1>Hospitals Listing</h1>
 
-<table class="table table-striped table-bordered table-hover">
+<table id="hospitalTable" class="table table-striped table-bordered table-hover">
+<thead>
   <tr>
     <th>Name</th>
     <th>Address</th>
     <th>Region</th>
   </tr>
-
+</thead>
+<tbody>
 <% @hospitals.each do |hospital| %>
   <tr>
     <td><i class="icon-h-sign"></i> <%= link_to hospital.name, hospital %></td>
@@ -14,9 +16,15 @@
     <td><%= hospital.referral_region %></td>
   </tr>
 <% end %>
+</tbody>
 </table>
 
-<%= will_paginate @hospitals %>
-<br />
+<%= render "shared/pager" %>
 
-<%= link_to 'New Hospital', new_hospital_path %>
+<script>
+$(document).ready(function() { 
+    $("#hospitalTable")
+      .tablesorter({widthFixed: true, widgets: ['zebra']})
+      .tablesorterPager({container: $("#pager")});
+}); 
+</script>
