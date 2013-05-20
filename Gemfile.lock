@@ -51,6 +51,7 @@ GEM
       railties (>= 3.1.1)
       sass-rails (>= 3.1.1)
     geocoder (1.1.8)
+    google-analytics-rails (0.0.4)
     hike (1.2.2)
     i18n (0.6.1)
     journey (1.0.4)
@@ -63,6 +64,8 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    meta-tags (1.5.0)
+      actionpack
     mime-types (1.23)
     multi_json (1.7.3)
     mysql2 (0.3.11)
@@ -132,7 +135,6 @@ GEM
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
       rack-test (>= 0.5.3)
-    will_paginate (3.0.4)
 
 PLATFORMS
   ruby
@@ -144,9 +146,11 @@ DEPENDENCIES
   coffee-rails (>= 3.2.1)
   font-awesome-sass-rails
   geocoder
+  google-analytics-rails
   jquery-rails
   jquery-tablesorter
   json (>= 1.7.7)
+  meta-tags
   mysql2
   rails (>= 3.2.13)
   rb-readline (~> 0.4.2)
@@ -156,4 +160,3 @@ DEPENDENCIES
   spork
   uglifier (>= 1.0.3)
   webrat (= 0.7.1)
-  will_paginate

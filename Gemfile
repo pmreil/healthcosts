@@ -4,9 +4,11 @@ gem 'rails', '>=3.2.13'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass-rails'
 gem 'jquery-rails'
-gem 'will_paginate'
+#gem 'will_paginate'
 gem 'geocoder'
 gem 'jquery-tablesorter'
+gem 'meta-tags', :require => 'meta_tags'
+gem 'google-analytics-rails'
 
 #update to support vulnerability
 gem 'json', '>= 1.7.7'
