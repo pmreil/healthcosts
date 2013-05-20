@@ -2,7 +2,8 @@ class HospitalsController < ApplicationController
   # GET /hospitals
   # GET /hospitals.json
   def index
-    @hospitals = Hospital.all
+    #@hospitals = Hospital.all
+    @hospitals = Hospital.select("id,ext_id,name,address,city,state,zipcode,referral_region")
     #@hospitals = Hospital.paginate(:page => params[:page])
     #@hospitals = Hospital.order('referral_region').order('name').page(params[:page])
 

@@ -1,12 +1,20 @@
-<h4>DRG <%= @drg.code %> - <%= @drg.description %></h4>
+<div class='row'>
+  <div class="span7">
+    <h3>DRG <%= @drg.code %> - <%= @drg.description %></h3>
+    <p class="lead"><%= @costs.count %> hospitals reported data on this DRG in 2011. Average covered charges was <%= number_to_currency(@average_covered_charges, :unit => "$") %> and average total payments was <%= number_to_currency(@average_total_payments, :unit => "$") %>.</p>
+    <p><%= link_to "Data definitions and source", "#definitions" %><br/><%= link_to "Additional information about DRGs", "http://www.cms.gov/icd10manual/version30-fullcode-cms/P0002.html", :target => "blank" %></p>
 
-<p>Average covered charges over <%= @costs.count %> hospitals: <%= number_to_currency(@average_covered_charges, :unit => "$") %></p>
-<p>Average total payments over <%= @costs.count %> hospitals: <%= number_to_currency(@average_total_payments, :unit => "$") %></p>
+  </div>
+  <div class="span5">
+  </div>
+</div>
 
-<table id="costTable" class="table table-striped table-border table-hover" style="height:200px;overflow:scroll;">
+
+<table id="sortTable" class="table table-striped table-border table-hover" style="height:200px;overflow:scroll;">
 <thead>
   <tr>
     <th>Hospital</th>
+    <th>Discharges</th>
     <th>Avg. Covered Charges</th>
     <th>Avg. Total Payments</th>
   </tr>
@@ -15,6 +23,7 @@
 <% @costs.each do |cost| %>
   <tr>
     <td><%= link_to cost.hospital.name, cost.hospital %></td>
+    <td><%= cost.total_discharges %></td>
     <td><%= number_to_currency(cost.average_covered_charges, :unit => "$") %></td>
     <td><%= number_to_currency(cost.average_total_payments, :unit => "$") %></td>
   </tr>
@@ -24,7 +33,8 @@
 
 <%= render "shared/pager" %>
 
-<%= link_to 'Back', drgs_path %>
+<%= render "shared/definitions" %>
+
 
 <script type="text/javascript">
       google.load("visualization", "1", {packages:["corechart"]});

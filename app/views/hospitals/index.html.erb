@@ -1,6 +1,6 @@
 <h1>Hospitals Listing</h1>
 
-<table id="hospitalTable" class="table table-striped table-bordered table-hover">
+<table id="sortTable" class="table table-striped table-bordered table-hover">
 <thead>
   <tr>
     <th>Name</th>
@@ -21,10 +21,3 @@
 
 <%= render "shared/pager" %>
 
-<script>
-$(document).ready(function() { 
-    $("#hospitalTable")
-      .tablesorter({widthFixed: true, widgets: ['zebra']})
-      .tablesorterPager({container: $("#pager")});
-}); 
-</script>
