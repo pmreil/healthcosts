@@ -4,6 +4,7 @@
     <p><%= @hospital.address %></br><%= @hospital.city %>, <%= @hospital.state %> <%= @hospital.zipcode %></p>
     <p><b>Region:</b> : <%= @hospital.referral_region %></p>
     <p><%= link_to "Data definitions and source", "#definitions" %></p>
+    <p><a href="#discuss" class="btn btn-small btn-primary">Discuss <%= @hospital.name.upcase %></a></p>
 
   </div>
   <div class="span8">
