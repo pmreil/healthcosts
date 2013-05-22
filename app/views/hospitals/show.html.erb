@@ -1,3 +1,7 @@
+<% title @hospital.name %>
+<% description @hospital.name+' average Chargemaster costs and Medicare payments' %>
+<% keywords 'Member login page.' %>
+
 <div class="row">
   <div class="span4">
     <h3><%= link_to @hospital.name, "http://www.google.com/search?q="+@hospital.name+"&btnI", :target => "_blank" %></h3>
@@ -18,16 +22,19 @@
 <thead>
   <th>Description</th>
   <th>Total Discharges</th>
-  <th>Average Covered Charge</th>
-  <th>Average Total Payment</th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount hospital charged for this DRG in 2011 over total discharges">Average Covered Charge</a></th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount Medicare paid the hospital for the procedure">Average Total Payment</a></th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Difference between what hospital charged and Medicare paid the hospital for the procedure">Difference<br/>(% Markup)</a></th>
+
 </thead>
 <tbody>
 <% @costs.each do |cost| %>
 <tr>
   <td><%= link_to cost.drg.description, cost.drg %></td>
   <td><%= cost.total_discharges %></td>
-  <td style="text-align:right;">$<%= cost.average_covered_charges %>.00</td>
-  <td align="right">$<%= cost.average_total_payments %>.00</td>
+  <td style="text-align:right;"><%= number_to_currency(cost.average_covered_charges, :unit => "$") %></td>
+  <td align="right"><%= number_to_currency(cost.average_total_payments, :unit => "$") %></td>
+  <td align="right"><nobr><%= number_to_currency((cost.average_covered_charges - cost.average_total_payments), :unit => '$') %> (<%= number_to_percentage(((cost.average_covered_charges*100)/cost.average_total_payments), :precision => 0) %>)</nobr></td>
 </tr>
 <% end %>
 </tbody>
@@ -40,6 +47,11 @@
 <%= render "shared/definitions" %>
 
 <script type="text/javascript">
+
+$(document).ready(function() {
+  $('.link').tooltip();
+});
+
 var map;
 google.maps.visualRefresh = true;
 function initialize() {

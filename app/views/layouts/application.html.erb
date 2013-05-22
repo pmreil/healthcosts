@@ -1,36 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <%= display_meta_tags :site => 'Hopsital Cost Compare' %>  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= display_meta_tags :site => 'Hopsital Cost Compare' %>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "https://www.google.com/jsapi" %>
   <%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="brand" href="/"><i class="icon-hospital"></i> Hospital Cost Compare</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li><a href="/hospitals/">Hospitals</a></li>
-              <li><a href="/drgs/">Diagnoses</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
+<div id="wrap">
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="brand" href="/"><i class="icon-hospital"></i> Hospital Cost Compare</a>
+        <div class="nav-collapse collapse">
+          <ul class="nav">
+            <li><a href="/hospitals/">Hospitals</a></li>
+            <li><a href="/drgs/">Diagnoses</a></li>
+            <li><a href="/about/">About</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
       </div>
     </div>
-
-    <div class="container">
-
-
-<%= yield %>
-
-		</div>
+  </div>
+  <div class="container">
+    <%= yield %>
+    <div id="push"></div>
+	</div>
+</div>
+<div id="footer">
+  <div class="container">
+  </div>
+</div>
 
 </body>
 </html>

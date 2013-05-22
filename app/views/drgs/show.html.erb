@@ -1,7 +1,7 @@
 <div class='row'>
   <div class="span7">
     <h3>DRG <%= @drg.code %> - <%= @drg.description %></h3>
-    <p class="lead"><%= @costs.count %> hospitals reported data on this DRG in 2011. Average covered charges was <%= number_to_currency(@average_covered_charges, :unit => "$") %> and average total payments was <%= number_to_currency(@average_total_payments, :unit => "$") %>.</p>
+    <p class="lead"><%= @costs.count %> hospitals reported data on this DRG in 2011. Average covered charges was <%= number_to_currency(@average_covered_charges, :unit => "$") %> and average total payments was <%= number_to_currency(@average_total_payments, :unit => "$") %>. Highest charge <%= number_to_currency(@costs.first.average_covered_charges, :unit => "$") %></p>
     <p><%= link_to "Data definitions and source", "#definitions" %><br/><%= link_to "Additional information about DRGs", "http://www.cms.gov/icd10manual/version30-fullcode-cms/P0002.html", :target => "blank" %></p>
 
   </div>
