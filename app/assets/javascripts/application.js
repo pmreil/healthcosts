@@ -20,8 +20,7 @@
 //= require jquery-tablesorter
 //= require jquery-tablesorter/addons/pager/jquery.tablesorter.pager
 
-
-
+//= require FeedEk
 
 $(function() {
 

@@ -2,19 +2,32 @@
 <html>
 <head>
   <%= display_meta_tags :site => 'Hopsital Cost Compare' %>
+  <link href='http://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "https://www.google.com/jsapi" %>
   <%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "ur-e6c947a7-b355-1a2f-f145-525b62e8cc91", doNotHash: true, doNotCopy: true, hashAddressBar: false});</script>
 </head>
 <body>
 <div id="wrap">
-  <div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
+
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+
         <a class="brand" href="/"><i class="icon-hospital"></i> Hospital Cost Compare</a>
-        <div class="nav-collapse collapse">
+        <div class="nav-collapse">
           <ul class="nav">
             <li><a href="/hospitals/">Hospitals</a></li>
             <li><a href="/drgs/">Diagnoses</a></li>

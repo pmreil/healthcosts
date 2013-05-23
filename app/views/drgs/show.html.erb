@@ -1,11 +1,14 @@
 <div class='row'>
-  <div class="span7">
-    <h3>DRG <%= @drg.code %> - <%= @drg.description %></h3>
+  <div class="span9">
+    <h3>DRG <%= @drg.code %> - <%= @drg.uc_description %></h3>
     <p class="lead"><%= @costs.count %> hospitals reported data on this DRG in 2011. Average covered charges was <%= number_to_currency(@average_covered_charges, :unit => "$") %> and average total payments was <%= number_to_currency(@average_total_payments, :unit => "$") %>. Highest charge <%= number_to_currency(@costs.first.average_covered_charges, :unit => "$") %></p>
-    <p><%= link_to "Data definitions and source", "#definitions" %><br/><%= link_to "Additional information about DRGs", "http://www.cms.gov/icd10manual/version30-fullcode-cms/P0002.html", :target => "blank" %></p>
-
   </div>
-  <div class="span5">
+  <div class="span3">
+    <br/>
+    <p><a href="#discuss" class="btn btn-small btn-primary">Discuss this DRG</a></p>
+    <p><a href="#definitions" class="btn btn-small btn-primary">Data source and definitions</a></p>
+    <p><a href="http://www.cms.gov/icd10manual/version30-fullcode-cms/P0002.html" target="_blank" class="btn btn-small btn-primary">Information about DRGs</a></p>
+
   </div>
 </div>
 
@@ -15,14 +18,15 @@
   <tr>
     <th>Hospital</th>
     <th>Discharges</th>
-    <th>Avg. Covered Charges</th>
-    <th>Avg. Total Payments</th>
+    <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount hospital charged for this DRG in 2011 over total discharges">Average Covered Charge</a></th>
+    <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount Medicare paid the hospital for the procedure">Average Total Payment</a></th>
+
   </tr>
 </thead>
 <tbody>
 <% @costs.each do |cost| %>
   <tr>
-    <td><%= link_to cost.hospital.name, cost.hospital %></td>
+    <td><%= link_to cost.hospital.uc_name+", "+cost.hospital.city.capitalize+", "+cost.hospital.state, cost.hospital %></td>
     <td><%= cost.total_discharges %></td>
     <td><%= number_to_currency(cost.average_covered_charges, :unit => "$") %></td>
     <td><%= number_to_currency(cost.average_total_payments, :unit => "$") %></td>
@@ -33,34 +37,21 @@
 
 <%= render "shared/pager" %>
 
+<h3>Discuss <%= @drg.uc_description %></h3>
+<%= render "shared/disqus" %>
+
 <%= render "shared/definitions" %>
-
-
-<script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Hospital',<% @costs.each do |cost| %>'<%= cost.hospital.name %>',<% end %>],
-          [1,<% @costs.each do |cost| %><%= cost.average_total_payments %>,<% end %>]
-        ]);
-
-        var options = {
-          title: 'Company Performance',
-          hAxis: {title: 'Year', titleTextStyle: {color: 'red'}}
-        };
-
-        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-        //chart.draw(data, options);
-      }
-    </script>
-    <div id="chart_div" style="width: 900px; height: 500px;"></div>
-
 
 <script>
 $(document).ready(function() { 
 		$("#costTable")
 			.tablesorter({widthFixed: true, widgets: ['zebra']})
 			.tablesorterPager({container: $("#pager")});
-}); 
-</script>
+
+    $('.link').tooltip();
+    $(".link").click(function() {
+      return false;
+    });
+
+});
+</script> 

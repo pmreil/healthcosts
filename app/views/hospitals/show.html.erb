@@ -1,14 +1,24 @@
-<% title @hospital.name %>
-<% description @hospital.name+' average Chargemaster costs and Medicare payments' %>
+<% title @hospital.uc_name %>
+<% description @hospital.uc_name+' average Chargemaster costs and Medicare payments' %>
 <% keywords 'Member login page.' %>
 
 <div class="row">
   <div class="span4">
-    <h3><%= link_to @hospital.name, "http://www.google.com/search?q="+@hospital.name+"&btnI", :target => "_blank" %></h3>
+    <h3><%= link_to @hospital.uc_name, "http://www.google.com/search?q="+@hospital.name+"&btnI", :target => "_blank" %></h3>
     <p><%= @hospital.address %></br><%= @hospital.city %>, <%= @hospital.state %> <%= @hospital.zipcode %></p>
     <p><b>Region:</b> : <%= @hospital.referral_region %></p>
-    <p><%= link_to "Data definitions and source", "#definitions" %></p>
-    <p><a href="#discuss" class="btn btn-small btn-primary">Discuss <%= @hospital.name.upcase %></a></p>
+    <p><a href="#discuss" class="btn btn-small btn-primary">Discuss <%= @hospital.uc_name %></a></p>
+    <p><a href="#news" class="btn btn-small btn-primary">News about <%= @hospital.uc_name %></a></p>
+    <p><a href="#definitions" class="btn btn-small btn-primary">Data source and definitions</a></p>
+
+<span class='st_sharethis_large' displayText='ShareThis'></span>
+<span class='st_facebook_large' displayText='Facebook'></span>
+<span class='st_twitter_large' displayText='Tweet'></span>
+<span class='st_wordpress_large' displayText='WordPress'></span>
+<span class='st_tumblr_large' displayText='Tumblr'></span>
+<span class='st_linkedin_large' displayText='LinkedIn'></span>
+<span class='st_googleplus_large' displayText='Google +'></span>
+<span class='st_email_large' displayText='Email'></span>
 
   </div>
   <div class="span8">
@@ -34,7 +44,7 @@
   <td><%= cost.total_discharges %></td>
   <td style="text-align:right;"><%= number_to_currency(cost.average_covered_charges, :unit => "$") %></td>
   <td align="right"><%= number_to_currency(cost.average_total_payments, :unit => "$") %></td>
-  <td align="right"><nobr><%= number_to_currency((cost.average_covered_charges - cost.average_total_payments), :unit => '$') %> (<%= number_to_percentage(((cost.average_covered_charges*100)/cost.average_total_payments), :precision => 0) %>)</nobr></td>
+  <td align="right"><nobr><%= number_to_currency((cost.average_covered_charges - cost.average_total_payments), :unit => '$') %> (<%= number_to_percentage(((cost.average_covered_charges*100)/cost.average_total_payments), :precision => 0) %>)</nobr>`</td>
 </tr>
 <% end %>
 </tbody>
@@ -42,7 +52,12 @@
 
 <%= render "shared/pager" %>
 
+<h3>Discuss <%= @hospital.uc_name %></h3>
 <%= render "shared/disqus" %>
+
+<h3>News about <%= @hospital.uc_name %></h3>
+<a name="news"></a>
+<div id="latestNews"></div>
 
 <%= render "shared/definitions" %>
 
@@ -50,6 +65,19 @@
 
 $(document).ready(function() {
   $('.link').tooltip();
+  $(".link").click(function() {
+    return false;
+  });
+
+  $('#latestNews').FeedEk({
+    FeedUrl : 'https://news.google.com/news/feeds?q="<%= @hospital.name %>"&ie=UTF-8&output=rss',
+    MaxCount : 15,
+    ShowDesc : false,
+    ShowPubDate:true,
+    DescCharacterLimit:100,
+    TitleLinkTarget:'_blank'
+  });
+
 });
 
 var map;

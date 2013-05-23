@@ -1,8 +1,23 @@
-@import "font-awesome";
-$baseFontFamily: 'FontAwesome';
-$baseFontSize: 12px;
+$navbarBackgroundHighlight:       #000000 ;
+$navbarText:                      #ffffff ;
+$navbarLinkColor:                 #ffffff ;
+$navbarLinkColorHover:            #C7E8C1 ;
+$headingsColor:                   #46a546 ;
+$headingsFontFamily:      'Titillium Web' ;
+$linkColor:                       #46a546 ;
+$linkColorHover:                  #2F702F ;
+
 @import "bootstrap";
 @import "bootstrap-responsive";
+@import "font-awesome";
+
+$navbarBackground: $green;
+
+// This doesn't work. Navbar will still be same color.
+// But if you do write styles for navbar again
+.navbar-inner { background: $navbarBackground; }
+// Now, Navbar will have a red background
+
 
       /* Sticky footer styles
       -------------------------------------------------- */
@@ -28,7 +43,7 @@ $baseFontSize: 12px;
         height: 40px;
       }
       #footer {
-        background-color: grayDarker;
+        background-color: $gray;
       }
 
       /* Lastly, apply responsive CSS fixes as necessary */
@@ -50,3 +65,17 @@ $baseFontSize: 12px;
       #wrap > .container {
         padding-top: 60px;
       }
+
+
+
+.feedEkList {
+  list-style:none outside none;
+  margin:0;
+}
+.feedEkList li{ border-bottom:1px solid $grayLighter;padding:5px 0;font-size:13px;}
+
+.itemTitle { display: inline; }
+
+.itemTitle a{}
+
+.itemDate{ display:inline;padding-left:10px; } 

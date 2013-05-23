@@ -2,15 +2,7 @@ class HospitalsController < ApplicationController
   # GET /hospitals
   # GET /hospitals.json
   def index
-    #@hospitals = Hospital.all
-    @hospitals = Hospital.select("id,ext_id,name,address,city,state,zipcode,referral_region")
-    #@hospitals = Hospital.paginate(:page => params[:page])
-    #@hospitals = Hospital.order('referral_region').order('name').page(params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @hospitals }
-    end
+    @hospitals = Hospital.select("ext_id,name,address,city,state,zipcode,referral_region")
   end
 
   # GET /hospitals/1
@@ -20,10 +12,6 @@ class HospitalsController < ApplicationController
     @hospital.update_lat_lng
     @costs = @hospital.costs.includes(:drg)
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @hospital }
-    end
   end
 
 end
