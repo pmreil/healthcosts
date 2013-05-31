@@ -29,6 +29,10 @@ class Hospital < ActiveRecord::Base
     return self.name.split(' ').map(&:capitalize).join(' ')
   end
 
+  def uc_address
+    return self.address.split(' ').map(&:capitalize).join(' ')
+  end
+
   def update_lat_lng
   	if !self.latitude.nil? && !self.longitude.nil?
   	  return [self.latitude,self.longitude]

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Drg code:</b>
+  <%= @cost.drg_code %>
+</p>
+
+<p>
+  <b>Hospital ext:</b>
+  <%= @cost.hospital_ext_id %>
+</p>
+
+<p>
+  <b>Year:</b>
+  <%= @cost.year %>
+</p>
+
+<p>
+  <b>Total discharges:</b>
+  <%= @cost.total_discharges %>
+</p>
+
+<p>
+  <b>Average total payment:</b>
+  <%= @cost.average_total_payment %>
+</p>
+
+
+<%= link_to 'Edit', edit_cost_path(@cost) %> |
+<%= link_to 'Back', costs_path %>

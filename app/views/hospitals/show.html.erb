@@ -1,54 +1,81 @@
 <% title @hospital.uc_name %>
-<% description @hospital.uc_name+' average Chargemaster costs and Medicare payments' %>
-<% keywords 'Member login page.' %>
+<% description @hospital.uc_name+' average chargemaster costs and medicare payments. Compare hospital costs in the US' %>
+<% keywords @hospital.uc_name+','+@hospital.city+' '+@hospital.state+','+"chargemaster rates, medicare rates, compare health costs, most expensive hospitals" %>
 
 <div class="row">
-  <div class="span4">
+  <div class="span5">
     <h3><%= link_to @hospital.uc_name, "http://www.google.com/search?q="+@hospital.name+"&btnI", :target => "_blank" %></h3>
-    <p><%= @hospital.address %></br><%= @hospital.city %>, <%= @hospital.state %> <%= @hospital.zipcode %></p>
+    <p><%= @hospital.uc_address %></br><%= @hospital.city.capitalize %>, <%= @hospital.state %> <%= @hospital.zipcode %></p>
     <p><b>Region:</b> : <%= @hospital.referral_region %></p>
     <p><a href="#discuss" class="btn btn-small btn-primary">Discuss <%= @hospital.uc_name %></a></p>
     <p><a href="#news" class="btn btn-small btn-primary">News about <%= @hospital.uc_name %></a></p>
     <p><a href="#definitions" class="btn btn-small btn-primary">Data source and definitions</a></p>
 
-<span class='st_sharethis_large' displayText='ShareThis'></span>
-<span class='st_facebook_large' displayText='Facebook'></span>
-<span class='st_twitter_large' displayText='Tweet'></span>
-<span class='st_wordpress_large' displayText='WordPress'></span>
-<span class='st_tumblr_large' displayText='Tumblr'></span>
-<span class='st_linkedin_large' displayText='LinkedIn'></span>
-<span class='st_googleplus_large' displayText='Google +'></span>
-<span class='st_email_large' displayText='Email'></span>
+<%= render "shared/share" %>
+
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-0066874388719652";
+/* hcc468 */
+google_ad_slot = "2450459687";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
 
   </div>
-  <div class="span8">
-    <div id="map-canvas"></div>
+  <div class="span7">
+    <br/><div id="map-canvas"></div>
   </div>
 </div>
 
 <br/>
 
+<div class="row">
+
+<div class="span10">
 <table id="sortTable" class="table table-striped table-hover table-bordered">
 <thead>
   <th>Description</th>
-  <th>Total Discharges</th>
-  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount hospital charged for this DRG in 2011 over total discharges">Average Covered Charge</a></th>
-  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount Medicare paid the hospital for the procedure">Average Total Payment</a></th>
+  <th>Hosptial's Total 2011 Cases</th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount hospital charged for this DRG in 2011 over total discharges">Hospital's Average Covered Charge</a></th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount nationally charged for this DRG in 2011 over total discharges">National Average Covered Charge</a></th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount Medicare paid the hospital for the procedure">Medicare's Hospital Average Total Reimbursement</a></th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount Medicare paid the nation for the procedure">Medicare's National Average Total Reimbursement</a></th>
   <th><a href="#" class="link" rel="tooltip" data-original-title="Difference between what hospital charged and Medicare paid the hospital for the procedure">Difference<br/>(% Markup)</a></th>
 
 </thead>
 <tbody>
 <% @costs.each do |cost| %>
 <tr>
-  <td><%= link_to cost.drg.description, cost.drg %></td>
+  <td><%= link_to cost.drg.uc_description, cost.drg %></td>
   <td><%= cost.total_discharges %></td>
   <td style="text-align:right;"><%= number_to_currency(cost.average_covered_charges, :unit => "$") %></td>
-  <td align="right"><%= number_to_currency(cost.average_total_payments, :unit => "$") %></td>
+  <td style="text-align:right;"><%= number_to_currency(cost.drg.avg_covered_charges, :unit => "$") %></td>
+  <td style="text-align:right;"><%= number_to_currency(cost.average_total_payments, :unit => "$") %></td>
+  <td style="text-align:right;"><%= number_to_currency(cost.drg.avg_total_payments, :unit => "$") %></td>
   <td align="right"><nobr><%= number_to_currency((cost.average_covered_charges - cost.average_total_payments), :unit => '$') %> (<%= number_to_percentage(((cost.average_covered_charges*100)/cost.average_total_payments), :precision => 0) %>)</nobr>`</td>
 </tr>
 <% end %>
 </tbody>
 </table>
+</div>
+<div class="span2">
+  <script type="text/javascript"><!--
+google_ad_client = "ca-pub-0066874388719652";
+/* 160vertical */
+google_ad_slot = "5403926082";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+</div>
 
 <%= render "shared/pager" %>
 
@@ -78,10 +105,63 @@ $(document).ready(function() {
     TitleLinkTarget:'_blank'
   });
 
+  loadMaps();
+
+
+
+  // call the tablesorter plugin and apply the uitheme widget
+  $("#sortTable").tablesorter({
+    // this will apply the bootstrap theme if "uitheme" widget is included
+    // the widgetOptions.uitheme is no longer required to be set
+    theme : "bootstrap",
+
+    widthFixed: true,
+
+    headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+
+    // widget code contained in the jquery.tablesorter.widgets.js file
+    // use the zebra stripe widget if you plan on hiding any rows (filter widget)
+    widgets : [ "uitheme", "filter", "zebra" ],
+
+    widgetOptions : {
+      // using the default zebra striping class name, so it actually isn't included in the theme variable above
+      // this is ONLY needed for bootstrap theming if you are using the filter widget, because rows are hidden
+      zebra : ["even", "odd"],
+
+      // reset filters button
+      filter_reset : ".reset"
+
+      // set the uitheme widget to use the bootstrap theme class names
+      // this is no longer required, if theme is set
+      // ,uitheme : "bootstrap"
+
+    }
+  })
+  .tablesorterPager({
+
+    // target the pager markup - see the HTML block below
+    container: $(".pager"),
+
+    // target the pager page select dropdown - choose a page
+    cssGoto  : ".pagenum",
+
+    // remove rows from the table to speed up the sort of large tables.
+    // setting this to false, only hides the non-visible rows; needed if you plan to add/remove rows with the pager enabled.
+    removeRows: false,
+
+    // output string - default is '{page}/{totalPages}';
+    // possible variables: {page}, {totalPages}, {filteredPages}, {startRow}, {endRow}, {filteredRows} and {totalRows}
+    output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'
+
+  });
 });
 
-var map;
-google.maps.visualRefresh = true;
+function loadMaps() {
+  google.load("maps", "3", {other_params:'sensor=false', "callback" : initialize});
+  var map;
+  google.maps.visualRefresh = true;
+}
+
 function initialize() {
   var myLatLng = new google.maps.LatLng(<%= @hospital.latitude %>, <%= @hospital.longitude %>);
   var mapOptions = {
@@ -99,5 +179,4 @@ function initialize() {
   });
 }
 
-google.maps.event.addDomListener(window, 'load', initialize);
 </script> 

@@ -1,11 +1,17 @@
+<% description 'HospitalCostCompare.com. Average chargemaster costs and medicare payments. Compare hospital costs in the US' %>
+<% keywords "hospitalcostcompare data source, external references, chargemaster rates, medicare rates, compare health costs, most expensive hospitals" %>
+
+<div id="hero-pad"></div>
 <div class="hero-unit">
   <h1>Hospital Cost Compare</h1>
   <p>Compare hospital cost data across American Hospitals</p>
   <p>
-    <a class="btn btn-primary btn-large">
-      Learn more
+    <a href="/hospitals/" class="btn btn-primary btn-large">
+      Search Hospitals
     </a>
   </p>
 </div>
 
+ <p>On May 8, 2013, the U.S. Government <%= link_to "released data", "http://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/index.html", :target => "blank" %> showing what over 3000 U.S. Hospitals billed Medicare for the top 100 DRGs (<%= link_to "diagnosis related groups", "http://en.wikipedia.org/wiki/Diagnosis-related_group", :target=>"blank" %>) along with what Medicare actually reimbursed. This data represents over 163,000 individual price points across the U.S. and shows wildly different rates for the same procedures. HopsitalCostCompare.com allows you to drill down through the specific data to see how your local <a href="/hospitals/">Hospital<a/> compares.</p>
 
+<p>Search <a href='/hospitals'>hosptals</a> by region and drill down into the costs. Search <a href="/drgs/">diagnoses groups</a> to compare costs across hospitals.</p>

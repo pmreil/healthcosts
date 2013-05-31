@@ -9,6 +9,7 @@ gem 'geocoder'
 gem 'jquery-tablesorter'
 gem 'meta-tags', :require => 'meta_tags'
 gem 'google-analytics-rails'
+gem 'sitemap_generator'
 
 #update to support vulnerability
 gem 'json', '>= 1.7.7'

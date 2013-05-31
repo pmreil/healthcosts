@@ -1,9 +1,10 @@
-<% title "Diagnosis List" %>
-<% description 'Listing of top 100 medicare diagnosis reason codes. Click to compare hospital costs in the US' %>
+<% title "Hospital List" %>
+<% description 'Listing of American Hospitals. Click to compare hospital costs in the US' %>
 <% keywords "chargemaster rates, medicare rates, compare health costs, most expensive hospitals" %>
 
-<h3>Diagnosis Related Groups</h3>
-<p class="lead">The top 100 DRGs as paid by Medicare are listed below. Click a DRG to see how much different hospitals charged.</p>
+<h1>Hospitals Listing for <%= @region %></h1>
+<p class="lead">Over 3000 U.S. Hospitals have data available.. Click to see how much they charged for the top 100 Medicare diagnoses.</p>
+<p><a href="/hospitals/" class="btn btn-small btn-primary"><i class='icon-circle-arrow-left'></i> Search Again</a></p>
 
 <script type="text/javascript"><!--
 google_ad_client = "ca-pub-0066874388719652";
@@ -17,22 +18,28 @@ google_ad_height = 90;
 src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
 
-<table id="sortTable" class="table table-striped table-border table-hover">
+<table id="sortTable" class="table table-striped table-bordered table-hover">
 <thead>
   <tr>
-    <th>Code</th>
-    <th>Description</th>
+    <th>Name</th>
+    <th>Address</th>
+    <th>Region</th>
   </tr>
 </thead>
-<% @drgs.each do |drg| %>
+<tbody>
+<% @hospitals.each do |hospital| %>
   <tr>
-    <td><%= link_to drg.code, drg %></td>
-    <td><%= link_to drg.uc_description, drg %></td>
+    <td><i class="icon-h-sign"></i> <%= link_to hospital.uc_name, hospital %></td>
+    <td><%= hospital.uc_address %>, <%= hospital.city.capitalize %>, <%= hospital.state %> <%= hospital.zipcode %></td>
+    <td><%= hospital.referral_region %></td>
   </tr>
 <% end %>
+</tbody>
 </table>
 
 <%= render "shared/pager" %>
+
+<script type="text/javascript">
 
 $(document).ready(function() {
   // call the tablesorter plugin and apply the uitheme widget

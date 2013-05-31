@@ -2,7 +2,12 @@ class HospitalsController < ApplicationController
   # GET /hospitals
   # GET /hospitals.json
   def index
-    @hospitals = Hospital.select("ext_id,name,address,city,state,zipcode,referral_region")
+    @regions = Hospital.select('referral_region').group(:referral_region).count
+  end
+
+  def region
+    @region = params[:id]
+    @hospitals = Hospital.select("ext_id,name,address,city,state,zipcode,referral_region").where("referral_region = ?",params[:id])
   end
 
   # GET /hospitals/1

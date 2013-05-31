@@ -2,9 +2,11 @@ Healthcosts::Application.routes.draw do
   #resources :costs
   resources :drgs, :only => [:index, :show]
   resources :hospitals, :only => [:index, :show]
+  match "/region/:id" => 'hospitals#region'
   root :to => 'static#index'
   match 'about' => 'static#about'
-
+  match 'privacy' => 'static#privacy_policy'
+  match 'terms' => 'static#terms'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

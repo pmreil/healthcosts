@@ -1,9 +1,21 @@
+<% title "About HospitalCostCompare" %>
+<% description 'About HospitalCostCompare.com. Average chargemaster costs and medicare payments. Compare hospital costs in the US' %>
+<% keywords "hospitalcostcompare data source, external references, chargemaster rates, medicare rates, compare health costs, most expensive hospitals" %>
+
   <h2>About Hospital Cost Compare</h2>
-  <p>Compare hospital cost data across American Hospitals</p>
-  <p>
-    <a class="btn btn-primary btn-large">
-      Learn more
-    </a>
-  </p>
+  <p class="lead">Compare hospital cost data across American Hospitals</p>
+  <p>On May 8, 2013, the U.S. Government <%= link_to "released data", "http://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/index.html", :target => "blank" %> showing what over 3000 U.S. Hospitals billed Medicare for the top 100 DRGs (<%= link_to "diagnosis related groups", "http://en.wikipedia.org/wiki/Diagnosis-related_group", :target=>"blank" %>). This data represents over 163,000 individual price points across the US and shows wildly different rates for the same procedures. HopsitalCostCompare allows you to drill down through the specific data to get yourself.</p>
+  <p>News about the data:
+	<ul>
+		<li><a href="http://www.nytimes.com/2013/05/08/business/hospital-billing-varies-wildly-us-data-shows.html?pagewanted=all&_r=0" target="_blank">New York Times</a></li>
+		<li><a href="http://www.marketplace.org/topics/your-money/health-care/us-releases-data-showing-striking-differences-hospital-prices" target="_blank">Marketplace</a></li>
+		<li><a href="http://www.forbes.com/sites/toddhixon/2013/05/22/what-the-governments-big-data-dump-tells-us-about-the-hospital-market/" target="_blank">Forbes</a></li>
+		<li><a href="http://money.cnn.com/2013/05/08/news/economy/hospital-bills/index.html" target="_blank">CNN</a></li>
+		<li><a href="http://www.washingtonpost.com/blogs/wonkblog/wp/2013/05/08/one-hospital-charges-8000-another-38000/" target="_blank">Washington Post</a></li>
+		<li><a href="http://vitals.nbcnews.com/_news/2013/05/08/18124810-new-hospital-data-shows-giant-swings-in-prices?lite" target="_blank">NBC News</a></li>
+	</ul>	
+	</p>
 
+This site is created and maintained by Paul Reilly (<a href="http://twitter.com/pmreil/" target="_blank">@pmreil</a>)
 
+<%= render "shared/definitions" %>
