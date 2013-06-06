@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <%= display_meta_tags :site => 'Hopsital Cost Compare' %>
+  <%= display_meta_tags :site => 'Hospital Cost Compare' %>
   <link href='http://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "https://www.google.com/jsapi" %>
@@ -28,6 +28,7 @@
             <li><a href="/hospitals/">Hospitals</a></li>
             <li><a href="/drgs/">Diagnoses</a></li>
             <li><a href="/about/">About</a></li>
+            <li><a href="https://twitter.com/HospitalCosts" target="_blank">Twitter</a>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -36,6 +37,7 @@
   <div class="container">
 
     <%= yield %>
+
 
 <div class="row">
 <div class="span12 text-center">
@@ -61,8 +63,8 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 <div id="footer">
   <div class="container">
       &copy; <%= Time.now.year %> | 
-      <%= link_to "Privacy Policy", privacy_path, :class => "footer" %> |
-      <%= link_to "Terms of Use", terms_path, :class => "footer" %>
+      <%= link_to "Privacy Policy", privacy_path, :class => "footerlink" %> |
+      <%= link_to "Terms of Use", terms_path, :class => "footerlink" %>
   </div>
 </div>
 

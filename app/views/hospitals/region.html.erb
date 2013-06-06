@@ -1,11 +1,13 @@
-<% title "Hospital List" %>
-<% description 'Listing of American Hospitals. Click to compare hospital costs in the US' %>
-<% keywords "chargemaster rates, medicare rates, compare health costs, most expensive hospitals" %>
+<% title "United States Hospital List" %>
+<% description 'Listing of American Hospitals. Click to compare hospital costs in the US based on Center for Medicare data' %>
+<% keywords "chargemaster rates, medicare rates, compare health costs, most expensive hospitals, compare hospital costs" %>
 
 <h1>Hospitals Listing for <%= @region %></h1>
-<p class="lead">Over 3000 U.S. Hospitals have data available.. Click to see how much they charged for the top 100 Medicare diagnoses.</p>
+<p class="lead">The <a href="http://www.cms.gov/" target="_blank">Centers for Medicare and Medicaid Services</a> released billing data for the top 100 Diagnosis Related Groups (DRGs) in 2011 for more than 3000 U.S. Hospitals. View this data by selecting the hopsital name in the list below. You can also view <a href="/region/all/">all U.S. Hospitals in one list</a>.</p>
+
 <p><a href="/hospitals/" class="btn btn-small btn-primary"><i class='icon-circle-arrow-left'></i> Search Again</a></p>
 
+<div class="text-center">
 <script type="text/javascript"><!--
 google_ad_client = "ca-pub-0066874388719652";
 /* hcc970 */
@@ -17,6 +19,7 @@ google_ad_height = 90;
 <script type="text/javascript"
 src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
+</div>
 
 <table id="sortTable" class="table table-striped table-bordered table-hover">
 <thead>

@@ -1,21 +1,22 @@
 <% title @drg.uc_description %>
-<% description @drg.uc_description+' average chargemaster costs and medicare payments across US hospitals. Compare hospital costs in the US' %>
+<% description @drg.uc_description+' average chargemaster costs and medicare payments across United States hospitals as provided by the Center for Medicare and Medicaid. Compare hospital costs in the US' %>
 <% keywords @drg.uc_description+','+"chargemaster rates, medicare rates, compare health costs, most expensive hospitals" %>
 
 <div class='row'>
   <div class="span9">
     <h3>DRG <%= @drg.code %> - <%= @drg.uc_description %></h3>
-    <p class="lead"><%= @costs.count %> hospitals reported data on this DRG in 2011. Average covered charges was <%= number_to_currency(@average_covered_charges, :unit => "$") %> and average total payments was <%= number_to_currency(@average_total_payments, :unit => "$") %>. Highest charge <%= number_to_currency(@costs.first.average_covered_charges, :unit => "$") %></p>
+    <p class="lead">The <a href="http://www.cms.gov/" target="_blank">Centers for Medicare and Medicaid Services</a> released billing data from <%= @costs.count %> hospitals for <%= @drg.uc_description %> in 2011. Average covered charges were <%= number_to_currency(@average_covered_charges, :unit => "$") %> and average total payments were <%= number_to_currency(@average_total_payments, :unit => "$") %>. The highest charge <%= number_to_currency(@costs.first.average_covered_charges, :unit => "$") %>.</p>
   </div>
   <div class="span3">
     <br/>
-    <p><a href="#discuss" class="btn btn-small btn-primary">Discuss this DRG</a></p>
+    <p><a href="#discuss" class="btn btn-small btn-primary">Discuss <%= @drg.uc_description %></a></p>
     <p><a href="#definitions" class="btn btn-small btn-primary">Data source and definitions</a></p>
     <p><a href="http://www.cms.gov/icd10manual/version30-fullcode-cms/P0002.html" target="_blank" class="btn btn-small btn-primary">Information about DRGs</a></p>
 
   </div>
 </div>
 
+<div clas="row"><div class="span12 text-center" >
 <script type="text/javascript"><!--
 google_ad_client = "ca-pub-0066874388719652";
 /* hcc970 */
@@ -27,6 +28,7 @@ google_ad_height = 90;
 <script type="text/javascript"
 src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
+</div></div>
 
 <table id="sortTable" class="table table-striped table-border table-hover" style="height:200px;overflow:scroll;">
 <thead>
@@ -69,7 +71,6 @@ $(document).ready(function() {
     });
 
 });
-</script> 
 
 $(document).ready(function() {
   // call the tablesorter plugin and apply the uitheme widget

@@ -6,8 +6,23 @@ class HospitalsController < ApplicationController
   end
 
   def region
-    @region = params[:id]
-    @hospitals = Hospital.select("ext_id,name,address,city,state,zipcode,referral_region").where("referral_region = ?",params[:id])
+    if params[:id] == "all"
+      @region = "the United States"
+      @hospitals = Hospital.select("ext_id,name,address,city,state,zipcode,referral_region")
+    else
+      @region = params[:id]
+      @hospitals = Hospital.select("ext_id,name,address,city,state,zipcode,referral_region").where("referral_region = ?",params[:id])
+    end
+  end
+
+  def state
+    if !params[:id].nil?
+      @state = params[:id]
+      @hospitals = Hospital.select("ext_id,name,address,city,state,zipcode,referral_region").where("state = ?",params[:id])
+    else
+      @state = 'ALL'
+      @hospitals = Hospital.select("ext_id,name,address,city,state,zipcode,referral_region")
+    end
   end
 
   # GET /hospitals/1

@@ -3,6 +3,8 @@ Healthcosts::Application.routes.draw do
   resources :drgs, :only => [:index, :show]
   resources :hospitals, :only => [:index, :show]
   match "/region/:id" => 'hospitals#region'
+  get "state" => 'hospitals#state'
+  match "/state/:id" => 'hospitals#state'
   root :to => 'static#index'
   match 'about' => 'static#about'
   match 'privacy' => 'static#privacy_policy'
