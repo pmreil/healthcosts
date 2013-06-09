@@ -18,17 +18,22 @@ SitemapGenerator::Sitemap.create do
   # Add '/hospitals'
   #
   add about_path, :priority => 0.7 
-   add hospitals_path, :priority => 0.9, :changefreq => 'yearly'
+   add hospitals_path, :priority => 0.9, :changefreq => 'weekly'
   #
   # Add all articles:
   #
      Hospital.find_each do |hospital|
-       add hospital_path(hospital), :lastmod => hospital.updated_at, :changefreq => 'yearly'
+       add hospital_path(hospital), :lastmod => hospital.updated_at, :changefreq => 'weekly'
      end
 
-    add drgs_path, :priority => 0.7, :changefreq => 'yearly'
+    add drgs_path, :priority => 0.7, :changefreq => 'weekly'
      Drg.find_each do |drg|
-       add drg_path(drg), :lastmod => drg.updated_at, :changefreq => 'yearly'
+       add drg_path(drg), :lastmod => drg.updated_at, :changefreq => 'weekly'
+     end
+
+    add costs_path, :priority => 0.5, :changefreq => 'weekly'
+     Cost.find_each do |cost|
+       add cost_path(cost), :lastmod => cost.updated_at, :changefreq => 'weekly'
      end
 
 end
