@@ -1,11 +1,12 @@
-<% title @drg.uc_description %>
-<% description @drg.uc_description+' average chargemaster costs and medicare payments across United States hospitals as provided by the Center for Medicare and Medicaid. Compare hospital costs in the US' %>
-<% keywords @drg.uc_description+','+"chargemaster rates, medicare rates, compare health costs, most expensive hospitals" %>
+<% title "Medical billing osts for "+@drg.uc_description+" in U.S. Hospitals" %>
+<% description @drg.uc_description+' average hospital billing costs and medicare payments across United States hospitals. See whicj Hospital was cheapest and compare with other hospitals in the US' %>
+<% keywords @drg.uc_description+' hospital costs,'+"medical billing rates, cost of surgery, medicare rates, compare health costs, most expensive hospitals, lowest cost hospitals for "+@drg.uc_description %>
 
 <div class='row'>
   <div class="span9">
-    <h3>DRG <%= @drg.code %> - <%= @drg.uc_description %></h3>
-    <p class="lead">The <a href="http://www.cms.gov/" target="_blank">Centers for Medicare and Medicaid Services</a> released billing data from <%= @costs.count %> hospitals for <%= @drg.uc_description %> in 2011. Average covered charges were <%= number_to_currency(@average_covered_charges, :unit => "$") %> and average total payments were <%= number_to_currency(@average_total_payments, :unit => "$") %>. The highest charge <%= number_to_currency(@costs.first.average_covered_charges, :unit => "$") %>.</p>
+    <h1><%= @drg.uc_description %> Hospital billing costs</h1>
+    <p class="lead"><a href="http://www.cms.gov/" target="_blank">CMS.gov</a> released billing data from <%= @costs.count %> hospitals for "<%= @drg.uc_description %>" in 2011. Average medical billing was <%= number_to_currency(@average_covered_charges, :unit => "$") %> and the average medicare reimbursement <%= number_to_currency(@average_total_payments, :unit => "$") %>.</p>
+    <p>The highest charge <%= number_to_currency(@costs.first.average_covered_charges, :unit => "$") %> at <%= link_to @costs.first.hospital.uc_name, @costs.first.hospital %> and the lowest charge was <%= number_to_currency(@costs.last.average_covered_charges, :unit => "$") %> at <%= link_to @costs.last.hospital.uc_name, @costs.first.hospital %></p>
   </div>
   <div class="span3">
     <br/>
@@ -54,6 +55,21 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 
 <%= render "shared/pager" %>
 
+<div clas="row"><div class="span12 text-center" >
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-0066874388719652";
+/* hcc970 */
+google_ad_slot = "8636594082";
+google_ad_width = 970;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div></div>
+
+
 <h3>Discuss <%= @drg.uc_description %></h3>
 <%= render "shared/disqus" %>
 
@@ -65,10 +81,12 @@ $(document).ready(function() {
 			.tablesorter({widthFixed: true, widgets: ['zebra']})
 			.tablesorterPager({container: $("#pager")});
 
-    $('.link').tooltip();
-    $(".link").click(function() {
+  $(function () {
+    $("[rel='tooltip']").tooltip();
+    $("a.link").click(function() {
       return false;
     });
+  });
 
 });
 

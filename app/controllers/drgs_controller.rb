@@ -2,7 +2,7 @@ class DrgsController < ApplicationController
   # GET /drgs
   # GET /drgs.json
   def index
-    @drgs = Drg.all
+    @drgs = Drg.find(:all,:order => "description")
   end
 
   # GET /drgs/1

@@ -2,6 +2,7 @@ class HospitalsController < ApplicationController
   # GET /hospitals
   # GET /hospitals.json
   def index
+    @states = State.find(:all,:order => "name")
     @regions = Hospital.select('referral_region').group(:referral_region).count
   end
 
@@ -16,11 +17,12 @@ class HospitalsController < ApplicationController
   end
 
   def state
+    @state = @hospitals = ''
     if !params[:id].nil?
-      @state = params[:id]
+      @state = State.find_by_abbrev(params[:id]).name.capitalize
       @hospitals = Hospital.select("ext_id,name,address,city,state,zipcode,referral_region").where("state = ?",params[:id])
     else
-      @state = 'ALL'
+      @state = 'the United States'
       @hospitals = Hospital.select("ext_id,name,address,city,state,zipcode,referral_region")
     end
   end

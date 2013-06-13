@@ -1,30 +1,105 @@
-<p id="notice"><%= notice %></p>
+<% title @hospital.uc_name+"'s medical costs for "+@drg.uc_description %>
+<% description @hospital.uc_name+' surgery costs and medicare payments. Compare hospital costs in the US' %>
+<% keywords @hospital.uc_name+' hospital costs,'+@hospital.city.capitalize+' '+@hospital.state+','+"surgery costs, chargemaster rates, medicare rates, compare health costs, most expensive hospitals, care prices, medical billing costs, " %>
 
-<p>
-  <b>Drg code:</b>
-  <%= @cost.drg_code %>
-</p>
-
-<p>
-  <b>Hospital ext:</b>
-  <%= @cost.hospital_ext_id %>
-</p>
-
-<p>
-  <b>Year:</b>
-  <%= @cost.year %>
-</p>
-
-<p>
-  <b>Total discharges:</b>
-  <%= @cost.total_discharges %>
-</p>
-
-<p>
-  <b>Average total payment:</b>
-  <%= @cost.average_total_payment %>
-</p>
+<h1><%= link_to @hospital.uc_name, "http://www.google.com/search?q="+@hospital.name+"&btnI", :target => "_blank" %>'s 2011 costs for <%= @drg.uc_description %></h1>
 
 
-<%= link_to 'Edit', edit_cost_path(@cost) %> |
-<%= link_to 'Back', costs_path %>
+<div class="row">
+  <div class="span5">
+  	<b>Diagnosis code:</b> <%= @cost.drg_code %><br/>
+    <p><%= @hospital.uc_address %></br><%= @hospital.city.capitalize %>, <%= @hospital.state %> <%= @hospital.zipcode %></p>
+    <p><b>Region:</b> : <%= @hospital.referral_region %></p>
+
+<%= render "shared/share" %>
+
+  </div>
+  <div class="span7">
+    <br/><div id="map-canvas" style="height:200px;"></div>
+  </div>
+</div>
+<br/>
+<div class="text-center">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-0066874388719652";
+/* hcc970 */
+google_ad_slot = "8636594082";
+google_ad_width = 970;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><br/>
+
+<table class="table table-striped table-bordered">
+	<tr>
+		<td><b>Diagnosis (DRG) Description</td>
+		<td><%= link_to @cost.drg.uc_description, @cost.drg %></td>
+	</tr><tr>
+		<td><b>Total 2011 Cases</b></td>
+		<td><%= @cost.total_discharges %></td>
+	</tr><tr>
+		<td><b>Average amount <%= @hospital.uc_name %> charged for this procedure in 2011 over total discharges</b></td>
+		<td><%= number_to_currency(@cost.average_covered_charges, :unit => "$") %></td>
+	</tr><tr>
+		<td><b>Average amount Medicare paid <%= @hospital.uc_name %> for <%= @cost.drg.uc_description %></b></td>
+		<td><%= number_to_currency(@cost.average_total_payments, :unit => "$") %></td>
+	</tr><tr>
+		<td><b>Difference between what <%= @hospital.uc_name %> charged and Medicare reimbursed the hospital for the procedure</b/></td>
+		<td><%= number_to_currency((@cost.average_covered_charges - @cost.average_total_payments), :unit => '$') %></td>
+	</tr><tr>
+  	<td><b>Hospital's Markup:</b></td>
+  	<td><%= number_to_percentage(((@cost.average_covered_charges*100)/@cost.average_total_payments), :precision => 0) %></td>
+  </tr><tr>
+  	<td><b>Average amount nationally charged for <%= @cost.drg.uc_description %> in 2011 over all cases</b></td>
+  	<td><%= number_to_currency(@cost.drg.avg_covered_charges, :unit => "$") %></td>
+  </tr><tr>
+  	<td><b>Medicare's National Average Total Reimbursement</b></td>
+  	<td><%= number_to_currency(@cost.drg.avg_total_payments, :unit => "$") %></td>
+  </tr><tr>
+		<td><b>Hospital's charge compared to the national average</b></td>
+		<td><%= number_to_percentage((((@cost.average_covered_charges-@cost.drg.avg_covered_charges)*100).abs/@cost.drg.avg_covered_charges), :precision => 0) %><% if ((@cost.average_covered_charges-@cost.drg.avg_covered_charges)*100/@cost.drg.avg_covered_charges) > 0 %> higher <% else %> lower <% end %></td>
+	</tr><tr>
+	  <td><b>Hospital's Rank for this diagnosis</b></td>
+	  <td><%= @cost.position %> out of <%= @cost.count %> reported procedures</td>
+	</tr><tr>
+	  <td><b>Percent of hospitals that are more expensive</b></td>
+	  <td><%= number_to_percentage(@cost.percentile*100, :precision => 0) %></td>
+	</tr>
+
+</table>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+  loadMaps();
+
+});
+
+function loadMaps() {
+  google.load("maps", "3", {other_params:'sensor=false', "callback" : initialize});
+  var map;
+  google.maps.visualRefresh = true;
+}
+
+function initialize() {
+  var myLatLng = new google.maps.LatLng(<%= @hospital.latitude %>, <%= @hospital.longitude %>);
+  var mapOptions = {
+    zoom: 16,
+    center: myLatLng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    panControl: true,
+    streetViewControl: true,
+    overviewMapControl: true
+  };
+  map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+  var marker = new google.maps.Marker({
+      position: myLatLng,
+      map: map
+  });
+}
+
+</script> 

@@ -1,13 +1,13 @@
-<% title @hospital.uc_name+", "+@hospital.city.capitalize+", "+@hospital.state %>
-<% description @hospital.uc_name+' average chargemaster costs and medicare payments. Compare hospital costs in the US' %>
-<% keywords @hospital.uc_name+','+@hospital.city.capitalize+' '+@hospital.state+','+"chargemaster rates, medicare rates, compare health costs, most expensive hospitals" %>
+<% title "Medical and surgery costs for "+@hospital.uc_name+", "+@hospital.city.capitalize+", "+@hospital.state %>
+<% description @hospital.uc_name+' surgery costs and medicare payments. Compare hospital costs in the US' %>
+<% keywords @hospital.uc_name+' hospital costs,'+@hospital.city.capitalize+' '+@hospital.state+','+"surgery costs, chargemaster rates, medicare rates, compare health costs, most expensive hospitals, care prices, medical billing costs, " %>
 
 <div class="row">
   <div class="span5">
-    <h3>Average hospital costs by diagnoses at <%= link_to @hospital.uc_name, "http://www.google.com/search?q="+@hospital.name+"&btnI", :target => "_blank" %></h3>
+    <h1>Hospital costs by diagnosis at <%= link_to @hospital.uc_name, "http://www.google.com/search?q="+@hospital.name+"&btnI", :target => "_blank" %></h1>
     <p><%= @hospital.uc_address %></br><%= @hospital.city.capitalize %>, <%= @hospital.state %> <%= @hospital.zipcode %></p>
     <p><b>Region:</b> : <%= @hospital.referral_region %></p>
-    <p><a href="#discuss" class="btn btn-small btn-primary">Discuss <%= @hospital.uc_name %> costs</a></p>
+    <p><a href="#discuss" class="btn btn-small btn-primary">Discuss <%= @hospital.uc_name %> medical billing costs</a></p>
     <p><a href="#news" class="btn btn-small btn-primary">News about <%= @hospital.uc_name %></a></p>
     <p><a href="#definitions" class="btn btn-small btn-primary">Data source and definitions</a></p>
 
@@ -39,28 +39,26 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 <div class="span10">
 <table id="sortTable" class="table table-striped table-hover table-bordered">
 <thead>
-  <th>Diagnosis (DRG) Description</th>
-  <th>Hosptial's Total 2011 Cases</th>
-  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount hospital charged for this DRG in 2011 over total discharges">Hospital's Average Covered Charge</a></th>
-  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount Medicare paid the hospital for the procedure">Hospital's Average Total Medicare Reimbursement</a></th>
-  <th><a href="#" class="link" rel="tooltip" data-original-title="Difference between what hospital charged and Medicare paid the hospital for the procedure">Hospital's Charge vs. Reimbursement Difference<br/>(% Markup)</a></th>
-  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount nationally charged for this DRG in 2011 over total discharges">National Average Covered Charge</a></th>
-  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount Medicare paid the nation for the procedure">Medicare's National Average Total Reimbursement</a></th>
-  <th>Hospital's charge compared to the national average</th>
-
+  <th>Diagnosis or Preocedure Description</th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount hospital charged for this diagnoses/procedure in 2011 over total discharges">Hospital's Average Medical Billing for the Procedure</a></th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Difference between what this hospital charged and Medicare paid the hospital for the procedure">Hospital's Charge vs. Medicare Reimbursement Difference<br/>(% Markup)</a></th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount nationally charged for this DRG in 2011 over total discharges">National Average Covered Charge for Procedure</a></th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Percentage this Hospital charged for the procedure above or below the national average">Hospital's charge compared to the national average</a></th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="How many hospitals are more expensive for this diagnosis or procedure">Hospital's Rank for this diagnosis (Percent of hospitals that are more expensive)</a></th>
+  <th>Details</th>
 </thead>
 <tbody>
 <% @costs.each do |cost| %>
 <tr>
-  <td><%= link_to cost.drg.uc_description, cost.drg %></td>
-  <td><%= cost.total_discharges %></td>
+  <!--<td><%#= link_to cost.drg.uc_description, cost.drg %></td>-->
+  <td><%= link_to cost.drg.uc_description, cost %></td>
   <td style="text-align:right;"><%= number_to_currency(cost.average_covered_charges, :unit => "$") %></td>
-  <td style="text-align:right;"><%= number_to_currency(cost.average_total_payments, :unit => "$") %></td>
   <td align="right"><%= number_to_currency((cost.average_covered_charges - cost.average_total_payments), :unit => '$') %> (<%= number_to_percentage(((cost.average_covered_charges*100)/cost.average_total_payments), :precision => 0) %>)</td>
   <td style="text-align:right;"><%= number_to_currency(cost.drg.avg_covered_charges, :unit => "$") %></td>
-  <td style="text-align:right;"><%= number_to_currency(cost.drg.avg_total_payments, :unit => "$") %></td>
   <td align="right"><%= number_to_percentage((((cost.average_covered_charges-cost.drg.avg_covered_charges)*100).abs/cost.drg.avg_covered_charges), :precision => 0) %>
     <% if ((cost.average_covered_charges-cost.drg.avg_covered_charges)*100/cost.drg.avg_covered_charges) > 0 %> higher <% else %> lower <% end %></td>
+  <td><%= cost.position %>/<%= cost.count %> (<%= number_to_percentage(cost.percentile*100, :precision => 0) %>)</td>
+  <td><%= link_to "View Details", cost, :class=>'btn btn-small btn-primary' %></td>
 </tr>
 <% end %>
 </tbody>
@@ -83,7 +81,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 
 <%= render "shared/pager" %>
 
-<h3>Discuss <%= @hospital.uc_name %></h3>
+<h3>Discuss <%= @hospital.uc_name %>'s hospital and surgery costs</h3>
 <%= render "shared/disqus" %>
 
 <h3>News about <%= @hospital.uc_name %></h3>
@@ -92,16 +90,31 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 
 <%= render "shared/definitions" %>
 
+<div class="text-center">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-0066874388719652";
+/* hcc970 */
+google_ad_slot = "8636594082";
+google_ad_width = 970;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+
+
 <script type="text/javascript">
 
 $(document).ready(function() {
-  $(".link").click(function() {
-    return false;
-  });
 
-    $(function () {
-        $("[rel='tooltip']").tooltip();
+  $(function () {
+    $("[rel='tooltip']").tooltip();
+    $("a.link").click(function() {
+      return false;
     });
+  });
 
   $('#latestNews').FeedEk({
     FeedUrl : 'https://news.google.com/news/feeds?q="<%= @hospital.name %>"&ie=UTF-8&output=rss',
@@ -126,8 +139,9 @@ $(document).ready(function() {
     headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
 
     headers: { 
+      2: { sorter: false },
       4: { sorter: false },
-      7: { sorter: false },
+      5: { sorter: false },
     },
 
 

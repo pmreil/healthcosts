@@ -16,6 +16,8 @@ WHERE t.drg_code = "+drg.to_s+"
 ORDER BY t.average_covered_charges) x
 WHERE x.hospital_ext_id = '"+ext_id.to_s+"'"
 
+      @records_array = ActiveRecord::Base.connection.execute(sql)
+      a = @records_array
       	x.position = a.first[1]
  	    	x.count = a.first[3]
   	    x.percentile = a.first[4]

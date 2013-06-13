@@ -42,4 +42,22 @@ $(function() {
     odd        : ''  // even row zebra striping
   });
 
+
+$('#stateList').change(function() {
+  var url = $('#stateList').val(); // get selected value
+  if (url) { // require a URL
+    window.location = url; // redirect
+  }
+  return false;
 });
+
+$('#regionList').change(function() {
+  var url = $('#regionList').val(); // get selected value
+  if (url) { // require a URL
+    window.location = url; // redirect
+  }
+  return false;
+});
+
+});
+

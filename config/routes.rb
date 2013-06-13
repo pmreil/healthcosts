@@ -1,8 +1,10 @@
 Healthcosts::Application.routes.draw do
   #resources :costs
   resources :drgs, :only => [:index, :show]#, :path => "diagnoses"
+  resources :apcs, :only => [:index, :show]
   resources :hospitals, :only => [:index, :show]
   resources :costs, :only => [:index, :show]
+  resources :apc_costs, :only => [:index, :show]
   match "/region/:id" => 'hospitals#region'
   get "state" => 'hospitals#state'
   match "/state/:id" => 'hospitals#state'

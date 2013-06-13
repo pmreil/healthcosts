@@ -1,13 +1,31 @@
-<% description 'HospitalCostCompare.com. Average chargemaster costs and medicare payments from the Centers for Medicare and Medicaid. Compare hospital costs in the US' %>
-<% keywords "hospitalcostcompare data source, centers for medicare and medicaid, chargemaster rates, medicare rates, compare health costs, most expensive hospitals, compare united states hospitals, hospital costs" %>
+
+<% title "United States Hospital Listings for Medical Procedues and Surgery Prices" %>
+<% description 'Listing of American Hospitals - compare their surgery costs. Show what medicare paid for hospital bills and see how your local hospital compares by rank and percentile.' %>
+<% keywords "health cover compare, chargemaster rates, billing advocate, advocate billing, doctors billing, care prices, medicare billing, surgery costs, costs of healthcare, care prices, compare health costs, most expensive hospitals, low cost hospital, healthcare costs, health care costs, surgery" %>
 
 <div id="hero-pad"></div>
 <div class="hero-unit">
-  <h1>Hospital Cost Compare</h1>
-  <p>Compare hospital cost data across American Hospitals</p>
-  <p><a href="/hospitals/" class="btn btn-primary btn-large">Search Hospitals</a></p>
+  <h1 class="text-center">Compare Surgery Costs in U.S. Hospitals</h1>
+  <p class="lead text-center">Find the lowest cost hospitals U.S. Hospitals</p>
+<p class="lead text-center"><i class="icon-map-marker"></i> Select a U.S. State to view their hospitals:
+  <select id="stateList">
+    <option value="">Pick a State</option>
+    <% @states.each do |state| %>
+    <option value="/state/<%= state.abbrev %>"><%= state.name.capitalize %></option> 
+    <% end %>
+  </select>
+  OR ..<br/>
+  <i class="icon-map-marker"></i> Select a U.S. Region to view their hospitals:
+  <select id="regionList">
+    <option value="">Pick a region</option>
+    <% @regions.each do |region| %>
+    <option value="/region/<%= region[0] %>"><%= region[0] %> (<%= region[1] %> hospitals)</option> 
+    <% end %>
+  </select>
+</p>
+
 </div>
 
- <p>On May 8, 2013, the Centers for Medicare and Medicade <%= link_to "released data", "http://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/index.html", :target => "blank" %> showing what over 3000 U.S. Hospitals billed Medicare for the top 100 Diagnosis Related Groups (<%= link_to "DRGs", "http://en.wikipedia.org/wiki/Diagnosis-related_group", :target=>"blank" %>) along with what Medicare actually reimbursed. This data represents over 163,000 individual price points across the U.S. and shows wildly different rates for the same procedures. HopsitalCostCompare.com allows you to drill down through the specific data to see how your local <a href="/hospitals/">Hospital</a> compares and see how much the same diagnosis costs around the country..</p>
+ <p>May 8, 2013, the Centers for Medicare and Medicade <%= link_to "released data", "http://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/index.html", :target => "blank" %> showing what over 3000 U.S. Hospitals billed Medicare for the top 100 Diagnoses and Surgery Procedures (<%= link_to "DRGs", "http://en.wikipedia.org/wiki/Diagnosis-related_group", :target=>"blank" %>) along with what Medicare actually reimbursed. This data shows wildly different rates for the same surgeries and procedures. HopsitalCostCompare.com allows you to easily drill down through the all of the data by hospital or diagnoses to see how your local <a href="/hospitals/">Hospital</a> compares and see how much the same medical diagnoses are billed around the country.</p>
 
 <p>Search <a href='/hospitals'>over 3000 U.S. hosptals</a> by region and drill down into the diagnosis costs. Search <a href="/drgs/">diagnoses groups</a> to compare costs across hospitals.</p>

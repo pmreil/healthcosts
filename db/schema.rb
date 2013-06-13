@@ -11,7 +11,30 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130531025550) do
+ActiveRecord::Schema.define(:version => 20130613005951) do
+
+  create_table "apc_costs", :force => true do |t|
+    t.integer  "apc_code"
+    t.integer  "hospital_ext_id"
+    t.integer  "year"
+    t.integer  "outpatient_services"
+    t.integer  "average_estimated_submitted_charges"
+    t.integer  "average_total_payment"
+    t.integer  "position"
+    t.integer  "count"
+    t.float    "percentile"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+  end
+
+  create_table "apcs", :force => true do |t|
+    t.integer  "code"
+    t.string   "description"
+    t.integer  "average_estimated_submitted_charges"
+    t.integer  "average_total_payments"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+  end
 
   create_table "costs", :force => true do |t|
     t.integer  "drg_code"
@@ -22,6 +45,9 @@ ActiveRecord::Schema.define(:version => 20130531025550) do
     t.integer  "average_total_payments"
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
+    t.integer  "position"
+    t.integer  "count"
+    t.float    "percentile"
   end
 
   create_table "drgs", :force => true do |t|
@@ -45,6 +71,13 @@ ActiveRecord::Schema.define(:version => 20130531025550) do
     t.datetime "updated_at",      :null => false
     t.float    "latitude"
     t.float    "longitude"
+  end
+
+  create_table "states", :force => true do |t|
+    t.string   "name"
+    t.string   "abbrev"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end
