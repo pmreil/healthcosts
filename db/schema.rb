@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130613005951) do
+ActiveRecord::Schema.define(:version => 20130618020730) do
 
   create_table "apc_costs", :force => true do |t|
     t.integer  "apc_code"
@@ -19,21 +19,21 @@ ActiveRecord::Schema.define(:version => 20130613005951) do
     t.integer  "year"
     t.integer  "outpatient_services"
     t.integer  "average_estimated_submitted_charges"
-    t.integer  "average_total_payment"
+    t.integer  "average_total_payments"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.integer  "position"
     t.integer  "count"
     t.float    "percentile"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
   end
 
   create_table "apcs", :force => true do |t|
     t.integer  "code"
     t.string   "description"
-    t.integer  "average_estimated_submitted_charges"
-    t.integer  "average_total_payments"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.float    "avg_estimated_submitted_charges"
+    t.float    "avg_total_payments"
   end
 
   create_table "costs", :force => true do |t|

@@ -7,6 +7,7 @@ class CostsController < ApplicationController
     @cost = Cost.find(params[:id])
     @drg = @cost.drg
     @hospital = @cost.hospital
+  end
 
 #    acosts = Cost.all
 
@@ -30,7 +31,13 @@ class CostsController < ApplicationController
 #      x.percentile = a.first[4]
 #      x.save
 #    end
-
+  def compare
+  	@params = params[:cost_id]
+#  	params.each do |param|
+#  		if param.class == (Cost)
+#  			@ids.push(param)
+#  		end
+#  	end
   end
 
 end

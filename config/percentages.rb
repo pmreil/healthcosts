@@ -1,7 +1,7 @@
 
 puts "starting"
 
- acosts = Cost.all
+ acosts = ApcCost.all
 
     acosts.each do |x| 
     	puts x.id

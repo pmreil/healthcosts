@@ -1,9 +1,14 @@
 Healthcosts::Application.routes.draw do
   #resources :costs
-  resources :drgs, :only => [:index, :show]#, :path => "diagnoses"
+  resources :drgs, :only => [:index, :show] do 
+    
+  end
+  match ':drgs/:id/state/:state_id' => 'drgs#state'
+  match ':drgs/:id/region/:region_id' => 'drgs#region'
   resources :apcs, :only => [:index, :show]
   resources :hospitals, :only => [:index, :show]
   resources :costs, :only => [:index, :show]
+  match '/compare_drg_costs' => 'costs#compare', :via => [:post]
   resources :apc_costs, :only => [:index, :show]
   match "/region/:id" => 'hospitals#region'
   get "state" => 'hospitals#state'
@@ -70,3 +75,4 @@ Healthcosts::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
 end
+  
