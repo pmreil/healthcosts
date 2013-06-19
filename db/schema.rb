@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130618020730) do
+ActiveRecord::Schema.define(:version => 20130618164745) do
 
   create_table "apc_costs", :force => true do |t|
     t.integer  "apc_code"
@@ -71,6 +71,11 @@ ActiveRecord::Schema.define(:version => 20130618020730) do
     t.datetime "updated_at",      :null => false
     t.float    "latitude"
     t.float    "longitude"
+    t.string   "county"
+    t.integer  "phone"
+    t.string   "hospital_type"
+    t.string   "ownership"
+    t.boolean  "emergency"
   end
 
   create_table "states", :force => true do |t|
