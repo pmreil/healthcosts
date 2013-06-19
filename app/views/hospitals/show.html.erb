@@ -9,8 +9,8 @@
     <p><b>Region:</b> : <%= @hospital.referral_region %></p>
 
     <div class="btn-group btn-group-vertical">
-      <button class="btn" style="width:100%"><a href="#inpatient"><%= @hospital.uc_name %> Inpatient Procedure Costs</a></button>
-      <button class="btn" style="width:100%"><a href="#outpatient"><%= @hospital.uc_name %> Outpatient Procedure Costs</a></button>
+      <button class="btn" style="width:100%"><a href="#inpatient"><strong>Inpatient</strong> Procedure Costs - <%= @hospital.uc_name %></a></button>
+      <button class="btn" style="width:100%"><a href="#outpatient"><strong>Outpatient</strong> Procedure Costs - <%= @hospital.uc_name %></a></button>
       <button class="btn" style="width:100%"><a href="#discuss">Discuss <%= @hospital.uc_name %> medical billing costs</a></button>
       <button class="btn" style="width:100%"><a href="#news">News about <%= @hospital.uc_name %></a></button>
     </div><br/><br/>
@@ -39,8 +39,8 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
 </div>
 
-<br/><br/>
 <a name="inpatient"></a>
+<br/><br/>
 <div class="row">
 <div class="span10">
 <h4>Inpatient Procedures</h4>
@@ -89,8 +89,8 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 <%= render "shared/pager" %>
 
 
-<br/><br/>
 <a name="outpatient"></a>
+<br/><br/>
 <div class="row">
 <div class="span10">
 <h4>Outpatient Procedures</h4>
@@ -135,9 +135,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </div>
 </div>
 
-<%= render "shared/pager" %>
-
-
+<%= render "shared/pager", :pager => 2 %>
 
 <h3>Discuss <%= @hospital.uc_name %>'s hospital and surgery costs</h3>
 <%= render "shared/disqus" %>
@@ -188,56 +186,53 @@ $(document).ready(function() {
 
   // call the tablesorter plugin and apply the uitheme widget
   $("#sortTable").tablesorter({
-    // this will apply the bootstrap theme if "uitheme" widget is included
-    // the widgetOptions.uitheme is no longer required to be set
     theme : "bootstrap",
-
     widthFixed: true,
-
     headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
-
     headers: { 
       2: { sorter: false },
       4: { sorter: false },
       5: { sorter: false },
     },
-
-
-    // widget code contained in the jquery.tablesorter.widgets.js file
-    // use the zebra stripe widget if you plan on hiding any rows (filter widget)
     widgets : [ "uitheme", "filter", "zebra" ],
-
     widgetOptions : {
-      // using the default zebra striping class name, so it actually isn't included in the theme variable above
-      // this is ONLY needed for bootstrap theming if you are using the filter widget, because rows are hidden
       zebra : ["even", "odd"],
-
-      // reset filters button
       filter_reset : ".reset"
-
-      // set the uitheme widget to use the bootstrap theme class names
-      // this is no longer required, if theme is set
-      // ,uitheme : "bootstrap"
-
     }
   })
   .tablesorterPager({
-
-    // target the pager markup - see the HTML block below
-    container: $(".pager"),
-
-    // target the pager page select dropdown - choose a page
+    container: $("#pager"),
     cssGoto  : ".pagenum",
-
-    // remove rows from the table to speed up the sort of large tables.
-    // setting this to false, only hides the non-visible rows; needed if you plan to add/remove rows with the pager enabled.
     removeRows: false,
-
-    // output string - default is '{page}/{totalPages}';
-    // possible variables: {page}, {totalPages}, {filteredPages}, {startRow}, {endRow}, {filteredRows} and {totalRows}
     output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'
-
   });
+
+  //do it for apcs too
+
+  // call the tablesorter plugin and apply the uitheme widget
+  $("#sortTable2").tablesorter({
+    theme : "bootstrap",
+    widthFixed: true,
+    headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+    headers: { 
+      2: { sorter: false },
+      4: { sorter: false },
+      5: { sorter: false },
+    },
+    widgets : [ "uitheme", "filter", "zebra" ],
+    widgetOptions : {
+      zebra : ["even", "odd"],
+      filter_reset : ".reset"
+    }
+  })
+  .tablesorterPager({
+    container: $("#pager2"),
+    cssGoto  : ".pagenum",
+    removeRows: false,
+    output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'
+  });
+
+
 });
 
 function loadMaps() {
