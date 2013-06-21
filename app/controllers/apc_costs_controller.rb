@@ -10,7 +10,17 @@ class ApcCostsController < ApplicationController
   end
 
   def compare
-  	@params = params[:cost_id]
+    @params = params[:cost_id]
+    @costs = []
+    @apc = nil
+    @params.each do |x|
+      cost = ApcCost.includes(:hospital).find x
+      if !@apc.nil? && cost.apc != @apc
+        @error = "You can only compare the same diagnosis/procedures"
+      end
+      @apc = cost.apc
+      @costs.push cost
+    end
   end
 
 end

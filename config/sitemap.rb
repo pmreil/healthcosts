@@ -31,9 +31,14 @@ SitemapGenerator::Sitemap.create do
        add drg_path(drg), :lastmod => drg.updated_at, :changefreq => 'weekly'
      end
 
-    add costs_path, :priority => 0.5, :changefreq => 'weekly'
-     Cost.find_each do |cost|
-       add cost_path(cost), :lastmod => cost.updated_at, :changefreq => 'weekly'
+    add apcs_path, :priority => 0.7, :changefreq => 'weekly'
+     Apc.find_each do |drg|
+       add apc_path(drg), :lastmod => drg.updated_at, :changefreq => 'weekly'
      end
+
+    #add costs_path, :priority => 0.5, :changefreq => 'weekly'
+    # Cost.find_each do |cost|
+    #   add cost_path(cost), :lastmod => cost.updated_at, :changefreq => 'weekly'
+    # end
 
 end

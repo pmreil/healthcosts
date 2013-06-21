@@ -22,6 +22,9 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 
 </div>
 
+<div class="row">
+  <div class="span10">
+
 <table id="sortTable" class="table table-striped table-border table-hover">
 <thead>
   <tr>
@@ -36,6 +39,24 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
   </tr>
 <% end %>
 </table>
+
+</div>
+
+<div class="span2">
+  <script type="text/javascript"><!--
+google_ad_client = "ca-pub-0066874388719652";
+/* 160vertical */
+google_ad_slot = "5403926082";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+
+</div>
 
 <%= render "shared/pager" %>
 
@@ -75,6 +96,8 @@ $(document).ready(function() {
     // target the pager markup - see the HTML block below
     container: $(".pager"),
 
+    size: 15,
+   
     // target the pager page select dropdown - choose a page
     cssGoto  : ".pagenum",
 

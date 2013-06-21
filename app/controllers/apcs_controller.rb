@@ -18,7 +18,7 @@ class ApcsController < ApplicationController
     @state = State.find_by_abbrev(params[:state_id])
     @apc = Apc.find(params[:id])
     @thetitle = "Compare Medical billing costs for "+@apc.uc_description+" in "+@state.name.capitalize+" Hospitals"
-    @costs =  @apc.apc_costs.where("hospitals.state = '"+params[:state_id]+"'").order('average_estimated_submitted_charges desc').includes(:hospital)
+    @apc_costs =  @apc.apc_costs.where("hospitals.state = '"+params[:state_id]+"'").order('average_estimated_submitted_charges desc').includes(:hospital)
     @average_estimated_submitted_charges = @apc_costs.average('average_estimated_submitted_charges')
     @average_total_payments = @apc_costs.average('average_total_payments')
     @states = State.find(:all,:order => "name")
@@ -28,9 +28,9 @@ class ApcsController < ApplicationController
 
   def region
     @region = params[:region_id]
-    @drg = Apc.find(params[:id])
+    @apc = Apc.find(params[:id])
     @thetitle = "Compare Medical billing costs for "+@apc.uc_description+" in "+@region+" Hospitals"
-    @costs =  @apc.costs.where("hospitals.referral_region = '"+params[:region_id]+"'").order('average_estimated_submitted_charges desc').includes(:hospital)
+    @apc_costs =  @apc.apc_costs.where("hospitals.referral_region = '"+params[:region_id]+"'").order('average_estimated_submitted_charges desc').includes(:hospital)
     @average_estimated_submitted_charges = @apc_costs.average('average_estimated_submitted_charges')
     @average_total_payments = @apc_costs.average('average_total_payments')
     @states = State.find(:all,:order => "name")
