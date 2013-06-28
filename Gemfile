@@ -47,6 +47,7 @@ group :production do
   gem 'activerecord-postgresql-adapter'
   gem 'mysql2'
   #gem 'pg'
+  gem 'newrelic_rpm'
 end
 
 group :test do
