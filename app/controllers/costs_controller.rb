@@ -14,7 +14,7 @@ class CostsController < ApplicationController
     @costs = []
     @drg = nil
     @params.each do |x|
-      cost = Cost.find x
+      cost = Cost.includes(:hospital).find x
       if !@drg.nil? && cost.drg != @drg
         @error = "You can only compare the same diagnosis/procedures"
       end

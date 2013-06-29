@@ -1,15 +1,16 @@
 Healthcosts::Application.routes.draw do
   #resources :costs
-  resources :drgs, :only => [:index, :show] do 
-    
-  end
-  match ':drgs/:id/state/:state_id' => 'drgs#state'
-  match ':drgs/:id/region/:region_id' => 'drgs#region'
+  resources :drgs, :only => [:index, :show]
+  match 'drgs/:id/state/:state_id' => 'drgs#state'
+  match 'drgs/:id/region/:region_id' => 'drgs#region'
   resources :apcs, :only => [:index, :show]
+  match 'apcs/:id/state/:state_id' => 'apcs#state'
+  match 'apcs/:id/region/:region_id' => 'apcs#region'
   resources :hospitals, :only => [:index, :show]
   resources :costs, :only => [:index, :show]
   match '/compare_drg_costs' => 'costs#compare', :via => [:post]
   resources :apc_costs, :only => [:index, :show]
+  match '/compare_apc_costs' => 'apc_costs#compare', :via => [:post]
   match "/region/:id" => 'hospitals#region'
   get "state" => 'hospitals#state'
   match "/state/:id" => 'hospitals#state'

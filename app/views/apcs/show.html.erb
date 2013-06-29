@@ -1,8 +1,17 @@
-<% title @thetitle %>
+<% title "Medical costs for "+@apc.uc_description %>
 <% description @apc.uc_description+' average hospital billing costs and medicare payments across United States hospitals. See whicj Hospital was cheapest and compare with other hospitals in the US' %>
 <% keywords @apc.uc_description+' hospital costs,'+"medical billing rates, cost of surgery, medicare rates, compare health costs, most expensive hospitals, lowest cost hospitals for "+@apc.uc_description %>
 
 <h1><%= @thetitle %></h1>
+
+<% if @apc_costs.length == 0 %>
+
+<p>No Results</p>
+<p><a href="javascript:history.back(1)" class="btn btn-small btn-primary">Go Back</a></p>
+
+
+<% else %>
+
 
 <div class='row'>
   <div class="span9">
@@ -35,7 +44,7 @@
 
   <hr/>
 
-<div clas="row"><div class="span12 text-center" >
+<div clas="row"><div class="span10 text-center" >
 <script type="text/javascript"><!--
 google_ad_client = "ca-pub-0066874388719652";
 /* hcc970 */
@@ -48,6 +57,9 @@ google_ad_height = 90;
 src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
 </div></div>
+
+<div class="row">
+  <div class="span10">
 
 <%= form_tag("/compare_apc_costs/",:method => "post") do %>
 <table id="sortTable" class="table table-striped table-border table-hover" style="height:200px;overflow:scroll;">
@@ -76,6 +88,24 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </table>
 <%= submit_tag "Compare Selected Diagnoses/Procedures" %>
 <% end %>
+
+</div>
+
+<div class="span2">
+  <script type="text/javascript"><!--
+google_ad_client = "ca-pub-0066874388719652";
+/* 160vertical */
+google_ad_slot = "5403926082";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+
+</div>
 
 <%= render "shared/pager" %>
 
@@ -142,6 +172,8 @@ $(document).ready(function() {
     // target the pager markup - see the HTML block below
     container: $(".pager"),
 
+    size: 15,
+    
     // target the pager page select dropdown - choose a page
     cssGoto  : ".pagenum",
 
@@ -157,3 +189,5 @@ $(document).ready(function() {
 });
 
 </script> 
+
+<% end %>
