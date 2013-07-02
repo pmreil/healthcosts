@@ -18,7 +18,13 @@
 
   <hr/>
 
-  <p class="lead pagination-centered"><i class="icon-map-marker"></i> Narrow results by <select id="stateList">
+
+  <p class="lead pagination-centered">
+<% if @state.nil? && @region.nil? %>
+Top 10 most expensive Hospitals displayed below. Use the form below to search by state or region:<br/><br/>
+<% end %>
+
+    <i class="icon-map-marker"></i> Narrow results by <select id="stateList">
     <option value="">State</option>
     <% @states.each do |state| %>
     <option <% if @state == state%>selected<% end %> value="/drgs/<%= @drg.id %>/state/<%= state.abbrev %>"><%= state.name.capitalize %></option> 
@@ -51,7 +57,6 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 
 <div class="row">
   <div class="span10">
-
 
 <%= form_tag("/compare_drg_costs/",:method => "post") do %>
 <table id="sortTable" class="table table-striped table-border table-hover" style="height:200px;overflow:scroll;">

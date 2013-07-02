@@ -12,7 +12,7 @@ class DrgsController < ApplicationController
   def show
     @drg = Drg.find(params[:id],:include => "aliases")
     @thetitle = "Compare Medical billing costs for "+@drg.uc_description+" in U.S. Hospitals"
-    @costs =  @drg.costs.order('average_covered_charges desc').includes(:hospital)
+    @costs =  @drg.costs.order('average_covered_charges desc').includes(:hospital).limit(10)
     @average_covered_charges = @costs.average('average_covered_charges')
     @average_total_payments = @costs.average('average_total_payments')
     @states = State.find(:all,:order => "name")
@@ -21,7 +21,7 @@ class DrgsController < ApplicationController
 
   def state
     @state = State.find_by_abbrev(params[:state_id])
-    @drg = Drg.find(params[:id])
+    @drg = Drg.find(params[:id],:include => "aliases")
     @thetitle = "Compare Medical billing costs for "+@drg.uc_description+" in "+@state.name.capitalize+" Hospitals"
     @costs =  @drg.costs.where("hospitals.state = '"+params[:state_id]+"'").order('average_covered_charges desc').includes(:hospital)
     @average_covered_charges = @costs.average('average_covered_charges')
@@ -33,7 +33,7 @@ class DrgsController < ApplicationController
 
   def region
     @region = params[:region_id]
-    @drg = Drg.find(params[:id])
+    @drg = Drg.find(params[:id],:include => "aliases")
     @thetitle = "Compare Medical billing costs for "+@drg.uc_description+" in "+@region+" Hospitals"
     @costs =  @drg.costs.where("hospitals.referral_region = '"+params[:region_id]+"'").order('average_covered_charges desc').includes(:hospital)
     @average_covered_charges = @costs.average('average_covered_charges')

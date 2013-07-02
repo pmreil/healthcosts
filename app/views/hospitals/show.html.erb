@@ -63,7 +63,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
   <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount hospital charged for this diagnoses/procedure in 2011 over total discharges">Hospital's average charge</a></th>
   <th><a href="#" class="link" rel="tooltip" data-original-title="Difference between what this hospital charged and Medicare paid the hospital for the procedure">Markup based on medicare reimbursement</a></th>
   <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount nationally charged for this DRG in 2011 over total discharges">National average charge</a></th>
-  <th><a href="#" class="link" rel="tooltip" data-original-title="Percentage this Hospital charged for the procedure above or below the national average">Charge compared to national average</a></th>
+  <!--<th><a href="#" class="link" rel="tooltip" data-original-title="Percentage this Hospital charged for the procedure above or below the national average">Charge compared to national average</a></th>-->
   <th><a href="#" class="link" rel="tooltip" data-original-title="How many hospitals are more expensive for this diagnosis or procedure">Hospital's Rank</a></th>
   <th>Details</th>
 </thead>
@@ -72,11 +72,11 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 <tr>
   <td><%= link_to cost.drg.uc_description, cost.drg %></td>
   <td style="text-align:right;"><%= number_to_currency(cost.average_covered_charges, :unit => "$") %></td>
-  <td align="right"><!--<%= number_to_currency((cost.average_covered_charges - cost.average_total_payments), :unit => '$') %> (--><%= number_to_percentage(((cost.average_covered_charges*100)/cost.average_total_payments), :precision => 0) %></td>
+  <td align="right"><%= number_to_currency((cost.average_covered_charges - cost.average_total_payments), :unit => '$') %> <!--(<%#= number_to_percentage(((cost.average_covered_charges*100)/cost.average_total_payments), :precision => 0) %>--></td>
   <td style="text-align:right;"><%= number_to_currency(cost.drg.avg_covered_charges, :unit => "$") %></td>
-  <td align="right"><%= number_to_percentage((((cost.average_covered_charges-cost.drg.avg_covered_charges)*100).abs/cost.drg.avg_covered_charges), :precision => 0) %>
-    <% if ((cost.average_covered_charges-cost.drg.avg_covered_charges)*100/cost.drg.avg_covered_charges) > 0 %> higher <% else %> lower <% end %></td>
-  <td><%= cost.position %> out of <%= cost.count %> (<%= number_to_percentage(cost.percentile*100, :precision => 0) %> percentile)</td>
+  <!--<td align="right"><%#= number_to_percentage((((cost.average_covered_charges-cost.drg.avg_covered_charges)*100).abs/cost.drg.avg_covered_charges), :precision => 0) %>
+    <%# if ((cost.average_covered_charges-cost.drg.avg_covered_charges)*100/cost.drg.avg_covered_charges) > 0 %> higher <%# else %> lower <%# end %></td>-->
+  <td><%= cost.position %> out of <%= cost.count %></td>
   <td><%= link_to "View Details", cost, :class=>'btn btn-small' %></td>
 </tr>
 <% end %>
@@ -110,10 +110,10 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 <thead>
   <th>Diagnosis or Procedure Description</th>
   <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount hospital charged for this diagnoses/procedure in 2011 over total discharges">Hospital's Average Medical Billing for the Procedure</a></th>
-  <th><a href="#" class="link" rel="tooltip" data-original-title="Difference between what this hospital charged and Medicare paid the hospital for the procedure">Hospital's Charge vs. Medicare Reimbursement Difference<br/>(% Markup)</a></th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Difference between what this hospital charged and Medicare paid the hospital for the procedure">Hospital's Charge vs. Medicare Reimbursement Difference<!--<br/>(% Markup)--></a></th>
   <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount nationally charged for this DRG in 2011 over total discharges">National Average Covered Charge for Procedure</a></th>
-  <th><a href="#" class="link" rel="tooltip" data-original-title="Percentage this Hospital charged for the procedure above or below the national average">Hospital's charge compared to the national average</a></th>
-  <th><a href="#" class="link" rel="tooltip" data-original-title="How many hospitals are more expensive for this diagnosis or procedure">Hospital's Rank for this diagnosis (Percent of hospitals that are more expensive)</a></th>
+  <!--<th><a href="#" class="link" rel="tooltip" data-original-title="Percentage this Hospital charged for the procedure above or below the national average">Hospital's charge compared to the national average</a></th>-->
+  <th><a href="#" class="link" rel="tooltip" data-original-title="How many hospitals are more expensive for this diagnosis or procedure">Hospital's Rank for this diagnosis <!--(Percent of hospitals that are more expensive)--></a></th>
   <th>Details</th>
 </thead>
 <tbody>
@@ -121,11 +121,11 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 <tr>
   <td><%= link_to cost.apc.uc_description, cost.apc %></td>
   <td style="text-align:right;"><%= number_to_currency(cost.average_estimated_submitted_charges, :unit => "$") %></td>
-  <td align="right"><%= number_to_currency((cost.average_estimated_submitted_charges - cost.average_total_payments), :unit => '$') %> (<%= number_to_percentage(((cost.average_estimated_submitted_charges*100)/cost.average_total_payments), :precision => 0) %>)</td>
+  <td align="right"><%= number_to_currency((cost.average_estimated_submitted_charges - cost.average_total_payments), :unit => '$') %> <!--(<%#= number_to_percentage(((cost.average_estimated_submitted_charges*100)/cost.average_total_payments), :precision => 0) %>)--></td>
   <td style="text-align:right;"><%= number_to_currency(cost.apc.avg_estimated_submitted_charges, :unit => "$") %></td>
-  <td align="right"><%= number_to_percentage((((cost.average_estimated_submitted_charges-cost.apc.avg_estimated_submitted_charges)*100).abs/cost.apc.avg_estimated_submitted_charges), :precision => 0) %>
-    <% if ((cost.average_estimated_submitted_charges-cost.apc.avg_estimated_submitted_charges)*100/cost.apc.avg_estimated_submitted_charges) > 0 %> higher <% else %> lower <% end %></td>
-  <td><%= cost.position %> out of <%= cost.count %> (<%= number_to_percentage(cost.percentile*100, :precision => 0) %>)</td>
+  <!--<td align="right"><%#= number_to_percentage((((cost.average_estimated_submitted_charges-cost.apc.avg_estimated_submitted_charges)*100).abs/cost.apc.avg_estimated_submitted_charges), :precision => 0) %>
+    <%# if ((cost.average_estimated_submitted_charges-cost.apc.avg_estimated_submitted_charges)*100/cost.apc.avg_estimated_submitted_charges) > 0 %> higher <%# else %> lower <%# end %></td>-->
+  <td><%= cost.position %> out of <%= cost.count %> <%#= number_to_percentage(cost.percentile*100, :precision => 0) %></td>
   <td><%= link_to "View Details", cost, :class=>'btn btn-small' %></td>
 </tr>
 <% end %>

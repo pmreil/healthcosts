@@ -32,8 +32,8 @@ class HospitalsController < ApplicationController
   def show
     @hospital = Hospital.find(params[:id])
     @hospital.update_lat_lng
-    @costs = @hospital.costs.includes(:drg)
-    @apc_costs = @hospital.apc_costs.includes(:apc)
+    @costs = @hospital.costs.includes(:drg => :aliases)
+    @apc_costs = @hospital.apc_costs.includes(:apc => :aliases)
   end
 
 end
