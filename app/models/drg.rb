@@ -11,11 +11,14 @@
 
 class Drg < ActiveRecord::Base
   set_primary_key :code
-  #attr_accessible :code, :description
   has_many :costs, :foreign_key => 'drg_code'
+  has_many :aliases, :as => :aliasable
+
 
   def uc_description
-    return self.description.split(' ').map(&:capitalize).join(' ')
+  	uc = self.description.split(' ').map(&:capitalize).join(' ')
+  	full = self.aliases.empty? ? uc : self.aliases.first.name + " (" + uc + ")"
+    return full
   end
 
 

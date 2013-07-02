@@ -2,7 +2,7 @@ class DrgsController < ApplicationController
   # GET /drgs
   # GET /drgs.json
   def index
-    @drgs = Drg.find(:all,:order => "description")
+    @drgs = Drg.find(:all,:order => "description",:include => "aliases")
     @states = State.find(:all,:order => "name")
     @regions = Hospital.select('referral_region').group(:referral_region).count
   end
@@ -10,7 +10,7 @@ class DrgsController < ApplicationController
   # GET /drgs/1
   # GET /drgs/1.json
   def show
-    @drg = Drg.find(params[:id])
+    @drg = Drg.find(params[:id],:include => "aliases")
     @thetitle = "Compare Medical billing costs for "+@drg.uc_description+" in U.S. Hospitals"
     @costs =  @drg.costs.order('average_covered_charges desc').includes(:hospital)
     @average_covered_charges = @costs.average('average_covered_charges')
