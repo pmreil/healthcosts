@@ -91,8 +91,20 @@ h1 {
 
 .itemDate{ display:inline;padding-left:10px; } 
 
-TH,TD {
+.tablesorter-bootstrap th, .tablesorter-bootstrap td {
   font-size:12px;     
-  padding:5px;
+  padding:6px;
   line-height:12px;
+}
+
+.tablesorter-bootstrap .tablesorter-header, .tablesorter-bootstrap tfoot th, .tablesorter-bootstrap tfoot td {
+  font-size:12px;
+}
+
+.tablesorter-bootstrap .tablesorter-header-inner {
+  padding: 0;
+}
+
+.tablesorter-bootstrap input {
+  font-size:11px;
 }

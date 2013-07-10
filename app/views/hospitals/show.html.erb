@@ -77,7 +77,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
   <!--<td align="right"><%#= number_to_percentage((((cost.average_covered_charges-cost.drg.avg_covered_charges)*100).abs/cost.drg.avg_covered_charges), :precision => 0) %>
     <%# if ((cost.average_covered_charges-cost.drg.avg_covered_charges)*100/cost.drg.avg_covered_charges) > 0 %> higher <%# else %> lower <%# end %></td>-->
   <td><%= cost.position %> out of <%= cost.count %></td>
-  <td><%= link_to "View Details", cost, :class=>'btn btn-small' %></td>
+  <td><%= link_to "Details", cost, :class=>'btn btn-small' %></td>
 </tr>
 <% end %>
 </tbody>
@@ -126,7 +126,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
   <!--<td align="right"><%#= number_to_percentage((((cost.average_estimated_submitted_charges-cost.apc.avg_estimated_submitted_charges)*100).abs/cost.apc.avg_estimated_submitted_charges), :precision => 0) %>
     <%# if ((cost.average_estimated_submitted_charges-cost.apc.avg_estimated_submitted_charges)*100/cost.apc.avg_estimated_submitted_charges) > 0 %> higher <%# else %> lower <%# end %></td>-->
   <td><%= cost.position %> out of <%= cost.count %> <%#= number_to_percentage(cost.percentile*100, :precision => 0) %></td>
-  <td><%= link_to "View Details", cost, :class=>'btn btn-small' %></td>
+  <td><%= link_to "Details", cost, :class=>'btn btn-small' %></td>
 </tr>
 <% end %>
 </tbody>
