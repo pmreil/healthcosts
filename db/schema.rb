@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130629001618) do
+ActiveRecord::Schema.define(:version => 20130709203757) do
 
   create_table "aliases", :force => true do |t|
     t.string   "name"
@@ -84,6 +84,30 @@ ActiveRecord::Schema.define(:version => 20130629001618) do
     t.string   "hospital_type"
     t.string   "ownership"
     t.boolean  "emergency"
+  end
+
+  create_table "metric_keys", :force => true do |t|
+    t.integer  "metric_type"
+    t.string   "metric_key"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "metric_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "metric_values", :force => true do |t|
+    t.integer  "hospital_ext_id"
+    t.integer  "metric_key_id"
+    t.string   "value"
+    t.string   "sample_size"
+    t.string   "response_rate"
+    t.string   "footnote"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "states", :force => true do |t|
