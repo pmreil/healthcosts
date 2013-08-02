@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: apcs
+#
+#  id                              :integer          not null
+#  code                            :integer          primary key
+#  description                     :string(255)
+#  created_at                      :datetime         not null
+#  updated_at                      :datetime         not null
+#  avg_estimated_submitted_charges :float
+#  avg_total_payments              :float
+#
+
 class Apc < ActiveRecord::Base
   set_primary_key :code
   #attr_accessible :code, :description

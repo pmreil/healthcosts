@@ -14,6 +14,11 @@
 #  updated_at      :datetime         not null
 #  latitude        :float
 #  longitude       :float
+#  county          :string(255)
+#  phone           :integer
+#  hospital_type   :string(255)
+#  ownership       :string(255)
+#  emergency       :boolean
 #
 
 require 'spec_helper'

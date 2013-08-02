@@ -14,6 +14,11 @@
 #  updated_at      :datetime         not null
 #  latitude        :float
 #  longitude       :float
+#  county          :string(255)
+#  phone           :integer
+#  hospital_type   :string(255)
+#  ownership       :string(255)
+#  emergency       :boolean
 #
 
 class Hospital < ActiveRecord::Base
@@ -21,6 +26,7 @@ class Hospital < ActiveRecord::Base
   #attr_accessible :address, :city, :ext_id, :name, :referral_region, :state, :zipcode
   has_many :costs, :foreign_key => 'hospital_ext_id'
   has_many :apc_costs, :foreign_key => 'hospital_ext_id'
+  has_many :metric_values, :foreign_key => 'hospital_ext_id'
 
   def address_string
   	return self.address + ", " + self.city + ", " + self.state + " " + self.zipcode

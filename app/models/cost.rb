@@ -11,6 +11,9 @@
 #  average_total_payments  :integer
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  position                :integer
+#  count                   :integer
+#  percentile              :float
 #
 
 class Cost < ActiveRecord::Base
