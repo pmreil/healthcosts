@@ -27,6 +27,7 @@ class Hospital < ActiveRecord::Base
   has_many :costs, :foreign_key => 'hospital_ext_id'
   has_many :apc_costs, :foreign_key => 'hospital_ext_id'
   has_many :metric_values, :foreign_key => 'hospital_ext_id'
+  has_many :metric_keys, :through => :metric_values
 
   def address_string
   	return self.address + ", " + self.city + ", " + self.state + " " + self.zipcode

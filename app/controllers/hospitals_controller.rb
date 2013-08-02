@@ -34,6 +34,7 @@ class HospitalsController < ApplicationController
     @hospital.update_lat_lng
     @costs = @hospital.costs.includes(:drg => :aliases)
     @apc_costs = @hospital.apc_costs.includes(:apc => :aliases)
+    @hcahps_metrics = @hospital.metric_values.includes(:metric_key)
   end
 
 end

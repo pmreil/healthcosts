@@ -25,6 +25,7 @@
     <div class="btn-group btn-group-vertical" style="width:100%">
       <button class="btn" style="width:100%"><a href="#inpatient"><strong>Inpatient</strong> Procedure Costs - <%= @hospital.uc_name %></a></button>
       <button class="btn" style="width:100%"><a href="#outpatient"><strong>Outpatient</strong> Procedure Costs - <%= @hospital.uc_name %></a></button>
+      <button class="btn" style="width:100%"><a href="#survey"><%= @hospital.uc_name %> Patient Survey Results</a></button>
       <button class="btn" style="width:100%"><a href="#discuss">Discuss <%= @hospital.uc_name %> medical billing costs</a></button>
       <button class="btn" style="width:100%"><a href="#news">News about <%= @hospital.uc_name %></a></button>
     </div><br/><br/>
@@ -148,6 +149,33 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </div>
 
 <%= render "shared/pager", :pager => 2 %>
+
+
+<a name="survey"></a>
+<h3><%= @hospital.uc_name %> Patient Survey Results</h3>
+<table id="sortTable" class="table table-striped table-hover table-bordered">
+<tr>
+<thead>
+  <th>Question</th>
+  <th>Response</th>
+  <th>Sample Size</th>
+  <th>Response Rate</th>
+  <th>Footnote</th>
+</thead>
+<tbody>
+<% @hcahps_metrics.each do |x| %>
+  <tr>
+    <td><%= x.metric_key.metric_key %></td>
+    <td><%= x.value %>%</td>
+    <td><%= x.sample_size %></td>
+    <td><%= x.response_rate %></td>
+    <td><% if !x.footnote.empty? %>
+      <a href="#" class="link" rel="tooltip" data-original-title="<%=x.footnote %>"><i class="icon-comment-alt"></i></a>
+      <% end %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
 
 <h3>Discuss <%= @hospital.uc_name %>'s hospital and surgery costs</h3>
 <%= render "shared/disqus" %>
