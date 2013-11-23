@@ -77,7 +77,7 @@ $(document).ready(function() {
 
     // target the pager markup - see the HTML block below
     container: $(".pager"),
-    size: 20,
+    size: $.tablesorter.storage( $table[0], 'tablesorter-pagesize') || 10,
 
     // target the pager page select dropdown - choose a page
     cssGoto  : ".pagenum",

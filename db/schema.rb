@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130709203757) do
+ActiveRecord::Schema.define(:version => 20131114031019) do
 
   create_table "aliases", :force => true do |t|
     t.string   "name"
@@ -108,6 +108,26 @@ ActiveRecord::Schema.define(:version => 20130709203757) do
     t.string   "footnote"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+  end
+
+  create_table "providers", :force => true do |t|
+    t.integer  "npi"
+    t.string   "pacid"
+    t.string   "professional_enrollment_id"
+    t.string   "last_name"
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "suffix"
+    t.string   "gender"
+    t.string   "credential"
+    t.string   "medical_school_name"
+    t.integer  "graduation_year"
+    t.boolean  "professional_accepts_medicare_assignment"
+    t.boolean  "participating_in_erx"
+    t.boolean  "participating_in_pqrs"
+    t.boolean  "participating_in_ehr"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
   end
 
   create_table "states", :force => true do |t|
