@@ -55,4 +55,8 @@ class Hospital < ActiveRecord::Base
   	end
   end
 
+  searchable do
+    text :name, :address, :city, :state, :zipcode
+  end
+
 end

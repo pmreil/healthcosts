@@ -21,7 +21,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
 </div>
 
-<table id="sortTable" class="table table-striped table-bordered table-hover">
+<table id="sortTable" class="table table-hover">
 <thead>
   <tr>
     <th data-placeholder="Type to search by name">Name</th>
@@ -49,7 +49,7 @@ $(document).ready(function() {
   $("#sortTable").tablesorter({
     // this will apply the bootstrap theme if "uitheme" widget is included
     // the widgetOptions.uitheme is no longer required to be set
-    theme : "bootstrap",
+    //theme : "bootstrap",
 
     widthFixed: true,
 
@@ -57,7 +57,7 @@ $(document).ready(function() {
 
     // widget code contained in the jquery.tablesorter.widgets.js file
     // use the zebra stripe widget if you plan on hiding any rows (filter widget)
-    widgets : [ "uitheme", "filter", "zebra" ],
+    //widgets : [ "uitheme", "filter", "zebra" ],
 
     widgetOptions : {
       // using the default zebra striping class name, so it actually isn't included in the theme variable above
