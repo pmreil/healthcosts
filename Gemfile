@@ -11,6 +11,8 @@ gem 'meta-tags', :require => 'meta_tags'
 gem 'google-analytics-rails'
 gem 'sitemap_generator'
 
+gem 'sunspot_rails'
+
 #update to support vulnerability
 gem 'json', '>= 1.7.7'
 
@@ -41,6 +43,7 @@ group :development do
   gem 'rspec-rails', '2.5.0'
   gem 'annotate', ">=2.5.0"
   gem 'rb-readline', '~> 0.4.2'
+  gem 'sunspot_solr'
 end
 
 group :production do
