@@ -27,6 +27,16 @@ class HospitalsController < ApplicationController
     end
   end
 
+  def search
+    if !params[:q].nil?
+      @hospital_results = Hospital.search { fulltext params[:q]}
+      @hospital_results.results.each do |h|
+        h.update_lat_lng
+      end
+      @hospitals = @hospital_results.results
+    end
+  end
+
   # GET /hospitals/1
   # GET /hospitals/1.json
   def show

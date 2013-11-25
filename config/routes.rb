@@ -13,6 +13,7 @@ Healthcosts::Application.routes.draw do
   match '/compare_apc_costs' => 'apc_costs#compare', :via => [:post]
   match "/region/:id" => 'hospitals#region'
   get "state" => 'hospitals#state'
+  post "search" => 'hospitals#search'
   match "/state/:id" => 'hospitals#state'
   root :to => 'static#index'
   match 'about' => 'static#about'

@@ -22,6 +22,11 @@
     <option value="/region/<%= region[0] %>"><%= region[0] %> (<%= region[1] %> hospitals)</option> 
     <% end %>
   </select>
+  <%= form_tag("/search", method: "post") do %>
+  <%= label_tag(:q, "Search for:") %>
+  <%= text_field_tag(:q) %>
+  <%= submit_tag("Search") %>
+<% end %>
 </p>
 
 </div>
