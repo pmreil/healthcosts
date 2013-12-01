@@ -1,9 +1,12 @@
 .hero-unit {
-  background-image: url(/assets/background.jpg);    
+  /*background-image: url(/assets/bricks.jpg);*/
+  padding: 20px 40px;
+  background: #D26800;
 }
 
 .hero-unit H1 {
 	color:#fff;
+	font-size:54px;
 }
 
 .hero-unit P {

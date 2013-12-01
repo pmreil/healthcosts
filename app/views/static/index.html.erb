@@ -5,9 +5,23 @@
 
 <div id="hero-pad"></div>
 <div class="hero-unit">
-  <h1 class="text-center">Compare Surgery Costs in U.S. Hospitals</h1>
-  <p class="lead text-center">Find the lowest cost hospitals U.S. Hospitals</p>
-<p class="lead text-center"><i class="icon-map-marker"></i> Select a U.S. State to view their hospitals:
+  <h1 class="text-center">Compare Surgery Costs at U.S. Hospitals</h1>
+
+<br/>
+
+<div class="text-center lead">
+  <i class="icon-search"></i> 
+  <span class="input-append">
+  <%= form_tag("/search", method: "post") do %>
+  <%= text_field_tag :q, nil, class: "input-large" %>
+  <%= submit_tag "Search Hospitals by Name", class: "btn btn-primary"  %>
+  </span>
+or
+
+  <% end %>
+</div>
+
+  <p class="lead text-center"><i class="icon-map-marker"></i> Select a U.S. State to view their hospitals:
   <select id="stateList">
     <option value="">Pick a State</option>
     <% @states.each do |state| %>
@@ -22,11 +36,9 @@
     <option value="/region/<%= region[0] %>"><%= region[0] %> (<%= region[1] %> hospitals)</option> 
     <% end %>
   </select>
-  <%= form_tag("/search", method: "post") do %>
-  <%= label_tag(:q, "Search for:") %>
-  <%= text_field_tag(:q) %>
-  <%= submit_tag("Search") %>
-<% end %>
+
+
+
 </p>
 
 </div>

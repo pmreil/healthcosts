@@ -1,17 +1,17 @@
-$navbarBackgroundHighlight:       #000000 ;
-$navbarText:                      #ffffff ;
-$navbarLinkColor:                 #ffffff ;
-$navbarLinkColorHover:            #C7E8C1 ;
-$headingsColor:                   #46a546 ;
-$headingsFontFamily:      'Titillium Web' ;
-$linkColor:                       #46a546 ;
-$linkColorHover:                  #2F702F ;
+$navbarBackgroundHighlight:       #000000;
+$navbarText:                      #ffffff;
+$navbarLinkColor:                 #ffffff;
+$navbarLinkColorHover:            #D26800;
+$headingsColor:                   #036AB2;
+$headingsFontFamily:      'Titillium Web';
+$linkColor:                       #5CBC00;
+$linkColorHover:                  #D26800;
 
 @import "bootstrap";
 @import "bootstrap-responsive";
 @import "font-awesome";
 
-$navbarBackground: $green;
+$navbarBackground: #5CBC00;
 
 // This doesn't work. Navbar will still be same color.
 // But if you do write styles for navbar again
@@ -48,7 +48,7 @@ h1 {
         height: 40px;
       }
       #footer {
-        background-color: $green;
+        background-color: #036AB2;
       }
 
       /* Lastly, apply responsive CSS fixes as necessary */
