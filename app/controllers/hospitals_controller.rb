@@ -37,6 +37,12 @@ class HospitalsController < ApplicationController
     end
   end
 
+  def geolocate
+    if !params[:q].nil?
+      @hospitals = Hospital.near(params[:q])
+    end
+  end
+
   # GET /hospitals/1
   # GET /hospitals/1.json
   def show

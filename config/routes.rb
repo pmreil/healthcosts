@@ -14,6 +14,7 @@ Healthcosts::Application.routes.draw do
   match "/region/:id" => 'hospitals#region'
   get "state" => 'hospitals#state'
   post "search" => 'hospitals#search'
+  post "geolocate" => 'hospitals#geolocate'
   match "/state/:id" => 'hospitals#state'
   root :to => 'static#index'
   match 'about' => 'static#about'
