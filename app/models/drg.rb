@@ -14,6 +14,7 @@
 class Drg < ActiveRecord::Base
   set_primary_key :code
   has_many :costs, :foreign_key => 'drg_code'
+  has_and_belongs_to_many :icd10s
   has_many :aliases, :as => :aliasable
 
 

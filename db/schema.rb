@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131114031019) do
+ActiveRecord::Schema.define(:version => 20131204233146) do
 
   create_table "aliases", :force => true do |t|
     t.string   "name"
@@ -67,6 +67,11 @@ ActiveRecord::Schema.define(:version => 20131114031019) do
     t.float    "avg_total_payments"
   end
 
+  create_table "drgs_icd10s", :id => false, :force => true do |t|
+    t.integer "drg_id",   :null => false
+    t.integer "icd10_id", :null => false
+  end
+
   create_table "hospitals", :force => true do |t|
     t.integer  "ext_id"
     t.string   "name"
@@ -85,6 +90,15 @@ ActiveRecord::Schema.define(:version => 20131114031019) do
     t.string   "ownership"
     t.boolean  "emergency"
   end
+
+  create_table "icd10s", :force => true do |t|
+    t.string   "code"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "icd10s", ["code"], :name => "code_UNIQUE", :unique => true
 
   create_table "metric_keys", :force => true do |t|
     t.integer  "metric_type"
