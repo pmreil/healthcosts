@@ -1,0 +1,141 @@
+<% title "Surgery Prices for Hospitals located by " %>
+<% description 'Listing of American Hospitals. Click to compare hospital costs in the US based on Center for Medicare data' %>
+<% keywords "chargemaster rates, surgery costs, medicare rates, compare health costs, most expensive hospitals, compare hospital costs" %>
+
+<h1>Hospital Listings for</h1>
+<p class="lead">The <a href="http://www.cms.gov/" target="_blank">Centers for Medicare and Medicaid Services</a> released billing data for the top 100 Diagnosis Related Groups (DRGs) in 2011 for more than 3000 U.S. Hospitals. View this data by selecting the hopsital name in the list below. You can also view <a href="/region/all/">all U.S. Hospitals in one list</a>.</p>
+
+<p><a href="/hospitals/" class="btn btn-small btn-primary"><i class='icon-circle-arrow-left'></i> Search Again</a></p>
+
+<div class="text-center">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-0066874388719652";
+/* hcc970 */
+google_ad_slot = "8636594082";
+google_ad_width = 970;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+
+<div id="map-canvas" style="width:800px;height:400px;border:1px solid black;"></div>
+
+<table id="sortTable" class="table table-hover">
+<thead>
+  <tr>
+    <th data-placeholder="Type to search by name">Name</th>
+    <th data-placeholder="Type to search by address">Address</th>
+    <th data-placeholder="Type to search by address">Distance</th>
+    <th data-placeholder="Type to search by region">Region</th>
+  </tr>
+</thead>
+<tbody>
+<% @hospitals.each do |hospital| %>
+  <tr>
+    <td><i class="icon-h-sign"></i> <%= link_to hospital.uc_name, hospital %></td>
+    <td><%= hospital.uc_address %>, <%= hospital.city.capitalize %>, <%= hospital.state %> <%= hospital.zipcode %></td>
+    <td><%= number_with_precision(hospital.distance, precision: 2) %> miles</td>
+    <td><a href="/region/<%= hospital.referral_region %>"><%= hospital.referral_region %></a></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+asdf
+<i class="icon-large icon-hospital"></i>
+asdf
+
+<%= render "shared/pager" %>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+  initialize_map();
+
+  // call the tablesorter plugin and apply the uitheme widget
+  $("#sortTable").tablesorter({
+    // this will apply the bootstrap theme if "uitheme" widget is included
+    // the widgetOptions.uitheme is no longer required to be set
+    //theme : "bootstrap",
+
+    widthFixed: true,
+
+    headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+
+    // widget code contained in the jquery.tablesorter.widgets.js file
+    // use the zebra stripe widget if you plan on hiding any rows (filter widget)
+    //widgets : [ "uitheme", "filter", "zebra" ],
+
+    widgetOptions : {
+      // using the default zebra striping class name, so it actually isn't included in the theme variable above
+      // this is ONLY needed for bootstrap theming if you are using the filter widget, because rows are hidden
+      zebra : ["even", "odd"],
+
+      // reset filters button
+      filter_reset : ".reset"
+
+      // set the uitheme widget to use the bootstrap theme class names
+      // this is no longer required, if theme is set
+      // ,uitheme : "bootstrap"
+
+    }
+  })
+  .tablesorterPager({
+
+    // target the pager markup - see the HTML block below
+    container: $(".pager"),
+    size: $.tablesorter.storage( $table[0], 'tablesorter-pagesize') || 10,
+
+    // target the pager page select dropdown - choose a page
+    cssGoto  : ".pagenum",
+
+    // remove rows from the table to speed up the sort of large tables.
+    // setting this to false, only hides the non-visible rows; needed if you plan to add/remove rows with the pager enabled.
+    removeRows: false,
+
+    // output string - default is '{page}/{totalPages}';
+    // possible variables: {page}, {totalPages}, {filteredPages}, {startRow}, {endRow}, {filteredRows} and {totalRows}
+    output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'
+
+  });
+});
+
+function initialize_map() {
+  var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+  var mapOptions = {
+    zoom: 10,
+    //center: myLatlng
+  }
+  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  var latlngbounds = new google.maps.LatLngBounds();
+  
+<% @hospitals.each do |hospital| %>
+  latlng<%= hospital.id %> = new google.maps.LatLng(<%= hospital.latitude %>,<%= hospital.longitude %>)
+  var marker_<%= hospital.id %>  = new google.maps.Marker({
+      position: latlng<%= hospital.id %>,
+      map: map,
+      title: 'Hello World!'
+  });
+  latlngbounds.extend(latlng<%= hospital.id %>);
+
+  var infowindow<%= hospital.id %> = new google.maps.InfoWindow({
+      content: '<b><%= link_to hospital.uc_name, hospital %></b><br/><%= hospital.address.capitalize %><br><%= hospital.city.capitalize %>, <%= hospital.state %><br/><%= link_to "View Details", hospital %>'
+  });
+
+  google.maps.event.addListener(marker_<%= hospital.id %>, 'click', function() {
+    infowindow<%= hospital.id %>.open(map,marker_<%= hospital.id %>);
+  });
+
+<% end %>
+
+  map.setCenter(latlngbounds.getCenter());
+  map.fitBounds(latlngbounds);
+
+}
+
+
+</script> 
