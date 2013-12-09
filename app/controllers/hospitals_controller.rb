@@ -40,7 +40,7 @@ class HospitalsController < ApplicationController
   def geolocate
     if !params[:q].nil?
       @search_term = params[:q]
-      @hospitals = Hospital.near(params[:q])
+      @hospitals = Hospital.near(params[:q],35)
     end
   end
 

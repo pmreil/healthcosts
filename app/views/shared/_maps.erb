@@ -1,0 +1,66 @@
+var MY_MAPTYPE_ID = 'custom_style';
+
+function initialize_map() {
+
+var featureOpts = [
+    {
+      stylers: [
+        { hue: '#5CBC00' },
+        //{ visibility: 'simplified' },
+        { gamma: 0.5 },
+        { weight: 0.5 }
+      ]
+    },
+    {
+      featureType: 'water',
+      stylers: [
+        { color: '#036AB2' }
+      ]
+    }
+  ];
+
+  var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+  var mapOptions = {
+    zoom: 10,
+    //center: myLatlng
+    mapTypeControlOptions: {
+      //mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]
+    },
+    mapTypeId: MY_MAPTYPE_ID
+  }
+  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  var latlngbounds = new google.maps.LatLngBounds();
+  var image = 'assets/marker.png';
+
+var styledMapOptions = {
+    name: 'Custom Style'
+  };
+
+  var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
+
+  map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+
+<% @hospitals.each do |hospital| %>
+  latlng<%= hospital.id %> = new google.maps.LatLng(<%= hospital.latitude %>,<%= hospital.longitude %>)
+  var marker_<%= hospital.id %>  = new google.maps.Marker({
+      position: latlng<%= hospital.id %>,
+      map: map,
+      icon: image,
+      title: "<%= hospital.name %>"
+  });
+  latlngbounds.extend(latlng<%= hospital.id %>);
+
+  var infowindow<%= hospital.id %> = new google.maps.InfoWindow({
+      content: '<b><%= link_to hospital.uc_name, hospital %></b><br/><%= hospital.address.capitalize %><br><%= hospital.city.capitalize %>, <%= hospital.state %>'
+  });
+
+  google.maps.event.addListener(marker_<%= hospital.id %>, 'click', function() {
+    infowindow<%= hospital.id %>.open(map,marker_<%= hospital.id %>);
+  });
+
+<% end %>
+
+  map.setCenter(latlngbounds.getCenter());
+  map.fitBounds(latlngbounds);
+
+}
