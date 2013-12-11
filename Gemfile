@@ -10,8 +10,10 @@ gem 'jquery-tablesorter'
 gem 'meta-tags', :require => 'meta_tags'
 gem 'google-analytics-rails'
 gem 'sitemap_generator'
+gem 'therubyracer'
 
-gem 'sunspot_rails'
+#gem 'sunspot_rails'
+gem 'acts_as_indexed'
 
 #update to support vulnerability
 gem 'json', '>= 1.7.7'
@@ -47,7 +49,7 @@ group :development do
 end
 
 group :production do
-  gem 'activerecord-postgresql-adapter'
+  #gem 'activerecord-postgresql-adapter'
   gem 'mysql2'
   #gem 'pg'
   gem 'newrelic_rpm'

@@ -20,9 +20,9 @@ class Icd10 < ActiveRecord::Base
     return full
   end
 
-  searchable do
-    text :description
-  end
+  #searchable do
+  #  text :description
+  #end
 
 
 end

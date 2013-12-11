@@ -1,3 +1,6 @@
+
+<% if Rails.env.production? %>
+
 <script type="text/javascript"><!--
 google_ad_client = "ca-pub-0066874388719652";
 /* hcc970 */
@@ -9,3 +12,9 @@ google_ad_height = 90;
 <script type="text/javascript"
 src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
+
+<% else %>
+
+<span style="width:970px;height:90px;background-color:black;">AD</span>
+
+<% end %>

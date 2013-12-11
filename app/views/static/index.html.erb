@@ -12,21 +12,21 @@
 <div class="text-center lead" style="margin:0;">
     <i class="icon-search" style="color:#ffffff;top:-12px;position:relative;"></i> 
     <span class="input-append">
-    <%= form_tag("/search", method: "post", style: "margin:0;") do %>
-    <%= text_field_tag :q, nil, class: "input-large" %>
-    <%= submit_tag "Search hospitals by name", class: "btn btn-primary"  %>
+    <%= form_tag("/search", :method => :post) do %>
+    <%= text_field_tag :q, nil, :class => "input-large" %>
+    <%= submit_tag "Search hospitals by name", :class => "btn btn-primary"  %>
     <% end %>
     </span>
 </div>
 
-<p class="text-center" style="margin:0;">or enter an address to...</p>
+<p class="text-center" style="margin:0;">or enter an address to</p>
 
 <div class="text-center lead">
     <i class="icon-map-marker" style="color:#ffffff;top:-12px;position:relative;"></i> 
     <span class="input-append">
-    <%= form_tag("/geolocate", method: "post") do %>
-    <%= text_field_tag :q, nil, class: "input-large" %>
-    <%= submit_tag "Find hospitals near you", class: "btn btn-primary"  %>
+    <%= form_tag("/geolocate", :method => :post) do %>
+    <%= text_field_tag :q, nil, :class => "input-large" %>
+    <%= submit_tag "Find hospitals near you", :class => "btn btn-primary"  %>
     <% end %>
     </span>
 </div>

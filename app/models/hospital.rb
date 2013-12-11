@@ -59,8 +59,9 @@ class Hospital < ActiveRecord::Base
   	end
   end
 
-  searchable do
-    text :name, :address, :city, :state, :zipcode
-  end
+  acts_as_indexed :fields => [:name, :address, :city, :state, :zipcode]
+  #searchable do
+  #  text :name, :address, :city, :state, :zipcode
+  #end
 
 end
