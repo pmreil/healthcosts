@@ -7,6 +7,9 @@ Healthcosts::Application.routes.draw do
   match 'apcs/:id/state/:state_id' => 'apcs#state'
   match 'apcs/:id/region/:region_id' => 'apcs#region'
   resources :hospitals, :only => [:index, :show]
+  match 'hospitals/:id/metrics' => 'hospitals#metrics'
+  match 'hospitals/:id/inpatient' => 'hospitals#inpatient'
+  match 'hospitals/:id/outpatient' => 'hospitals#outpatient'
   resources :costs, :only => [:index, :show]
   match '/compare_drg_costs' => 'costs#compare', :via => [:post]
   resources :apc_costs, :only => [:index, :show]

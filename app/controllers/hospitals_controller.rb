@@ -51,7 +51,21 @@ class HospitalsController < ApplicationController
     @hospital.update_lat_lng
     @costs = @hospital.costs.includes(:drg => :aliases)
     @apc_costs = @hospital.apc_costs.includes(:apc => :aliases)
+  end
+
+  def metrics
+    @hospital = Hospital.find(params[:id])
     @hcahps_metrics = @hospital.metric_values.includes(:metric_key)
+  end    
+
+  def inpatient
+    @hospital = Hospital.find(params[:id])
+    @costs = @hospital.costs.includes(:drg => :aliases)
+  end
+
+  def inpatient
+    @hospital = Hospital.find(params[:id])
+    @apc_costs = @hospital.apc_costs.includes(:apc => :aliases)
   end
 
 end

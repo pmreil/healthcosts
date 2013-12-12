@@ -3,11 +3,37 @@
 <% keywords "chargemaster rates, medicare billing, surgery costs, costs of healthcare, care prices, compare health costs, most expensive hospitals" %>
 
 <h1>Hospital Listings for Surgery Cost Comparisons</h1>
-<p class="lead">The <a href="http://www.cms.gov/" target="_blank">Centers for Medicare and Medicaid Services</a> released Hospital billing data for the top 100 Medical Diagnosis Related Groups (DRGs) in 2011 for more than 3000 U.S. Hospitals. View these surgery costs by searching for Hospital below (by region or state). You can also view <a href="/region/all/">all U.S. Hospitals in one list</a>.</p>
+<p class="lead">The <a href="http://www.cms.gov/" target="_blank">Centers for Medicare and Medicaid Services</a> released Hospital billing data for the top 100 Medical Diagnosis Related Groups (DRGs) in 2011 for more than 3000 U.S. Hospitals. View these surgery costs by searching for Hospital below (by region or state).</p>
 
-<hr/>
+<div class="text-center">
+<%= render "shared/ads970" %><br/><br/>
+</div>
 
-<p class="lead text-center"><i class="icon-map-marker"></i> Select a U.S. State to view their hospitals:
+<div class="text-center lead" style="margin:0;">
+    <i class="icon-search" style="color:#ffffff;top:-12px;position:relative;"></i> 
+    <span class="input-append">
+    <%= form_tag("/search", :method => :post) do %>
+    <%= text_field_tag :q, nil, :class => "input-large" %>
+    <%= submit_tag "Search hospitals by name", :class => "btn btn-primary"  %>
+    <% end %>
+    </span>
+</div>
+
+<p class="text-center" style="margin:0;">or enter an address to</p>
+
+<div class="text-center lead">
+    <i class="icon-map-marker" style="color:#ffffff;top:-12px;position:relative;"></i> 
+    <span class="input-append">
+    <%= form_tag("/geolocate", :method => :post) do %>
+    <%= text_field_tag :q, nil, :class => "input-large" %>
+    <%= submit_tag "Find hospitals near you", :class => "btn btn-primary"  %>
+    <% end %>
+    </span>
+</div>
+
+<p class="text-center">Alternatively, you can view by geography<br/><br/></p>
+
+<p class="text-center"><i class="icon-map-marker"></i> Select a U.S. State to view their hospitals:
   <select id="stateList">
     <option value="">Please choose..</option>
     <% @states.each do |state| %>

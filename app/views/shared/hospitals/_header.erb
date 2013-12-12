@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="span7">
+    <h1>Average Procedure Costs at <%= link_to @hospital.uc_name, "http://www.google.com/search?q="+@hospital.name+"&btnI", :target => "_blank" %></h1>
+    
+    <div class="row">
+      <div class="span3">
+        <p><b>Address</b>:<br/><%= @hospital.uc_address %></br>
+        <%= @hospital.city.capitalize %>, <%= @hospital.state %> <%= @hospital.zipcode %><br/>
+        <%= number_to_phone(@hospital.phone, :area_code => true) %><br/>
+        <a target="_blank" href="https://maps.google.com/maps?daddr=<%= CGI::escape(@hospital.address) %>+<%= @hospital.city %>+<%= @hospital.state %>&hl=en&mra=ls&t=m&z=11">Get Directions</a></p>
+
+      </div>
+      <div class="span4">
+        <b>Region:</b> <%= @hospital.referral_region %><br/>
+        <b>County:</b> <%= @hospital.county %><br/>
+        <b>Type:</b> <%= @hospital.hospital_type %><br/>
+        <b>Ownership:</b> <%= @hospital.ownership %><br/>
+        <b>Emergency Services:</b> <%= @hospital.emergency.nil? ? "Yes" : "No" %><br/>
+
+      </div>
+    </div>
+    <br/>
+    <div class="btn-group btn-group-vertical" style="width:100%">
+      <button class="btn" style="width:100%"><%= link_to "Inpatient Procedure Costs - #{@hospital.uc_name}", action: "inpatient" %></button>
+      <button class="btn" style="width:100%"><%= link_to "Outpatient Procedure Costs - #{@hospital.uc_name}", action: "outpatient" %></button>
+      <button class="btn" style="width:100%"><%= link_to "#{@hospital.uc_name} Patient Survey Results", action: "metrics" %></button>
+      <button class="btn" style="width:100%"><a href="#discuss">Discuss <%= @hospital.uc_name %> medical billing costs</a></button>
+      <button class="btn" style="width:100%"><a href="#news">News about <%= @hospital.uc_name %></a></button>
+    </div><br/><br/>
+
+<%= render "shared/share" %>
+
+  </div>
+  <div class="span5">
+    <br/><div id="map-canvas"></div>
+  </div>
+</div>
