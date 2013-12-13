@@ -1,0 +1,22 @@
+
+<% title "United States Hospital Listings for Medical Procedues and Surgery Prices" %>
+<% description 'Listing of American Hospitals - compare their surgery costs. Show what medicare paid for hospital bills and see how your local hospital compares by rank and percentile.' %>
+<% keywords "health cover compare, chargemaster rates, billing advocate, advocate billing, doctors billing, care prices, medicare billing, surgery costs, costs of healthcare, care prices, compare health costs, most expensive hospitals, low cost hospital, healthcare costs, health care costs, surgery" %>
+
+<br/><br/>
+
+<div class="text-center lead" style="margin:0;">
+    <i class="icon-search" style="color:#ffffff;top:-12px;position:relative;"></i> 
+    <span class="input-append">
+    <%= form_tag("/icd10s/search", :method => :post) do %>
+    <%= text_field_tag :q, nil, :class => "input-large" %>
+    <%= submit_tag "Search diagnoses by name", :class => "btn btn-primary"  %>
+    <% end %>
+    </span>
+</div>
+
+<% if !params[:q].nil? %>
+
+
+
+<% end %>

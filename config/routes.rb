@@ -19,6 +19,8 @@ Healthcosts::Application.routes.draw do
   post "search" => 'hospitals#search'
   post "geolocate" => 'hospitals#geolocate'
   match "/state/:id" => 'hospitals#state'
+  resources :icd10s, :only => [:index, :show]
+  post "icd10s/search" => "icd10s#search"
   root :to => 'static#index'
   match 'about' => 'static#about'
   match 'privacy' => 'static#privacy_policy'
