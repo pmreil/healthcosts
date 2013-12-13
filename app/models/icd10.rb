@@ -15,7 +15,7 @@ class Icd10 < ActiveRecord::Base
   acts_as_indexed :fields => [:code, :description]
 
   #has_and_belongs_to_many :drgs, :uniq => true
-  has_many :drgs_icd10s
+  has_many :drgs_icd10s, :primary_key => :code
   has_many :drgs, :through => :drgs_icd10s
 
   def uc_description
