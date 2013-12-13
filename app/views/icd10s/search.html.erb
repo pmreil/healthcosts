@@ -17,6 +17,10 @@
 
 <% if !params[:q].nil? %>
 
+	<p>Search Results for <%= params[:q] %></p>
 
+	<% @icd10s.each do |icd10| %>
+		<p><%= link_to icd10.description icd10.drg %>
+	<% end %>
 
 <% end %>
