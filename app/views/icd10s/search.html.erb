@@ -15,12 +15,20 @@
     </span>
 </div>
 
-<% if !params[:q].nil? %>
+<% if @icd10s.empty? %>
+    <h3>Sorry, no diagnoses matches "<%= params[:q] %>"</h3>
+<% else %>
+	<h3>Search Results for "<%= params[:q] %>"</h3>
 
-	<p>Search Results for <%= params[:q] %></p>
-
+    <ol>
 	<% @icd10s.each do |icd10| %>
-		<p><%= link_to icd10.description icd10.drg %>
+        <li><strong><%= icd10.description %></strong> (Diagnosis Code <%= icd10.code %>)<br/>
+            <ul>
+            <% icd10.drgs.each do |drg| %>
+    		  <li><%= link_to drg.description.capitalize, drg %></li>
+            <% end %>
+            </ul>
+        </li><br/>
 	<% end %>
-
+    </ol>
 <% end %>

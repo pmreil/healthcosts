@@ -1,10 +1,9 @@
 source 'https://rubygems.org'
 
 gem 'rails', '>=3.2.13'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '2.3.1.2' 
 gem 'font-awesome-sass-rails'
 gem 'jquery-rails'
-#gem 'will_paginate'
 gem 'geocoder'
 gem 'jquery-tablesorter'
 gem 'meta-tags', :require => 'meta_tags'
@@ -12,14 +11,13 @@ gem 'google-analytics-rails'
 gem 'sitemap_generator'
 gem 'therubyracer'
 
-#gem 'sunspot_rails'
 gem 'acts_as_indexed'
 
 #update to support vulnerability
 gem 'json', '>= 1.7.7'
 
 group :assets do
-  gem 'sass-rails', "  >= 3.2.3"
+  gem 'sass-rails', ">= 3.2.3"
   gem 'coffee-rails', ">= 3.2.1"
   gem 'uglifier', '>= 1.0.3'
 end
@@ -42,10 +40,9 @@ end
 
 group :development do
   gem 'mysql2'
-  gem 'rspec-rails', '2.5.0'
+  gem 'rspec-rails'#, '2.5.0'
   gem 'annotate', ">=2.5.0"
   gem 'rb-readline', '~> 0.4.2'
-  gem 'sunspot_solr'
 end
 
 group :production do

@@ -98,8 +98,6 @@ ActiveRecord::Schema.define(:version => 20131204233146) do
     t.datetime "updated_at",  :null => false
   end
 
-  add_index "icd10s", ["code"], :name => "code_UNIQUE", :unique => true
-
   create_table "metric_keys", :force => true do |t|
     t.integer  "metric_type"
     t.string   "metric_key"

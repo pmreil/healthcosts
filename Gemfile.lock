@@ -32,7 +32,7 @@ GEM
     annotate (2.5.0)
       rake
     arel (3.0.2)
-    bootstrap-sass (2.3.1.0)
+    bootstrap-sass (2.3.1.2)
       sass (~> 3.2)
     builder (3.0.4)
     coffee-rails (3.2.2)
@@ -112,7 +112,7 @@ GEM
       activesupport (~> 3.0)
       railties (~> 3.0)
       rspec (~> 2.5.0)
-    sass (3.2.9)
+    sass (3.2.12)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -125,7 +125,6 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sunspot_solr (2.1.0)
     therubyracer (0.12.0)
       libv8 (~> 3.16.14.0)
       ref
@@ -149,7 +148,7 @@ PLATFORMS
 DEPENDENCIES
   acts_as_indexed
   annotate (>= 2.5.0)
-  bootstrap-sass
+  bootstrap-sass (= 2.3.1.2)
   coffee-rails (>= 3.2.1)
   font-awesome-sass-rails
   geocoder
@@ -163,11 +162,10 @@ DEPENDENCIES
   rails (>= 3.2.13)
   rb-readline (~> 0.4.2)
   rspec (= 2.5.0)
-  rspec-rails (= 2.5.0)
+  rspec-rails
   sass-rails (>= 3.2.3)
   sitemap_generator
   spork
-  sunspot_solr
   therubyracer
   uglifier (>= 1.0.3)
   webrat (= 0.7.1)

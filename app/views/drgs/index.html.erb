@@ -4,7 +4,17 @@
 
 <h1>National Hospital Costs for Inpatient Surgeries and Procedures</h1>
 
-<p class="lead">The <a href="http://www.cms.gov/" target="_blank">Centers for Medicare and Medicaid Services</a> released hospital billing data for the top 100 Surgeries and Procedures of 2011. Click a diagnosis or procedure from the list below to compare what different U.S. hospitals billed for these surgeries and procedures compared to what Medicare reimbursed.</p>
+<p>The <a href="http://www.cms.gov/" target="_blank">Centers for Medicare and Medicaid Services</a> released hospital billing data for the top 100 Surgeries and Procedures of 2011. Click a diagnosis group from the list below to compare what different U.S. hospitals billed for these surgeries and procedures compared to what Medicare reimbursed. These diagnoses groups are vast, so you can also search the individual diagnoses that often accompany them with the following form:</p>
+
+<div>
+    <i class="icon-search" style="color:#ffffff;top:-12px;position:relative;"></i> 
+    <span class="input-append">
+    <%= form_tag("/icd10s/search", :method => :post) do %>
+    <%= text_field_tag :q, nil, :class => "input-large" %>
+    <%= submit_tag "Search individual diagnoses by name", :class => "btn btn-primary"  %>
+    <% end %>
+    </span>
+</div>
 
 <div class="text-center">
 <%= render "shared/ads970" %>
@@ -16,7 +26,7 @@
 <table id="sortTable" class="table table-striped table-border table-hover">
 <thead>
   <tr>
-    <th>DRG Code</th>
+    <th><nobr>DRG Code</nor></th>
     <th data-placeholder="Type to search procedures">Surgery, Procedure or Diagnosis Related Group (DRG) Description</th>
   </tr>
 </thead>
@@ -45,59 +55,3 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </div>
 
 </div>
-
-<%= render "shared/pager" %>
-
-<script>
-
-$(document).ready(function() {
-  // call the tablesorter plugin and apply the uitheme widget
-  $("#sortTable").tablesorter({
-    // this will apply the bootstrap theme if "uitheme" widget is included
-    // the widgetOptions.uitheme is no longer required to be set
-    theme : "bootstrap",
-
-    widthFixed: true,
-
-    headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
-
-    // widget code contained in the jquery.tablesorter.widgets.js file
-    // use the zebra stripe widget if you plan on hiding any rows (filter widget)
-    widgets : [ "uitheme", "filter", "zebra" ],
-
-    widgetOptions : {
-      // using the default zebra striping class name, so it actually isn't included in the theme variable above
-      // this is ONLY needed for bootstrap theming if you are using the filter widget, because rows are hidden
-      zebra : ["even", "odd"],
-
-      // reset filters button
-      filter_reset : ".reset"
-
-      // set the uitheme widget to use the bootstrap theme class names
-      // this is no longer required, if theme is set
-      // ,uitheme : "bootstrap"
-
-    }
-  })
-  .tablesorterPager({
-
-    // target the pager markup - see the HTML block below
-    container: $(".pager"),
-
-    size: 15,
-   
-    // target the pager page select dropdown - choose a page
-    cssGoto  : ".pagenum",
-
-    // remove rows from the table to speed up the sort of large tables.
-    // setting this to false, only hides the non-visible rows; needed if you plan to add/remove rows with the pager enabled.
-    removeRows: false,
-
-    // output string - default is '{page}/{totalPages}';
-    // possible variables: {page}, {totalPages}, {filteredPages}, {startRow}, {endRow}, {filteredRows} and {totalRows}
-    output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'
-
-  });
-});
-
-</script> 
