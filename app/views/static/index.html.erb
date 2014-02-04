@@ -5,21 +5,20 @@
 
 <div id="hero-pad"></div>
 <div class="hero-unit">
-  <h1 class="text-center">Compare Costs at Hospitals</h1>
-  <p>Surgery and Procedure Costs</p>
-<br/>
-
 
 <div class="row">
 
-  <div class="span6">
+    <div class="span8">
 
-    <div class="text-center" style="margin:0;">
+  <h1>Compare Surgery Costs at U.S. Hospitals</h1>
+
+<p><%= link_to "CMS", "http://www.cms.gov/", :target => "blank" %> provides <%= link_to "data", "http://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/index.html", :target => "blank" %> that shows what U.S. Hospitals billed Medicare for top diagnoses and surgery procedures and what Medicare actually reimbursed with wildy varying results</p>
+<p>Use the forms below to drill down through the data to see how your local <a href="/hospitals/">Hospital</a> compares</p>
 
       <i class="icon-search" style="color:#ffffff;top:-12px;position:relative;"></i> 
       <span class="input-append">
       <%= form_tag("/search", :method => :post) do %>
-      <%= text_field_tag :q, nil, :class => "input-large" %>
+      <%= text_field_tag :q, nil, :class => "input-large", :placeholder => "enter a name to" %>
       <%= submit_tag "Search Hospitals by name", :class => "btn btn-primary"  %>
       <% end %>
       </span><br/>
@@ -27,52 +26,54 @@
       <i class="icon-search" style="color:#ffffff;top:-12px;position:relative;"></i> 
       <span class="input-append">
       <%= form_tag("/icd10s/search", :method => :post) do %>
-      <%= text_field_tag :q, nil, :class => "input-large" %>
+      <%= text_field_tag :q, nil, :class => "input-large", :placeholder => "enter a diagnosis to" %>
       <%= submit_tag "Search Diagoses by name", :class => "btn btn-primary"  %>
       <% end %>
       </span><br/>
 
-    </div>
-  </div>
-  <div class="span4">
-
-    <div class="text-center" style="margin:0;">
-      <span style="position:relative;top:-12px;color:#fff;font-size:14px;">or enter an address to</span><br/>
-
       <nobr><i class="icon-map-marker" style="color:#ffffff;top:-12px;position:relative;"></i> 
-      <span class="input-append">
+      <span class="input-append" style="padding-left:8px;">
       <%= form_tag("/geolocate", :method => :post) do %>
-      <%= text_field_tag :q, nil, :class => "input-large" %>
+      <%= text_field_tag :q, nil, :class => "input-large", :placeholder => "enter an address to" %>
       <%= submit_tag "Find hospitals near you", :class => "btn btn-primary"  %>
       <% end %>
       </span></nobr><br/>
     </div>
 
+    <div class="span3 text-right">
+      <%= image_tag "homepage_logo.png" %>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="span4">
+  <a class="twitter-timeline" href="https://twitter.com/HospitalCosts" data-widget-id="429087868024131585">Tweets by @HospitalCosts</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  </div>
+
+  <div class="span4 text-center">
+    <div id="fb-root"></div>
+      <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=393409785298";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div class="fb-like-box" data-href="http://www.facebook.com/hospitalcostcompare" data-height="400" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="true" data-show-border="true"></div>
+  </div>
+  <div class="span4">
+
+    <%= render "shared/ads336" %>
+
+    <p>Search <a href='/hospitals'>over 3000 U.S. hosptals</a> by region and drill down into the diagnosis costs. Search <a href="/drgs/">inpatient procedures</a> or <a href="/apcs/">outpatient procedures</a> to compare costs across hospitals.</p>
+
   </div>
 
 </div>
 
 
-</div>
-
-  <p class="lead text-center"><i class="icon-map-marker"></i> Select a U.S. State to view their hospitals:
-  <select id="stateList">
-    <option value="">Pick a State</option>
-    <% @states.each do |state| %>
-    <option value="/state/<%= state.abbrev %>"><%= state.name.capitalize %></option> 
-    <% end %>
-  </select>
-  OR ..<br/>
-  <i class="icon-map-marker"></i> Select a U.S. Region to view their hospitals:
-  <select id="regionList">
-    <option value="">Pick a region</option>
-    <% @regions.each do |region| %>
-    <option value="/region/<%= region[0] %>"><%= region[0] %> (<%= region[1] %> hospitals)</option> 
-    <% end %>
-  </select>
-  </p>
-
-
- <p>May 8, 2013, the Centers for Medicare and Medicade <%= link_to "released data", "http://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/index.html", :target => "blank" %> showing what over 3000 U.S. Hospitals billed Medicare for the top 100 Inpatient Diagnoses and Surgery Procedures (<%= link_to "DRGs", "http://en.wikipedia.org/wiki/Diagnosis-related_group", :target=>"blank" %>) along with what Medicare actually reimbursed. A few weeks later they released data on 30 popular outpatient procedures (based on <a href="http://en.wikipedia.org/wiki/Ambulatory_Payment_Classification" target="_blank">APCs</a>). This data shows wildly different rates for the same surgeries and procedures. HopsitalCostCompare.com allows you to easily drill down through the all of the data by hospital or surgery/procedure to see how your local <a href="/hospitals/">Hospital</a> compares.  You can also see how much the same medical diagnoses are billed around the country.</p>
-
-<p>Search <a href='/hospitals'>over 3000 U.S. hosptals</a> by region and drill down into the diagnosis costs. Search <a href="/drgs/">inpatient procedures</a> or <a href="/apcs/">outpatient procedures</a> to compare costs across hospitals.</p>

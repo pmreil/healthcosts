@@ -31,6 +31,8 @@ class HospitalsController < ApplicationController
     if !params[:q].nil?
       #@hospital_results = Hospital.search { fulltext params[:q]}
       @hospitals = Hospital.find_with_index(params[:q])
+      @hospitalsCount = @hospitals.count
+      @hospitals = @hospitals.first(30) if @hospitalsCount > 30
       @hospitals.each do |h|
         h.update_lat_lng
       end
@@ -40,8 +42,12 @@ class HospitalsController < ApplicationController
   def geolocate
     if !params[:q].nil?
       @search_term = params[:q]
-      @hospitals = Hospital.near(params[:q],35)
+      @hospitals = Hospital.near(params[:q],30)
+      @geolocateSearch = true
+      @hospitalsCount = @hospitals.count
+      @hospitals = @hospitals.first(30) if @hospitalsCount > 30
     end
+    render :search
   end
 
   # GET /hospitals/1
