@@ -1,0 +1,160 @@
+<% title "Medical and surgery costs at "+@hospital.uc_name+", "+@hospital.city.capitalize+", "+@hospital.state %>
+<% description @hospital.uc_name+' surgery costs and medicare payments. Inpatient and outpatient procedure costs. Compare hospital costs in the US' %>
+<% keywords @hospital.uc_name+' hospital costs,'+@hospital.city.capitalize+' '+@hospital.state+','+"surgery costs, inpatient rates, outpatient rates, chargemaster rates, medicare rates, compare health costs, most expensive hospitals, care prices, medical billing costs, " %>
+
+<% page_title = "Outpatient Surgery and Procedure Costs at" %>
+<%= render "shared/hospitals/header", :page_title => page_title  %>
+
+<br/>
+<div class="text-center">
+<%= render "shared/ads970" %>
+</div>
+
+<a name="outpatient"></a>
+<br/><br/>
+<div class="row">
+<div class="span10">
+<h3>Outpatient Procedures</h3>
+<table id="sortTable2" class="table table-striped table-hover table-bordered">
+<thead>
+  <th data-placeholder="Type to search procedures">Diagnosis or Procedure Description</th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount hospital charged for this diagnoses/procedure in 2011 over total discharges">Hospital's Average Medical Billing for the Procedure</a></th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Difference between what this hospital charged and Medicare paid the hospital for the procedure">Hospital's Charge vs. Medicare Reimbursement Difference<!--<br/>(% Markup)--></a></th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount nationally charged for this DRG in 2011 over total discharges">National Average Covered Charge for Procedure</a></th>
+  <!--<th><a href="#" class="link" rel="tooltip" data-original-title="Percentage this Hospital charged for the procedure above or below the national average">Hospital's charge compared to the national average</a></th>-->
+  <th><a href="#" class="link" rel="tooltip" data-original-title="How many hospitals are more expensive for this diagnosis or procedure">Hospital's Rank for this diagnosis <!--(Percent of hospitals that are more expensive)--></a></th>
+  <th>Details</th>
+</thead>
+<tbody>
+<% @apc_costs.each do |cost| %>
+<tr>
+  <td><%= link_to cost.apc.uc_description, cost.apc %></td>
+  <td style="text-align:right;"><%= number_to_currency(cost.average_estimated_submitted_charges, :unit => "$") %></td>
+  <td align="right"><%= number_to_currency((cost.average_estimated_submitted_charges - cost.average_total_payments), :unit => '$') %> <!--(<%#= number_to_percentage(((cost.average_estimated_submitted_charges*100)/cost.average_total_payments), :precision => 0) %>)--></td>
+  <td style="text-align:right;"><%= number_to_currency(cost.apc.avg_estimated_submitted_charges, :unit => "$") %></td>
+  <!--<td align="right"><%#= number_to_percentage((((cost.average_estimated_submitted_charges-cost.apc.avg_estimated_submitted_charges)*100).abs/cost.apc.avg_estimated_submitted_charges), :precision => 0) %>
+    <%# if ((cost.average_estimated_submitted_charges-cost.apc.avg_estimated_submitted_charges)*100/cost.apc.avg_estimated_submitted_charges) > 0 %> higher <%# else %> lower <%# end %></td>-->
+  <td><%= cost.position %> out of <%= cost.count %> <%#= number_to_percentage(cost.percentile*100, :precision => 0) %></td>
+  <td><%= link_to "Details", cost, :class=>'btn btn-small' %></td>
+</tr>
+<% end %>
+</tbody>
+</table>
+</div>
+<div class="span2">
+<%= render "shared/ads160" %>
+</div>
+</div>
+
+<%= render "shared/pager", :pager => 2 %>
+
+<h3>Discuss <%= @hospital.uc_name %>'s hospital and surgery costs</h3>
+<%= render "shared/disqus" %>
+
+<h3>News about <%= @hospital.uc_name %></h3>
+<a name="news"></a>
+<div id="latestNews"></div>
+
+<div class="text-center">
+<%= render "shared/ads970" %>
+</div>
+
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+  $(function () {
+    $("[rel='tooltip']").tooltip();
+    $("a.link").click(function() {
+      return false;
+    });
+  });
+
+  $('#latestNews').FeedEk({
+    FeedUrl : 'https://news.google.com/news/feeds?q="<%= @hospital.name %>"&ie=UTF-8&output=rss',
+    MaxCount : 15,
+    ShowDesc : false,
+    ShowPubDate:true,
+    DescCharacterLimit:100,
+    TitleLinkTarget:'_blank'
+  });
+
+  loadMaps();
+
+
+  // call the tablesorter plugin and apply the uitheme widget
+  $("#sortTable").tablesorter({
+    theme : "bootstrap",
+    widthFixed: true,
+    headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+    headers: { 
+      //2: { sorter: false },
+      4: { sorter: false },
+      5: { sorter: false },
+    },
+    widgets : [ "uitheme", "filter", "zebra" ],
+    widgetOptions : {
+      zebra : ["even", "odd"],
+      filter_reset : ".reset"
+    }
+  })
+  .tablesorterPager({
+    container: $("#pager"),
+    cssGoto  : ".pagenum",
+    removeRows: false,
+    output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'
+  });
+
+  //do it for apcs too
+
+  // call the tablesorter plugin and apply the uitheme widget
+  $("#sortTable2").tablesorter({
+    theme : "bootstrap",
+    widthFixed: true,
+    headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+    headers: { 
+      2: { sorter: false },
+      4: { sorter: false },
+      5: { sorter: false },
+    },
+    widgets : [ "uitheme", "filter", "zebra" ],
+    widgetOptions : {
+      zebra : ["even", "odd"],
+      filter_reset : ".reset"
+    }
+  })
+  .tablesorterPager({
+    container: $("#pager2"),
+    cssGoto  : ".pagenum",
+    removeRows: false,
+    output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'
+  });
+
+
+});
+
+function loadMaps() {
+  google.load("maps", "3", {other_params:'sensor=false', "callback" : initialize});
+  var map;
+  google.maps.visualRefresh = true;
+}
+
+function initialize() {
+  var myLatLng = new google.maps.LatLng(<%= @hospital.latitude %>, <%= @hospital.longitude %>);
+  var mapOptions = {
+    zoom: 16,
+    center: myLatLng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    panControl: true,
+    streetViewControl: true,
+    overviewMapControl: true
+  };
+  map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+  var marker = new google.maps.Marker({
+      position: myLatLng,
+      map: map
+  });
+}
+
+</script> 

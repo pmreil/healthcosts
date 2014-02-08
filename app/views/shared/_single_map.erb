@@ -1,0 +1,57 @@
+function initialize_map() {
+
+  var MY_MAPTYPE_ID = 'custom_style';
+
+  var featureOpts = [
+    {
+      stylers: [
+        { hue: '#5CBC00' },
+        { gamma: 0.5 },
+        { weight: 0.5 }
+      ]
+    },
+    {
+      featureType: 'water',
+      stylers: [
+        { color: '#036AB2' }
+      ]
+    }
+  ];
+
+  var styledMapOptions = {
+    name: 'Custom Style'
+  };
+
+  var myLatLng = new google.maps.LatLng(<%= @hospital.latitude %>, <%= @hospital.longitude %>);
+  var mapOptions = {
+    zoom: 12,
+    center: myLatLng,
+    mapTypeId: MY_MAPTYPE_ID,
+    panControl: true,
+    streetViewControl: true,
+    overviewMapControl: true
+  };
+
+  map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+
+  var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
+  map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+
+  var image = '/assets/marker.png';
+  var marker = new google.maps.Marker({
+      position: myLatLng,
+      icon: image,
+      title: "<%= @hospital.name %>",
+      map: map
+  });
+
+  var infowindow = new google.maps.InfoWindow({
+      content: '<b><%= link_to @hospital.uc_name, @hospital %></b><br/><%= @hospital.address.capitalize %><br><%= @hospital.city.capitalize %>, <%= @hospital.state %>'
+  });
+
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.open(map,marker);
+  });
+
+}
+

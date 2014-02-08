@@ -1,8 +1,9 @@
-<% title "Medical and surgery costs at "+@hospital.uc_name+", "+@hospital.city.capitalize+", "+@hospital.state %>
+<% title "Patient Satisfaction Survey Results for "+@hospital.uc_name+", "+@hospital.city.capitalize+", "+@hospital.state %>
 <% description @hospital.uc_name+' surgery costs and medicare payments. Inpatient and outpatient procedure costs. Compare hospital costs in the US' %>
 <% keywords @hospital.uc_name+' hospital costs,'+@hospital.city.capitalize+' '+@hospital.state+','+"surgery costs, inpatient rates, outpatient rates, chargemaster rates, medicare rates, compare health costs, most expensive hospitals, care prices, medical billing costs, " %>
 
-<%= render "shared/hospitals/header" %>
+<% page_title = "Patient Satisfaction Survey Results for " %>
+<%= render "shared/hospitals/header", :page_title => page_title  %>
 
 <br/>
 <div class="text-center">
@@ -10,7 +11,7 @@
 </div>
 
 <h3><%= @hospital.uc_name %> Patient Survey Results</h3>
-<table id="sortTable" class="table table-striped table-hover table-bordered">
+<table class="table table-striped table-hover table-bordered">
 <tr>
 <thead>
   <th>Question</th>
@@ -43,39 +44,10 @@ Data from HCAHPS (<a href="http://www.hcahpsonline.org/" target="_blank">http://
 
 $(document).ready(function() {
 
-  $(function () {
-    $("[rel='tooltip']").tooltip();
-    $("a.link").click(function() {
-      return false;
-    });
-  });
-
-  loadMaps();
-
+  initialize_map();
 
 });
 
-function loadMaps() {
-  google.load("maps", "3", {other_params:'sensor=false', "callback" : initialize});
-  var map;
-  google.maps.visualRefresh = true;
-}
-
-function initialize() {
-  var myLatLng = new google.maps.LatLng(<%= @hospital.latitude %>, <%= @hospital.longitude %>);
-  var mapOptions = {
-    zoom: 16,
-    center: myLatLng,
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-    panControl: true,
-    streetViewControl: true,
-    overviewMapControl: true
-  };
-  map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
-  var marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map
-  });
-}
+<%= render "shared/single_map" %>
 
 </script> 

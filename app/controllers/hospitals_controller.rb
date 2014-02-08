@@ -69,7 +69,7 @@ class HospitalsController < ApplicationController
     @costs = @hospital.costs.includes(:drg => :aliases)
   end
 
-  def inpatient
+  def outpatient
     @hospital = Hospital.find(params[:id])
     @apc_costs = @hospital.apc_costs.includes(:apc => :aliases)
   end

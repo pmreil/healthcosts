@@ -25,6 +25,10 @@ h1 {
   font-size:22px;
 }
 
+h1 A {
+  color: $linkColorHover;
+}
+
 
       /* Sticky footer styles
       -------------------------------------------------- */
@@ -114,4 +118,12 @@ h1 {
 .cads {
   margin:0 auto;
   float:none;
+}
+
+.btn-primary A {
+  color:#ffffff;
+}
+
+#buttonWrapper DIV {
+  margin-bottom:10px;
 }
