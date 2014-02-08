@@ -7,9 +7,8 @@
 <div class='row'>
   <div class="span9">
     <% if !@costs.nil? %>
-    <p class="lead"><a href="http://www.cms.gov/" target="_blank">CMS.gov</a> released billing data from <%= @costs.count %> hospitals for <em>"<%= @drg.uc_description %>"</em> in 2011. The average medical billing charge was <%= number_to_currency(@average_covered_charges, :unit => "$") %> and the average medicare reimbursement was <%= number_to_currency(@average_total_payments, :unit => "$") %>.</p>
+    <p class="lead"><a href="http://www.cms.gov/" target="_blank">CMS.gov</a> released billing data from <%= @count %> hospitals for <em>"<%= @drg.uc_description %>"</em> in 2011. The average medical billing charge was <%= number_to_currency(@average_covered_charges, :unit => "$") %> and the average medicare reimbursement was <%= number_to_currency(@average_total_payments, :unit => "$") %>.</p>
 
-    <p>The highest charge below  is <%= number_to_currency(@costs.first.average_covered_charges, :unit => "$") %> at <%= link_to @costs.first.hospital.uc_name, @costs.first.hospital %> and the lowest charge was <%= number_to_currency(@costs.last.average_covered_charges, :unit => "$") %> at <%= link_to @costs.last.hospital.uc_name, @costs.first.hospital %></p>
     <% end %>
   </div>
   <div class="span3">
@@ -23,7 +22,7 @@
     <div class="span9">
     <h3>ICD10 Diagnosis Codes Associated with this Inpatient Procedure</h3>  
     <% @icd10s.each do |icd10| %>
-      <%= icd10.description %><br/>
+      <%= icd10.code %> <%= icd10.description %><br/>
     <% end %>
   </div>
 </div>

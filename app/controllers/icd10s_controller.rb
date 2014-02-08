@@ -5,6 +5,7 @@ class Icd10sController < ApplicationController
   def search
     if !params[:q].nil?
       @icd10s = Icd10.find_with_index("^"+params[:q])
+      @icd10s = @icd10s.sort_by { |icd10| icd10.description }
     end
   end
 

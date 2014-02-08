@@ -3,7 +3,10 @@
 <% description 'Listing of American Hospitals - compare their surgery costs. Show what medicare paid for hospital bills and see how your local hospital compares by rank and percentile.' %>
 <% keywords "health cover compare, chargemaster rates, billing advocate, advocate billing, doctors billing, care prices, medicare billing, surgery costs, costs of healthcare, care prices, compare health costs, most expensive hospitals, low cost hospital, healthcare costs, health care costs, surgery" %>
 
-<br/><br/>
+
+<h1>Search ICD10 Diangnoses to see associated DRG Pricing Data</h1>
+
+<p><a href="http://www.cms.gov/" target="_blank">CMS.gov</a> released hospital billing data for the top 100 Surgeries and Procedures of 2011. These diagnoses groups are vast, so search the individual diagnoses are associated with the DRGS below:</p>
 
 <div class="text-center lead" style="margin:0;">
     <i class="icon-search" style="color:#ffffff;top:-12px;position:relative;"></i> 
@@ -22,15 +25,22 @@
 <% else %>
 	<h3>Search Results for "<%= params[:q] %>"</h3>
 
-    <ol>
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>Diagnosis</th>
+        <th>ICD10 Code</th>
+        <th>Associated DRGS</th>
+    </tr>
 	<% @icd10s.each do |icd10| %>
-        <li><strong><%= icd10.description %></strong> (Diagnosis Code <%= icd10.code %>)<br/>
-            <ul>
-            <% icd10.drgs.each do |drg| %>
-    		  <li><%= link_to drg.description.capitalize, drg %></li>
-            <% end %>
-            </ul>
-        </li><br/>
+        <tr>
+            <td><%= icd10.description %></td>
+            <td><%= icd10.code %></td>
+            <td>
+                <% icd10.drgs.each do |drg| %>
+    		      <%= link_to drg.description.capitalize, drg %><br/>
+                <% end %>
+            </td>
+        </tr>
 	<% end %>
-    </ol>
+    </table>
 <% end %>

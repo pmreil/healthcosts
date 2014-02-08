@@ -3,20 +3,28 @@
 <% description 'Listing of American Hospitals - compare their surgery costs. Show what medicare paid for hospital bills and see how your local hospital compares by rank and percentile.' %>
 <% keywords "health cover compare, chargemaster rates, billing advocate, advocate billing, doctors billing, care prices, medicare billing, surgery costs, costs of healthcare, care prices, compare health costs, most expensive hospitals, low cost hospital, healthcare costs, health care costs, surgery" %>
 
+
+<h1>Search ICD10 Diangnoses to see associated DRG Pricing Data</h1>
+
+<p><a href="http://www.cms.gov/" target="_blank">CMS.gov</a> released hospital billing data for the top 100 Surgeries and Procedures of 2011. These diagnoses groups are vast, so search the individual diagnoses are associated with the DRGS below:</p>
+
 <br/><br/>
 
 <div class="text-center lead" style="margin:0;">
     <i class="icon-search" style="color:#ffffff;top:-12px;position:relative;"></i> 
     <span class="input-append">
     <%= form_tag("/icd10s/search", :method => :post) do %>
-    <%= text_field_tag :q, nil, :class => "input-large" %>
-    <%= submit_tag "Search diagnoses by name", :class => "btn btn-primary"  %>
+    <%= text_field_tag :q, nil, :class => "input-large", :placeholder => "ex. Asthma" %>
+    <%= submit_tag "Search diagnoses compare costs", :class => "btn btn-primary"  %>
     <% end %>
     </span>
 </div>
 
+<div class="text-center">
+<%= render "shared/ads970" %>
+</div>
+<br/>
 <% if !params[:q].nil? %>
 
-print list here
 
 <% end %>

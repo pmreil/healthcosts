@@ -5,16 +5,22 @@
 <% page_title = "Outpatient Surgery and Procedure Costs at" %>
 <%= render "shared/hospitals/header", :page_title => page_title  %>
 
+<a name="outpatient"></a>
+<h3>Outpatient Procedures</h3>
+
+<p>Listed below are up to 30 different outpatient procedures performed by <%= @hospital.uc_name %>. These procedures are categorized by APC code and the hospital's average charge for these procedures, along with their rank nationally is displayed.</p>
+
+<p>Each APC represents a variety of different diagnoses and can include different types of procedures. This data is best for high level comparison as different factors play into any hospital charges.</p>
+
 <br/>
+
 <div class="text-center">
 <%= render "shared/ads970" %>
 </div>
 
-<a name="outpatient"></a>
-<br/><br/>
+<br/>
 <div class="row">
 <div class="span10">
-<h3>Outpatient Procedures</h3>
 <table id="sortTable2" class="table table-striped table-hover table-bordered">
 <thead>
   <th data-placeholder="Type to search procedures">Diagnosis or Procedure Description</th>
@@ -46,15 +52,6 @@
 </div>
 </div>
 
-<%= render "shared/pager", :pager => 2 %>
-
-<h3>Discuss <%= @hospital.uc_name %>'s hospital and surgery costs</h3>
-<%= render "shared/disqus" %>
-
-<h3>News about <%= @hospital.uc_name %></h3>
-<a name="news"></a>
-<div id="latestNews"></div>
-
 <div class="text-center">
 <%= render "shared/ads970" %>
 </div>
@@ -70,43 +67,6 @@ $(document).ready(function() {
       return false;
     });
   });
-
-  $('#latestNews').FeedEk({
-    FeedUrl : 'https://news.google.com/news/feeds?q="<%= @hospital.name %>"&ie=UTF-8&output=rss',
-    MaxCount : 15,
-    ShowDesc : false,
-    ShowPubDate:true,
-    DescCharacterLimit:100,
-    TitleLinkTarget:'_blank'
-  });
-
-  loadMaps();
-
-
-  // call the tablesorter plugin and apply the uitheme widget
-  $("#sortTable").tablesorter({
-    theme : "bootstrap",
-    widthFixed: true,
-    headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
-    headers: { 
-      //2: { sorter: false },
-      4: { sorter: false },
-      5: { sorter: false },
-    },
-    widgets : [ "uitheme", "filter", "zebra" ],
-    widgetOptions : {
-      zebra : ["even", "odd"],
-      filter_reset : ".reset"
-    }
-  })
-  .tablesorterPager({
-    container: $("#pager"),
-    cssGoto  : ".pagenum",
-    removeRows: false,
-    output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'
-  });
-
-  //do it for apcs too
 
   // call the tablesorter plugin and apply the uitheme widget
   $("#sortTable2").tablesorter({
@@ -124,37 +84,11 @@ $(document).ready(function() {
       filter_reset : ".reset"
     }
   })
-  .tablesorterPager({
-    container: $("#pager2"),
-    cssGoto  : ".pagenum",
-    removeRows: false,
-    output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'
-  });
 
+  initialize_map();
 
 });
 
-function loadMaps() {
-  google.load("maps", "3", {other_params:'sensor=false', "callback" : initialize});
-  var map;
-  google.maps.visualRefresh = true;
-}
-
-function initialize() {
-  var myLatLng = new google.maps.LatLng(<%= @hospital.latitude %>, <%= @hospital.longitude %>);
-  var mapOptions = {
-    zoom: 16,
-    center: myLatLng,
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-    panControl: true,
-    streetViewControl: true,
-    overviewMapControl: true
-  };
-  map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
-  var marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map
-  });
-}
-
+<%= render "shared/single_map" %>
+  
 </script> 

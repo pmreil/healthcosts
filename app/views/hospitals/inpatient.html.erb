@@ -5,15 +5,21 @@
 <% page_title = "Inpatient Surgery and Procedure Costs at" %>
 <%= render "shared/hospitals/header", :page_title => page_title  %>
 
+<h3>Inpatient Procedure Costs at <%= @hospital.uc_name %></h3>
+<p>Listed below are up to 100 different surgical procedures performed by <%= @hospital.uc_name %>. These procedures are categorized by DRG code and the hospital's average charge for these procedures, along with their rank nationally is displayed.</p>
+
+<p>Each DRG represents a variety of different diagnoses and can include different types of procedures. This data is best for high level comparison as different factors play into any hospital charges. If you click on the description you can see the various medical diagnoses encompassed by the DRG. Additionally you can <%= link_to 'search diagnoses', controller: 'icd10s' %> to find the appropriate DRG for your research.</p>
 <br/>
+
+<div class="row">
+<div class="span10">
+
+
 <div class="text-center">
 <%= render "shared/ads970" %>
 </div>
+<br/>
 
-<br/><br/>
-<div class="row">
-<div class="span10">
-<h3>Inpatient Procedure Costs at <%= @hospital.uc_name %></h3>
 <table id="sortTable" class="table table-striped table-hover table-bordered">
 <thead>
   <th data-placeholder="Type to search procedures">Diagnosis or Procedure Description</th>
@@ -42,6 +48,8 @@
 </div>
 
 <div class="span2">
+<%= render "shared/ads160" %><br/><br/>
+<%= render "shared/ads160" %><br/><br/>
 <%= render "shared/ads160" %>
 </div>
 

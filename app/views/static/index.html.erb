@@ -1,5 +1,5 @@
 
-<% title "United States Hospital Listings for Medical Procedues and Surgery Prices" %>
+<% title "United States Hospital Listings for Medical Procedues and Surgery Costs and Prices" %>
 <% description 'Listing of American Hospitals - compare their surgery costs. Show what medicare paid for hospital bills and see how your local hospital compares by rank and percentile.' %>
 <% keywords "health cover compare, chargemaster rates, billing advocate, advocate billing, doctors billing, care prices, medicare billing, surgery costs, costs of healthcare, care prices, compare health costs, most expensive hospitals, low cost hospital, healthcare costs, health care costs, surgery" %>
 
@@ -12,13 +12,13 @@
 
   <h1>Compare Surgery Costs at U.S. Hospitals</h1>
 
-<p><%= link_to "CMS", "http://www.cms.gov/", :target => "blank" %> provides <%= link_to "data", "http://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/index.html", :target => "blank" %> that shows what U.S. Hospitals billed Medicare for top diagnoses and surgery procedures and what Medicare actually reimbursed with wildy varying results</p>
-<p>Use the forms below to drill down through the data to see how your local <a href="/hospitals/">Hospital</a> compares</p>
+<p><%= link_to "CMS", "http://www.cms.gov/", :target => "blank" %> provides <%= link_to "data", "http://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/index.html", :target => "blank" %> that shows what U.S. Hospitals billed Medicare for top diagnoses and surgery procedures and what Medicare actually reimbursed them. The numbers vary dramatically.</p>
+<p>Use the forms below to drill down through the data to see how your local <a href="/hospitals/">Hospital</a> compares.</p>
 
       <i class="icon-search" style="color:#ffffff;top:-12px;position:relative;"></i> 
       <span class="input-append">
       <%= form_tag("/search", :method => :post) do %>
-      <%= text_field_tag :q, nil, :class => "input-large", :placeholder => "enter a name to" %>
+      <%= text_field_tag :q, nil, :class => "input-large", :placeholder => "enter a hospital name to" %>
       <%= submit_tag "Search Hospitals by name", :class => "btn btn-primary"  %>
       <% end %>
       </span><br/>
@@ -70,6 +70,7 @@
 
     <%= render "shared/ads336" %>
 
+    <br/>
     <p>Search <a href='/hospitals'>over 3000 U.S. hosptals</a> by region and drill down into the diagnosis costs. Search <a href="/drgs/">inpatient procedures</a> or <a href="/apcs/">outpatient procedures</a> to compare costs across hospitals.</p>
 
   </div>
