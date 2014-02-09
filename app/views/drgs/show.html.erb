@@ -7,7 +7,12 @@
 <div class='row'>
   <div class="span9">
     <% if !@costs.nil? %>
-    <p class="lead"><a href="http://www.cms.gov/" target="_blank">CMS.gov</a> released billing data from <%= @count %> hospitals for <em>"<%= @drg.uc_description %>"</em> in 2011. The average medical billing charge was <%= number_to_currency(@average_covered_charges, :unit => "$") %> and the average medicare reimbursement was <%= number_to_currency(@average_total_payments, :unit => "$") %>.</p>
+    <p class="lead"><a href="http://www.cms.gov/" target="_blank">CMS.gov</a> released billing data from <%= @count %> hospitals for <em>"<%= @drg.uc_description %>"</em> in 2011
+        <% if defined? @state %> in <%= @state.name.capitalize %><% end %>
+        <% if defined? @region %> in <%= @region %><% end %>
+
+
+      . The average medical billing charge was <%= number_to_currency(@average_covered_charges, :unit => "$") %> and the average medicare reimbursement was <%= number_to_currency(@average_total_payments, :unit => "$") %>.</p>
 
     <% end %>
   </div>
@@ -17,18 +22,6 @@
     <p><a href="/drgs/" class="btn btn-small btn-primary">Back to Diagnosis List</a></p>
   </div>
 </div>
-
-<div class='row'>
-    <div class="span9">
-    <h3>ICD10 Diagnosis Codes Associated with this Inpatient Procedure</h3>  
-    <% @icd10s.each do |icd10| %>
-      <%= icd10.code %> <%= icd10.description %><br/>
-    <% end %>
-  </div>
-</div>
-
-<hr/>
-
 
   <p class="lead pagination-centered">
 <% if @state.nil? && @region.nil? %>
@@ -50,11 +43,10 @@ Top 10 most expensive Hospitals displayed below. Use the form below to search by
   </select>
   </p>
 
-  <hr/>
-
 <div clas="row"><div class="span10 text-center" >
-<%= render "shared/ads970" %>
+<%= render "shared/ads970" %><br/>
 </div></div>
+<br/>
 
 <% if !@costs.nil? %>
 
@@ -99,14 +91,21 @@ Top 10 most expensive Hospitals displayed below. Use the form below to search by
 
 </div>
 
-<%= render "shared/pager" %>
-
 <% end %>
 
 <div clas="row"><div class="span12 text-center" >
+  <br/>
 <%= render "shared/ads970" %>
 </div></div>
 
+
+    <h3>ICD10 Diagnosis Codes Associated with this Inpatient Procedure</h3>  
+    <p>The follow ICD10 codes are associated with the <%= @drg.description %> diagnosis related group. You can search others at the <%= link_to "diagnosis", controller => "diagnosis" %> search page.</p>
+    <ul>
+    <% @icd10s.each do |icd10| %>
+      <li><%= link_to "#{icd10.code} #{icd10.description}", icd10 %></li>
+    <% end %>
+  </ul>
 
 <h3>Discuss <%= @drg.uc_description %></h3>
 <%= render "shared/disqus" %>
@@ -151,25 +150,6 @@ $(document).ready(function() {
 
     }
   })
-  .tablesorterPager({
-
-    // target the pager markup - see the HTML block below
-    container: $(".pager"),
-
-    size: 15,
-
-    // target the pager page select dropdown - choose a page
-    cssGoto  : ".pagenum",
-
-    // remove rows from the table to speed up the sort of large tables.
-    // setting this to false, only hides the non-visible rows; needed if you plan to add/remove rows with the pager enabled.
-    removeRows: false,
-
-    // output string - default is '{page}/{totalPages}';
-    // possible variables: {page}, {totalPages}, {filteredPages}, {startRow}, {endRow}, {filteredRows} and {totalRows}
-    output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'
-
-  });
 });
 
 </script> 
