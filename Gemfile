@@ -10,6 +10,7 @@ gem 'meta-tags', :require => 'meta_tags'
 gem 'google-analytics-rails'
 gem 'sitemap_generator'
 gem 'therubyracer'
+gem 'nokogiri', '~> 1.5.10'
 
 gem 'acts_as_indexed'
 

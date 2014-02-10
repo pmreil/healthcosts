@@ -1,24 +1,24 @@
 Healthcosts::Application.routes.draw do
   #resources :costs
   resources :drgs, :only => [:index, :show]
-  match 'drgs/:id/state/:state_id' => 'drgs#state'
-  match 'drgs/:id/region/:region_id' => 'drgs#region'
+  match 'drgs/:id/state/:state_id' => 'drgs#state', :as => "drgs_state"
+  match 'drgs/:id/region/:region_id' => 'drgs#region', :as => "drgs_region"
   resources :apcs, :only => [:index, :show]
-  match 'apcs/:id/state/:state_id' => 'apcs#state'
+  match 'apcs/:id/state/:state_id' => 'apcs#state', :as => "apcs_state"
   match 'apcs/:id/region/:region_id' => 'apcs#region'
   resources :hospitals, :only => [:index, :show]
-  match 'hospitals/:id/metrics' => 'hospitals#metrics'
-  match 'hospitals/:id/inpatient' => 'hospitals#inpatient'
-  match 'hospitals/:id/outpatient' => 'hospitals#outpatient'
+  match 'hospitals/:id/metrics' => 'hospitals#metrics', :as => "hospital_metrics"
+  match 'hospitals/:id/inpatient' => 'hospitals#inpatient', :as => "hospital_inpatient"
+  match 'hospitals/:id/outpatient' => 'hospitals#outpatient', :as => "hospital_outpatient"
   resources :costs, :only => [:index, :show]
   match '/compare_drg_costs' => 'costs#compare', :via => [:post]
   resources :apc_costs, :only => [:index, :show]
   match '/compare_apc_costs' => 'apc_costs#compare', :via => [:post]
-  match "/region/:id" => 'hospitals#region'
+  match "/region/:id" => 'hospitals#region', :as => "hospital_region"
   get "state" => 'hospitals#state'
   post "search" => 'hospitals#search'
   post "geolocate" => 'hospitals#geolocate'
-  match "/state/:id" => 'hospitals#state'
+  match "/state/:id" => 'hospitals#state', :as => "hospital_state"
   resources :icd10s, :only => [:index, :show]
   post "icd10s/search" => "icd10s#search"
   root :to => 'static#index'

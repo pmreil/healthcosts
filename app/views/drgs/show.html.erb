@@ -19,6 +19,7 @@
   <div class="span3">
     <br/>
     <p><a href="#discuss" class="btn btn-small btn-primary">Discuss <%= @drg.uc_description %></a></p>
+    <p><a href="#icd10s" class="btn btn-small btn-primary">View all ICD10 Diagnoses for this Pricing Group</a></p>
     <p><a href="/drgs/" class="btn btn-small btn-primary">Back to Diagnosis List</a></p>
   </div>
 </div>
@@ -86,6 +87,8 @@ Top 10 most expensive Hospitals displayed below. Use the form below to search by
 </div>
 
 <div class="span2">
+<%= render "shared/ads160" %><br/><br/>
+<%= render "shared/ads160" %><br/><br/>
 <%= render "shared/ads160" %>
 </div>
 
@@ -98,12 +101,12 @@ Top 10 most expensive Hospitals displayed below. Use the form below to search by
 <%= render "shared/ads970" %>
 </div></div>
 
-
+<a name="icd10s"></a>
     <h3>ICD10 Diagnosis Codes Associated with this Inpatient Procedure</h3>  
     <p>The follow ICD10 codes are associated with the <%= @drg.description %> diagnosis related group. You can search others at the <%= link_to "diagnosis", controller => "diagnosis" %> search page.</p>
     <ul>
     <% @icd10s.each do |icd10| %>
-      <li><%= link_to "#{icd10.code} #{icd10.description}", icd10 %></li>
+      <li>ICD10 Code: <%= icd10.code %> - <%= icd10.description %></li>
     <% end %>
   </ul>
 
