@@ -2,18 +2,19 @@
 #
 # Table name: costs
 #
-#  id                      :integer          not null, primary key
-#  drg_code                :integer
-#  hospital_ext_id         :integer
-#  year                    :integer
-#  total_discharges        :integer
-#  average_covered_charges :integer
-#  average_total_payments  :integer
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  position                :integer
-#  count                   :integer
-#  percentile              :float
+#  id                        :integer          not null, primary key
+#  drg_code                  :integer
+#  hospital_ext_id           :integer
+#  year                      :integer
+#  total_discharges          :integer
+#  average_covered_charges   :integer
+#  average_total_payments    :integer
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  position                  :integer
+#  count                     :integer
+#  percentile                :float
+#  average_medicare_payments :integer
 #
 
 class Cost < ActiveRecord::Base

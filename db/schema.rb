@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131204233146) do
+ActiveRecord::Schema.define(:version => 20140920121934) do
 
   create_table "aliases", :force => true do |t|
     t.string   "name"
@@ -51,11 +51,12 @@ ActiveRecord::Schema.define(:version => 20131204233146) do
     t.integer  "total_discharges"
     t.integer  "average_covered_charges"
     t.integer  "average_total_payments"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
     t.integer  "position"
     t.integer  "count"
     t.float    "percentile"
+    t.integer  "average_medicare_payments"
   end
 
   create_table "drgs", :force => true do |t|
@@ -68,8 +69,8 @@ ActiveRecord::Schema.define(:version => 20131204233146) do
   end
 
   create_table "drgs_icd10s", :id => false, :force => true do |t|
-    t.integer "drg_id",   :null => false
-    t.integer "icd10_id", :null => false
+    t.integer "drg_id",                 :null => false
+    t.string  "icd10_id", :limit => 16, :null => false
   end
 
   create_table "hospitals", :force => true do |t|
@@ -98,6 +99,8 @@ ActiveRecord::Schema.define(:version => 20131204233146) do
     t.datetime "updated_at",  :null => false
   end
 
+  add_index "icd10s", ["code"], :name => "code_UNIQUE", :unique => true
+
   create_table "metric_keys", :force => true do |t|
     t.integer  "metric_type"
     t.string   "metric_key"
@@ -122,6 +125,18 @@ ActiveRecord::Schema.define(:version => 20131204233146) do
     t.datetime "updated_at",      :null => false
   end
 
+  create_table "organizations", :force => true do |t|
+    t.string   "name"
+    t.integer  "pacid"
+    t.integer  "members"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.integer  "state_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "providers", :force => true do |t|
     t.integer  "npi"
     t.string   "pacid"
@@ -140,6 +155,24 @@ ActiveRecord::Schema.define(:version => 20131204233146) do
     t.boolean  "participating_in_ehr"
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
+  end
+
+  add_index "providers", ["npi"], :name => "index_providers_on_npi", :unique => true
+
+  create_table "providers_organizations", :id => false, :force => true do |t|
+    t.integer "npi_id",          :null => false
+    t.integer "organization_id", :null => false
+  end
+
+  create_table "providers_specialties", :id => false, :force => true do |t|
+    t.integer "npi_id",       :null => false
+    t.integer "specialty_id", :null => false
+  end
+
+  create_table "specialties", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "states", :force => true do |t|

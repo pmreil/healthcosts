@@ -2,8 +2,8 @@
 #
 # Table name: icd10s
 #
-#  id          :integer          not null
-#  code        :string(255)      primary key
+#  id          :integer          not null, primary key
+#  code        :string(255)
 #  description :string(255)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
