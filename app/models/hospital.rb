@@ -29,6 +29,11 @@ class Hospital < ActiveRecord::Base
   has_many :metric_values, :foreign_key => 'hospital_ext_id'
   has_many :metric_keys, :through => :metric_values
 
+  has_many :providers_hospitals, :foreign_key => :hospital_id
+  has_many :providers, :through => :providers_hospitals
+
+
+
   reverse_geocoded_by :latitude, :longitude
   geocoded_by :address_string   # can also be an IP address
   after_validation :geocode

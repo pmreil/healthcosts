@@ -26,8 +26,17 @@ class Provider < ActiveRecord::Base
   set_primary_key :npi
   #has_many :costs, :foreign_key => 'drg_code'
 
-  #has_and_belongs_to_many :icd10s, :uniq => true
   has_many :providers_organizations, :foreign_key => :npi_id
   has_many :organizations, :through => :providers_organizations
+
+  has_many :addresses, as: :addressable
+
+  has_many :providers_specialties, :foreign_key => :npi_id
+  has_many :specialties, :through => :providers_specialties
+
+  has_many :providers_hospitals, :foreign_key => :npi_id
+  has_many :hospitals, :through => :providers_hospitals
+
+  has_many :providers_costs, :foreign_key => :npi
 
 end

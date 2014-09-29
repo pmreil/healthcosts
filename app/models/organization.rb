@@ -19,4 +19,7 @@ class Organization < ActiveRecord::Base
   has_many :providers_organizations
   has_many :providers, :through => :providers_organizations
 
+  has_many :addresses, as: :addressable
+
+
 end
