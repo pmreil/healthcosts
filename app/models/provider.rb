@@ -24,12 +24,23 @@
 
 class Provider < ActiveRecord::Base
   set_primary_key :npi
-  #has_many :costs, :foreign_key => 'drg_code'
+  acts_as_indexed :fields => [:first_name, :last_name]
+
+  scope :specialty, ->(specialty) { joins(:specialties).where('specialty_id = ?', specialty) }
+
+#  scope :state_id, ->(state_id) do 
+#    if self.organizations.count > 0
+#      joins(:organizations).joins(:addresses).where("addresses.state_id = ?", state_id)
+#    else
+#      joins(:addresses).where("addresses.state_id = ?", state_id)
+#    end
+#  end
 
   has_many :providers_organizations, :foreign_key => :npi_id
   has_many :organizations, :through => :providers_organizations
 
-  has_many :addresses, as: :addressable
+  #has_many :addresses, as: :addressable
+  has_many :addresses, through: :organizations
 
   has_many :providers_specialties, :foreign_key => :npi_id
   has_many :specialties, :through => :providers_specialties
@@ -39,4 +50,11 @@ class Provider < ActiveRecord::Base
 
   has_many :providers_costs, :foreign_key => :npi
 
+  def state_id(state_id)
+    if self.organizations.count > 0
+      self.joins(:organizations).joins(:addresses).where("addresses.state_id = ?", state_id)
+    else
+      self.joins(:addresses).where("addresses.state_id = ?", state_id)
+    end
+  end
 end

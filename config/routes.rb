@@ -26,6 +26,9 @@ Healthcosts::Application.routes.draw do
   match 'privacy' => 'static#privacy_policy'
   match 'terms' => 'static#terms'
 
+  resources :providers, :only => [:index, :show]
+  post "providers/search" => "providers#search"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
