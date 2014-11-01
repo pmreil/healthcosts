@@ -1,0 +1,53 @@
+<% title "United States Doctors Listing for Medicare Prices" %>
+<% description 'Listing of American Doctors to compare their procedure costs. Click to compare provider billing costs in the US' %>
+<% keywords "chargemaster rates, medicare billing, surgery costs, costs of healthcare, care prices, compare health costs, most expensive hospitals" %>
+
+<h1>Providers Listings with Medical Cost Comparisons</h1>
+<p class="lead">View U.S. hospital surgery and procedure costs by searching for Hospitals below</p>
+
+<div class="text-center">
+<%= render "shared/ads970" %><br/><br/>
+</div>
+
+<div class="row">
+  <div class="span6">
+
+<%= form_tag({controller: "providers", action: "search"}, method: "post") do %>
+  <%= label_tag(:q, "Search for:") %>
+  <%= text_field_tag(:q) %>
+  <%= select_tag(:specialty, options_for_select(@specialties_array)) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+    <p class="text-center"><strong>Search by name</strong><br/></p>
+
+    <div class="text-center lead" style="margin:0;">
+    <i class="icon-search" style="color:#ffffff;top:-12px;position:relative;"></i> 
+    <span class="input-append">
+    <%= form_tag("/physicians/search", :method => :post) do %>
+    <%= text_field_tag :q, nil, :class => "input-large" %>
+    <%= submit_tag "Search providers by name", :class => "btn btn-primary"  %>
+    <% end %>
+    </span>
+    </div>
+
+  </div>
+  <div class="span6">
+
+    <p class="text-center"><strong>Search by address</strong><br/></p>
+
+    <div class="text lead">
+    <i class="icon-map-marker" style="color:#ffffff;top:-12px;position:relative;"></i> 
+    <span class="input-append">
+    <%= form_tag("/geolocate", :method => :post) do %>
+    <%= text_field_tag :q, nil, :class => "input-large", :placeholder => "enter an address to" %>
+    <%= submit_tag "Find hospitals near you", :class => "btn btn-primary"  %>
+    <% end %>
+    </span>
+    </div>
+
+
+  </div>
+</div>
+<hr/>
+

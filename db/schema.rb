@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140928222807) do
+ActiveRecord::Schema.define(:version => 20141101201557) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "pacid",            :limit => 8
@@ -50,6 +50,9 @@ ActiveRecord::Schema.define(:version => 20140928222807) do
     t.integer  "count"
     t.float    "percentile"
   end
+
+  add_index "apc_costs", ["apc_code"], :name => "index_apc_costs_on_apc_code"
+  add_index "apc_costs", ["hospital_ext_id"], :name => "index_apc_costs_on_hospital_ext_id"
 
   create_table "apcs", :force => true do |t|
     t.integer  "code"
@@ -146,6 +149,9 @@ ActiveRecord::Schema.define(:version => 20140928222807) do
     t.datetime "updated_at",  :null => false
   end
 
+  add_index "metric_keys", ["metric_key"], :name => "index_metric_keys_on_metric_key"
+  add_index "metric_keys", ["metric_type"], :name => "index_metric_keys_on_metric_type"
+
   create_table "metric_types", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -162,6 +168,9 @@ ActiveRecord::Schema.define(:version => 20140928222807) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
+
+  add_index "metric_values", ["hospital_ext_id"], :name => "index_metric_values_on_hospital_ext_id"
+  add_index "metric_values", ["metric_key_id"], :name => "index_metric_values_on_metric_key_id"
 
   create_table "organizations", :force => true do |t|
     t.string   "name"
@@ -180,6 +189,9 @@ ActiveRecord::Schema.define(:version => 20140928222807) do
     t.integer "organization_id_id", :null => false
     t.integer "address_id_id",      :null => false
   end
+
+  add_index "organizations_addresses", ["address_id_id"], :name => "index_organizations_addresses_on_address_id_id"
+  add_index "organizations_addresses", ["organization_id_id"], :name => "index_organizations_addresses_on_organization_id_id"
 
   create_table "providers", :force => true do |t|
     t.integer  "npi"

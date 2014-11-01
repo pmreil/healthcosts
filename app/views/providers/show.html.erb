@@ -1,0 +1,67 @@
+
+<% page_title = "Surgery and Procedure Costs at" %>
+
+<br/>
+<div class="text-center">
+<%= render "shared/ads970" %>
+</div>
+
+
+<p><%= @provider.first_name.capitalize %> <%= @provider.last_name.capitalize %> is a member of <%= @provider.organizations.count %> practices
+<p>
+
+<% @provider.organizations.each do |org| %>
+	<p><%= org.name %></p>
+	<p><% org.addresses.each do |addr| %>
+	
+		<%= addr.address1 %>
+		<%= addr.address2 %>
+		<%= addr.city %>, <%= addr.state_id %> <%= addr.zipcode %><br/>
+
+	<% end %>
+
+<% end %>
+
+</p>
+
+<p><b>Specialties</b><br/>
+<% @provider.specialties.each do |spec| %>
+	<%= spec.name %>
+<% end %>
+</p>
+
+<p><b>Hospitals</b><br/>
+<% @provider.hospitals.each do |hosp| %>
+	<%= hosp.name %>
+<% end %>
+</p>
+
+<p><b>Costs</b>
+	<table>
+<% @provider.providers_costs.each do |cost| %>
+	<tr>
+		<td><%= cost.hcpcs.description %></td>
+	</tr>
+<% end %>
+	</table>
+</p>
+
+<div class="text-center">
+<%= render "shared/ads970" %>
+</div>
+
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+  $(function () {
+    $("[rel='tooltip']").tooltip();
+    $("a.link").click(function() {
+      return false;
+    });
+  });
+
+});
+
+</script> 
