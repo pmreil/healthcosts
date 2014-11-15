@@ -10,42 +10,22 @@
 </div>
 
 <div class="row">
-  <div class="span6">
-
-<%= form_tag({controller: "providers", action: "search"}, method: "post") do %>
-  <%= label_tag(:q, "Search for:") %>
-  <%= text_field_tag(:q) %>
-  <%= select_tag(:specialty, options_for_select(@specialties_array)) %>
-  <%= submit_tag("Search") %>
-<% end %>
+  <div class="span12 text-center">
 
     <p class="text-center"><strong>Search by name</strong><br/></p>
 
     <div class="text-center lead" style="margin:0;">
     <i class="icon-search" style="color:#ffffff;top:-12px;position:relative;"></i> 
     <span class="input-append">
-    <%= form_tag("/physicians/search", :method => :post) do %>
-    <%= text_field_tag :q, nil, :class => "input-large" %>
-    <%= submit_tag "Search providers by name", :class => "btn btn-primary"  %>
-    <% end %>
+<%= form_tag({controller: "providers", action: "search"}, method: "post") do %>
+  <%= text_field_tag(:q) %>
+  <%= select_tag(:specialty, options_for_select(@specialties_array)) %>
+  <%= select_tag(:state, options_for_select(@states_array)) %>
+  <%= submit_tag "Search", :class => "btn btn-primary" %>
+<% end %>
+
     </span>
     </div>
-
-  </div>
-  <div class="span6">
-
-    <p class="text-center"><strong>Search by address</strong><br/></p>
-
-    <div class="text lead">
-    <i class="icon-map-marker" style="color:#ffffff;top:-12px;position:relative;"></i> 
-    <span class="input-append">
-    <%= form_tag("/geolocate", :method => :post) do %>
-    <%= text_field_tag :q, nil, :class => "input-large", :placeholder => "enter an address to" %>
-    <%= submit_tag "Find hospitals near you", :class => "btn btn-primary"  %>
-    <% end %>
-    </span>
-    </div>
-
 
   </div>
 </div>
