@@ -46,7 +46,7 @@ class ProvidersController < ApplicationController
   # GET /hospitals/1.json
   def show
     #@provider = Provider.includes(:specialties,:hospitals,:providers_costs,:organizations,:addresses).find(params[:id])
-    @provider = Provider.includes().find(params[:id])
+    @provider = Provider.includes(:providers_costs,:hcpcs).find(params[:id])
   end
 
 end

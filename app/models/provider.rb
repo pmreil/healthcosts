@@ -50,6 +50,8 @@ class Provider < ActiveRecord::Base
 
   has_many :providers_costs, :foreign_key => :npi
 
+  has_many :hcpcs, :through => :providers_costs
+
   def state_id(state_id)
     if self.organizations.count > 0
       self.joins(:organizations).joins(:addresses).where("addresses.state_id = ?", state_id)
