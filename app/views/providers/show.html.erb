@@ -37,7 +37,19 @@
 </p>
 
 <p><b>Costs</b>
-	<table>
+
+
+<table id="sortTable" class="table table-striped table-hover table-bordered">
+<thead>
+  <th data-placeholder="Type to search procedures">Diagnosis or Procedure Description</th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount hospital charged for this diagnoses/procedure in 2011 over total discharges">Hospital's average charge</a></th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Difference between what this hospital charged and Medicare paid the hospital for the procedure">Markup based on medicare reimbursement</a></th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount nationally charged for this DRG in 2011 over total discharges">National average charge</a></th>
+  <!--<th><a href="#" class="link" rel="tooltip" data-original-title="Percentage this Hospital charged for the procedure above or below the national average">Charge compared to national average</a></th>-->
+  <th><a href="#" class="link" rel="tooltip" data-original-title="How many hospitals are more expensive for this diagnosis or procedure">Hospital's Rank</a></th>
+  <th>Details</th>
+</thead>
+<tbody>
 <% @provider.providers_costs.each do |cost| %>
 	<tr>
 		<td><%= cost.hcpcs.description %></td>
@@ -52,6 +64,7 @@
 		<td><%= cost.stdev_Medicare_payment_amt %></td>
 	</tr>
 <% end %>
+	</tbody>
 	</table>
 </p>
 
@@ -70,6 +83,23 @@ $(document).ready(function() {
       return false;
     });
   });
+
+  // call the tablesorter plugin and apply the uitheme widget
+  $("#sortTable").tablesorter({
+    theme : "bootstrap",
+    widthFixed: true,
+    headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+    headers: { 
+      //2: { sorter: false },
+      4: { sorter: false },
+      5: { sorter: false },
+    },
+    widgets : [ "uitheme", "filter", "zebra" ],
+    widgetOptions : {
+      zebra : ["even", "odd"],
+      filter_reset : ".reset"
+    }
+  })
 
 });
 
