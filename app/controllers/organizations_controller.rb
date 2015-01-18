@@ -32,6 +32,11 @@ class OrganizationsController < ApplicationController
   def show
     #@provider = Provider.includes(:specialties,:hospitals,:providers_costs,:organizations,:addresses).find(params[:id])
     @provider = Provider.includes().find(params[:id])
+    @provider.organizations.each do |org| 
+      org.addresses.each do |addr|
+        addr.update_lat_lng
+      end
+    end
   end
 
 end

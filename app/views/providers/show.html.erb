@@ -1,28 +1,47 @@
-
-<% page_title = "Surgery and Procedure Costs at" %>
+<% title "Medical and surgery costs for "+@provider_name+", "+@organizations.first.uc_name %>
+<% description @provider_name+' medical costs and medicare payments. Inpatient and outpatient procedure costs. Compare hospital costs in the US' %>
 
 <br/>
 <div class="text-center">
 <%= render "shared/ads970" %>
 </div>
 
+<div class="row">
+  <div class="span8">
+    <h1><%= @provider_name %></h1>
 
-<p><%= @provider.first_name.capitalize %> <%= @provider.last_name.capitalize %> is a member of <%= @provider.organizations.count %> practices
-<p>
+    <p><%= @provider_name %> is a member of <%= @provider.organizations.count %> practices</p>    
 
-<% @provider.organizations.each do |org| %>
-	<p><%= org.name %></p>
-	<p><% org.addresses.each do |addr| %>
-	
-		<%= addr.address1 %>
-		<%= addr.address2 %>
-		<%= addr.city %>, <%= addr.state_id %> <%= addr.zipcode %><br/>
+    <div class="row">
+      <div class="span4">
+        <% @provider.organizations.each do |org| %>
+          <p><%= org.uc_name %></p>
+          <p><% org.addresses.each do |addr| %>
+            <%= addr.address1 %>
+            <%= addr.address2 %>
+            <%= addr.city %>, <%= State.find(addr.state_id).abbrev %> <%= addr.zipcode %><br/>
+            <a target="_blank" href="https://maps.google.com/maps?daddr=<%= CGI::escape(addr.address1) %>+<%= addr.city %>+<%= State.find(addr.state_id).abbrev %>&hl=en&mra=ls&t=m&z=11">Get Directions</a></p>
+          <% end %>
+        <% end %>
 
-	<% end %>
+      </div>
+    </div>
+    <br/>
 
-<% end %>
+    <div class="row">
+      <div class="span4">
 
-</p>
+        <%= link_to "Discuss #{@provider_name} Costs", provider_path(@provider, :anchor => 'discuss') %><br/>
+        <%= render "shared/share" %>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="span4">
+    <br/><div id="map-canvas"></div>
+  </div>
+</div>
 
 <p><b>Specialties</b><br/>
 <% @provider.specialties.each do |spec| %>
@@ -85,6 +104,7 @@ $(document).ready(function() {
   });
 
   // call the tablesorter plugin and apply the uitheme widget
+/*
   $("#sortTable").tablesorter({
     theme : "bootstrap",
     widthFixed: true,
@@ -100,7 +120,12 @@ $(document).ready(function() {
       filter_reset : ".reset"
     }
   })
+*/
+  initialize_map();
 
 });
 
+<%= render "shared/maps_for_orgs" %>
+
 </script> 
+

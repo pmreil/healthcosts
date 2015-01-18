@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141101201557) do
+ActiveRecord::Schema.define(:version => 20150118153039) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "pacid",            :limit => 8
@@ -24,10 +24,13 @@ ActiveRecord::Schema.define(:version => 20141101201557) do
     t.integer  "zipcode"
     t.integer  "addressable_id"
     t.string   "addressable_type"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   add_index "addresses", ["addressable_id"], :name => "index_addresses_on_addressable_id"
   add_index "addresses", ["addressable_type"], :name => "index_addresses_on_addressable_type"
+  add_index "addresses", ["pacid"], :name => "address_pacid"
 
   create_table "aliases", :force => true do |t|
     t.string   "name"

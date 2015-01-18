@@ -59,4 +59,10 @@ class Provider < ActiveRecord::Base
       self.joins(:addresses).where("addresses.state_id = ?", state_id)
     end
   end
+
+  def cap_name
+    name = self.first_name.capitalize + " " + self.last_name
+    return name.split.map(&:capitalize).join(' ')
+  end
+
 end
