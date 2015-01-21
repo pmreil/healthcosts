@@ -60,13 +60,27 @@
 
 <table id="sortTable" class="table table-striped table-hover table-bordered">
 <thead>
-  <th data-placeholder="Type to search procedures">Diagnosis or Procedure Description</th>
-  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount hospital charged for this diagnoses/procedure in 2011 over total discharges">Hospital's average charge</a></th>
-  <th><a href="#" class="link" rel="tooltip" data-original-title="Difference between what this hospital charged and Medicare paid the hospital for the procedure">Markup based on medicare reimbursement</a></th>
-  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount nationally charged for this DRG in 2011 over total discharges">National average charge</a></th>
-  <!--<th><a href="#" class="link" rel="tooltip" data-original-title="Percentage this Hospital charged for the procedure above or below the national average">Charge compared to national average</a></th>-->
-  <th><a href="#" class="link" rel="tooltip" data-original-title="How many hospitals are more expensive for this diagnosis or procedure">Hospital's Rank</a></th>
-  <th>Details</th>
+  <th>Services Description</th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Number of services provided by this physician; note that the metrics used to count the number provided can vary from service to service.">Times Provided</a></th>
+
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Number of distinct Medicare beneficiaries receiving the service.">Beneficiaries</a></th>
+
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Number of distinct Medicare beneficiary/per day services. Since a given beneficiary may receive multiple services of the same type (e.g., single vs. multiple cardiac stents) on a single day, this metric removes double-counting from the line service count to identify whether a unique service occurred.">Beneficiaries per day</a></th>
+
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Average of the Medicare allowed amount for the service; this figure is the sum of the amount Medicare pays, the deductible and coinsurance amounts that the beneficiary is responsible for paying, and any amounts that a third party is responsible for paying.">Medicare Avg. Amt.</a></th>
+
+Average of the Medicare allowed amount for the service; this figure is the sum of the amount Medicare pays, the deductible and coinsurance amounts that the beneficiary is responsible for paying, and any amounts that a third party is responsible for paying.
+
+stdev_Medicare_allowed_amt – Standard deviation of the Medicare allowed amounts. The standard deviation indicates the amount of variation from the average Medicare allowed amount that exists within a single provider, HCPCS service, and place of service.
+
+average_submitted_chrg_amt – Average of the charges that the provider submitted for the service.
+
+stdev_submitted_chrg_amt – Standard deviation of the charge amounts submitted by the provider. The standard deviation indicates the amount of variation from the average submitted charge amount that exists within a single provider, HCPCS service, and place of service.
+
+average_Medicare_payment_amt – Average amount that Medicare paid after deductible and coinsurance amounts have been deducted for the line item service.
+
+stdev_Medicare_payment_amt – Standard deviation of the Medicare payment amount. The standard deviation indicates the amount of variation from the average Medicare payment amount that exists within a single provider, HCPCS service, and place of service.
+
 </thead>
 <tbody>
 <% @provider.providers_costs.each do |cost| %>
@@ -75,12 +89,12 @@
 		<td><%= cost.line_srvc_cnt %></td>
 		<td><%= cost.bene_unique_cnt %></td>
 		<td><%= cost.bene_day_srvc_cnt %></td>
-		<td><%= cost.average_Medicare_allowed_amt %></td>
-		<td><%= cost.stdev_Medicare_allowed_amt %></td>
-		<td><%= cost.average_submitted_chrg_amt %></td>
-		<td><%= cost.stdev_submitted_chrg_amt %></td>
-		<td><%= cost.average_Medicare_payment_amt %></td>
-		<td><%= cost.stdev_Medicare_payment_amt %></td>
+		<td>$<%= cost.average_Medicare_allowed_amt.number_to_currency %></td>
+		<td>$<%= cost.stdev_Medicare_allowed_amt %></td>
+		<td>$<%= cost.average_submitted_chrg_amt %></td>
+		<td>$<%= cost.stdev_submitted_chrg_amt %></td>
+		<td>$<%= cost.average_Medicare_payment_amt %></td>
+		<td>$<%= cost.stdev_Medicare_payment_amt %></td>
 	</tr>
 <% end %>
 	</tbody>
@@ -103,24 +117,6 @@ $(document).ready(function() {
     });
   });
 
-  // call the tablesorter plugin and apply the uitheme widget
-/*
-  $("#sortTable").tablesorter({
-    theme : "bootstrap",
-    widthFixed: true,
-    headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
-    headers: { 
-      //2: { sorter: false },
-      4: { sorter: false },
-      5: { sorter: false },
-    },
-    widgets : [ "uitheme", "filter", "zebra" ],
-    widgetOptions : {
-      zebra : ["even", "odd"],
-      filter_reset : ".reset"
-    }
-  })
-*/
   initialize_map();
 
 });

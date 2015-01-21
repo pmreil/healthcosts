@@ -1,0 +1,70 @@
+var MY_MAPTYPE_ID = 'custom_style';
+
+function initialize_map() {
+
+var featureOpts = [
+    {
+      stylers: [
+        { hue: '#5CBC00' },
+        //{ visibility: 'simplified' },
+        { gamma: 0.5 },
+        { weight: 0.5 }
+      ]
+    },
+    {
+      featureType: 'water',
+      stylers: [
+        { color: '#036AB2' }
+      ]
+    }
+  ];
+
+  var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+  var mapOptions = {
+    zoom: 10,
+    //center: myLatlng
+    mapTypeControlOptions: {
+      //mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]
+    },
+    mapTypeId: MY_MAPTYPE_ID
+  }
+  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  var latlngbounds = new google.maps.LatLngBounds();
+  var image = '/assets/marker.png';
+
+var styledMapOptions = {
+    name: 'Custom Style'
+  };
+
+  var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
+
+  map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+
+<% @provider.organizations.each do |organization| %>
+  <% organization.addresses.each do |address| %>
+
+  latlng<%= address.id %> = new google.maps.LatLng(<%= address.latitude %>,<%= address.longitude %>)
+  var marker_<%= address.id %>  = new google.maps.Marker({
+      position: latlng<%= address.id %>,
+      map: map,
+      icon: image,
+      title: "<%= organization.name %>"
+  });
+  latlngbounds.extend(latlng<%= address.id %>);
+
+  var infowindow<%= address.id %> = new google.maps.InfoWindow({
+      content: '<b><%= link_to organization.uc_name, organization %></b><br/><%= address.address1 %><br><%= address.city.capitalize %>, <%= address.state_id %>'
+  });
+
+  google.maps.event.addListener(marker_<%= address.id %>, 'click', function() {
+    infowindow<%= address.id %>.open(map,marker_<%= address.id %>);
+  });
+
+  <% end %>
+
+<% end %>
+
+  map.setCenter(latlngbounds.getCenter());
+  map.fitBounds(latlngbounds);
+
+}
