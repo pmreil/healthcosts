@@ -27,15 +27,11 @@ class OrganizationsController < ApplicationController
     render :search
   end
 
-  # GET /hospitals/1
-  # GET /hospitals/1.json
   def show
-    #@provider = Provider.includes(:specialties,:hospitals,:providers_costs,:organizations,:addresses).find(params[:id])
-    @provider = Provider.includes().find(params[:id])
-    @provider.organizations.each do |org| 
-      org.addresses.each do |addr|
+    @organization = Organization.includes(:providers).find(params[:id])
+    @org_name = @organization.uc_name
+    @organization.addresses.each do |addr|
         addr.update_lat_lng
-      end
     end
   end
 
