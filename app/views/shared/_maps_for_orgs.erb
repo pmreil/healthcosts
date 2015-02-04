@@ -40,24 +40,48 @@ var styledMapOptions = {
 
   map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
 
-<% @provider.organizations.each do |organization| %>
-  <% organization.addresses.each do |address| %>
+<% if defined? @provider %>
+  <% @provider.organizations.each do |organization| %>
+    <% organization.addresses.each do |address| %>
 
-  latlng<%= address.id %> = new google.maps.LatLng(<%= address.latitude %>,<%= address.longitude %>)
-  var marker_<%= address.id %>  = new google.maps.Marker({
-      position: latlng<%= address.id %>,
+  latlng<%= address._id %> = new google.maps.LatLng(<%= address.latitude %>,<%= address.longitude %>)
+  var marker_<%= address._id %>  = new google.maps.Marker({
+      position: latlng<%= address._id %>,
       map: map,
       icon: image,
       title: "<%= organization.name %>"
   });
-  latlngbounds.extend(latlng<%= address.id %>);
+  latlngbounds.extend(latlng<%= address._id %>);
 
-  var infowindow<%= address.id %> = new google.maps.InfoWindow({
+  var infowindow<%= address._id %> = new google.maps.InfoWindow({
       content: '<b><%= link_to organization.uc_name, organization %></b><br/><%= address.address1 %><br><%= address.city.capitalize %>, <%= address.state_id %>'
   });
 
-  google.maps.event.addListener(marker_<%= address.id %>, 'click', function() {
-    infowindow<%= address.id %>.open(map,marker_<%= address.id %>);
+  google.maps.event.addListener(marker_<%= address._id %>, 'click', function() {
+    infowindow<%= address._id %>.open(map,marker_<%= address._id %>);
+  });
+    <% end %>
+
+  <% end %>
+
+<% else %>
+  <% @organization.addresses.each do |address| %>
+
+  latlng<%= address._id %> = new google.maps.LatLng(<%= address.latitude %>,<%= address.longitude %>)
+  var marker_<%= address._id %>  = new google.maps.Marker({
+      position: latlng<%= address._id %>,
+      map: map,
+      icon: image,
+      title: "<%= @organization.name %>"
+  });
+  latlngbounds.extend(latlng<%= address._id %>);
+
+  var infowindow<%= address._id %> = new google.maps.InfoWindow({
+      content: '<b><%= link_to @organization.uc_name, @organization %></b><br/><%= address.address1 %><br><%= address.city.capitalize %>, <%= address.state_id %>'
+  });
+
+  google.maps.event.addListener(marker_<%= address._id %>, 'click', function() {
+    infowindow<%= address._id %>.open(map,marker_<%= address._id %>);
   });
 
   <% end %>

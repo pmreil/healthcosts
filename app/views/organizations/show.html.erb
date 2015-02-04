@@ -40,15 +40,15 @@
 </div>
 
 <p><b>Physicians</b><br/>
-<% @organization.providers.each do |phys| %>
-	<%= phys.cap_name %>
+<% @organization.providers.sort_by{|last_name| last_name}.each do |phys| %>
+	<%= link_to phys.cap_name, phys %><br/>
 <% end %>
 </p>
 
 <p><b>Hospitals</b><br/>
 <% @organization.providers.each do |phys| %>
   <% phys.hospitals.each do |hosp| %>
-  	<%= hosp.name %>
+  	<%= link_to hosp.name, hosp %><br/>
   <% end %>
 <% end %>
 </p>
