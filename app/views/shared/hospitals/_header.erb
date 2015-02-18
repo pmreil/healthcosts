@@ -12,7 +12,9 @@
       </div>
       <div class="span4">
         <b>Region:</b> <%= @hospital.referral_region %><br/>
-        <b>County:</b> <%= @hospital.county.capitalize %><br/>
+        <b>County:</b> <%= if !@hospital.county.nil? 
+          @hospital.county.capitalize 
+        end %><br/>
         <b>Type:</b> <%= @hospital.hospital_type %><br/>
         <b>Ownership:</b> <%= @hospital.ownership %><br/>
         <b>Emergency Services:</b> <%= @hospital.emergency.nil? ? "Yes" : "No" %><br/>

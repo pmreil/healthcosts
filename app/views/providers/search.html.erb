@@ -41,7 +41,7 @@
 <tbody>
 <% @providers.each do |provider| %>
   <tr>
-    <td><i class="icon-user-md"></i> <%= link_to "#{provider.first_name.capitalize} #{provider.last_name.titleize}", provider %></td>
+    <td><i class="icon-user-md"></i> <%= link_to "#{provider.first_name.capitalize} #{provider.last_name.titleize}", controller: 'providers', action: 'npi', id: provider.npi_id %></td>
     <td><% provider.specialties.each do |spec| %>
         <%= spec.name.titleize %><br/>
       <% end %></td>

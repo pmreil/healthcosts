@@ -1,6 +1,6 @@
 class AddAddlIndexes < ActiveRecord::Migration
   def up
-	add_index :addresses, :pac_id
+	add_index :addresses, :pacid
   end
 
   def down

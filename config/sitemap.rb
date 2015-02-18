@@ -37,7 +37,7 @@ SitemapGenerator::Sitemap.create do
        add drg_path(drg), :lastmod => drg.updated_at, :changefreq => 'weekly'
 
       State.find(:all,:order => "name").each do |state|
-        add drgs_state_path(drg,state)
+        add drgs_state_path(drg,state.abbrev)
       end
 
       #Hospital.select('referral_region').group(:referral_region).each do |region|
