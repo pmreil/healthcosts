@@ -57,4 +57,19 @@ class ProvidersController < ApplicationController
 
   end
 
+  def npi
+    #@provider = Provider.includes(:specialties,:hospitals,:providers_costs,:organizations,:addresses).find(params[:id])
+    @provider = Provider.includes(:providers_costs,:hcpcs).find_by_npi_id(params[:id])
+    @provider_name = @provider.cap_name
+    @organizations = @provider.organizations
+    @organizations.each do |org| 
+      org.addresses.each do |addr|
+        addr.update_lat_lng
+      end
+    end
+    render "show"
+
+  end
+
+
 end

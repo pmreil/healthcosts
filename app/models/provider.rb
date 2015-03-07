@@ -23,18 +23,9 @@
 #
 
 class Provider < ActiveRecord::Base
-  set_primary_key :npi
-  acts_as_indexed :fields => [:first_name, :last_name]
+  #self.primary_key = "npi_id"
 
   scope :specialty, ->(specialty) { joins(:specialties).where('specialty_id = ?', specialty) }
-
-#  scope :state_id, ->(state_id) do 
-#    if self.organizations.count > 0
-#      joins(:organizations).joins(:addresses).where("addresses.state_id = ?", state_id)
-#    else
-#      joins(:addresses).where("addresses.state_id = ?", state_id)
-#    end
-#  end
 
   has_many :providers_organizations, :foreign_key => :npi_id
   has_many :organizations, :through => :providers_organizations
@@ -48,9 +39,11 @@ class Provider < ActiveRecord::Base
   has_many :providers_hospitals, :foreign_key => :npi_id
   has_many :hospitals, :through => :providers_hospitals
 
-  has_many :providers_costs, :foreign_key => :npi
+  has_many :providers_costs, :primary_key => :npi_id, :foreign_key => :npi_id
 
   has_many :hcpcs, :through => :providers_costs
+
+  acts_as_indexed :fields => [:first_name, :last_name]
 
   def state_id(state_id)
     if self.organizations.count > 0

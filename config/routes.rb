@@ -27,6 +27,7 @@ Healthcosts::Application.routes.draw do
   match 'terms' => 'static#terms'
 
   resources :providers, :path => "physicians", :only => [:index, :show]
+  match "physicians/npi/:id" => "providers#npi"
   post "physicians/search" => "providers#search"
 
   resources :organizations, :only => [:index, :show]

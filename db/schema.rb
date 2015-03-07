@@ -257,7 +257,7 @@ ActiveRecord::Schema.define(:version => 20150118153039) do
   create_table "providers_specialties", :id => false, :force => true do |t|
     t.integer "npi_id",       :null => false
     t.integer "specialty_id", :null => false
-    t.boolean "primary_flag"
+    t.boolean "primary"
   end
 
   add_index "providers_specialties", ["npi_id"], :name => "index_providers_specialties_on_npi_id"
