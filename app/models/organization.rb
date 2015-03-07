@@ -15,7 +15,7 @@ class Organization < ActiveRecord::Base
 
   #has_and_belongs_to_many :drgs, :uniq => true
   has_many :providers_organizations
-  has_many :providers, :through => :providers_organizations
+  has_many :providers, :through => :providers_organizations#, :order => "last_name"
 
   #has_many :addresses, as: :addressable
   has_many :addresses, :primary_key => :pacid, :foreign_key => :pacid
