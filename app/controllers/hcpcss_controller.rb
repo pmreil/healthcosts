@@ -2,9 +2,7 @@ class HcpcssController < ApplicationController
   # GET /drgs
   # GET /drgs.json
   def index
-    @drgs = Drg.find(:all,:order => "description",:include => "aliases")
-    @states = State.find(:all,:order => "name")
-    @regions = Hospital.select('referral_region').group(:referral_region).count
+    @hcpcss = Hcpcs.find(:all,:order => "description")
   end
 
   # GET /drgs/1

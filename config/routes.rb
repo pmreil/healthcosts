@@ -30,6 +30,8 @@ Healthcosts::Application.routes.draw do
   match "physicians/npi/:id" => "providers#npi"
   post "physicians/search" => "providers#search"
 
+  resources :hcpcss, :path => "hcpcs", :only => [:index, :show]
+
   resources :organizations, :only => [:index, :show]
 
   # The priority is based upon order of creation:

@@ -1,0 +1,158 @@
+<% title "Medical costs for "+@drg.uc_description %>
+<% description @drg.uc_description+' average hospital billing costs and medicare payments across United States hospitals. See which Hospital was cheapest and compare with other hospitals in the US' %>
+<% keywords @drg.uc_description+' hospital costs,'+"medical billing rates, cost of surgery, medicare rates, compare health costs, most expensive hospitals, lowest cost hospitals for "+@drg.uc_description %>
+
+<h1><%= @thetitle %></h1>
+
+<div class='row'>
+  <div class="span9">
+    <% if !@costs.nil? %>
+    <p class="lead"><a href="http://www.cms.gov/" target="_blank">CMS.gov</a> released billing data from <%= @count %> hospitals for <em>"<%= @drg.uc_description %>"</em> in 2011
+        <% if defined? @state %> in <%= @state.name.capitalize %><% end %>
+        <% if defined? @region %> in <%= @region %><% end %>
+
+
+      . The average medical billing charge was <%= number_to_currency(@average_covered_charges, :unit => "$") %> and the average medicare reimbursement was <%= number_to_currency(@average_total_payments, :unit => "$") %>.</p>
+
+    <% end %>
+  </div>
+  <div class="span3">
+    <br/>
+    <p><a href="#discuss" class="btn btn-small btn-primary">Discuss <%= @drg.uc_description %></a></p>
+    <p><a href="#icd10s" class="btn btn-small btn-primary">View all ICD10 Diagnoses for this Pricing Group</a></p>
+    <p><a href="/drgs/" class="btn btn-small btn-primary">Back to Diagnosis List</a></p>
+  </div>
+</div>
+
+  <p class="lead pagination-centered">
+<% if @state.nil? && @region.nil? %>
+Top 10 most expensive Hospitals displayed below. Use the form below to search by state or region:<br/><br/>
+<% end %>
+
+    <i class="icon-map-marker"></i> Narrow results by <select id="stateList">
+    <option value="">State</option>
+    <% @states.each do |state| %>
+    <option <% if @state == state%>selected<% end %> value="/drgs/<%= @drg.id %>/state/<%= state.abbrev %>"><%= state.name.capitalize %></option> 
+    <% end %>
+  </select>
+  or
+  <select id="regionList">
+    <option value="">Region</option>
+    <% @regions.each do |region| %>
+    <option <% if @region == region%>selected<% end %> value="/drgs/<%= @drg.id %>/region/<%= region[0] %>"><%= region[0] %> (<%= region[1] %> hospitals)</option> 
+    <% end %>
+  </select>
+  </p>
+
+<div clas="row"><div class="span10 text-center" >
+<%= render "shared/ads970" %><br/>
+</div></div>
+<br/>
+
+<% if !@costs.nil? %>
+
+<div class="row">
+  <div class="span10">
+
+<%= form_tag("/compare_drg_costs/",:method => "post") do %>
+<table id="sortTable" class="table table-striped table-border table-hover" style="height:200px;overflow:scroll;">
+<thead>
+  <tr>
+    <th>Hospital</th>
+    <th>Cases</th>
+    <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount hospital charged for this DRG in 2011 over total discharges">Average Charge</a></th>
+    <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount Medicare paid the hospital for the procedure">Average Medicare Reimbursement</a></th>
+    <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount Medicare paid the hospital for the procedure">Hospital's Rank</a></th>
+    <th>Compare</th>
+  </tr>
+</thead>
+<tbody>
+<% @costs.each do |cost| %>
+  <tr>
+    <td><%= link_to cost.hospital.uc_name+", "+cost.hospital.city.capitalize+", "+cost.hospital.state, cost.hospital %></td>
+    <td><%= cost.total_discharges %></td>
+    <td><%= number_to_currency(cost.average_covered_charges, :unit => "$") %></td>
+    <td><%= number_to_currency(cost.average_total_payments, :unit => "$") %></td>
+    <td><%= cost.position %> out of <%= cost.count %> (<%= number_to_percentage(cost.percentile*100, :precision => 0) %> percentile)</td>
+    <td><%= check_box_tag "cost_id[]", cost.id %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+<div class='text-right'>
+<%= submit_tag "Compare Selected Diagnoses/Procedures" %>
+</div>
+<% end %>
+
+</div>
+
+<div class="span2">
+<%= render "shared/ads160" %><br/><br/>
+<%= render "shared/ads160" %><br/><br/>
+<%= render "shared/ads160" %>
+</div>
+
+</div>
+
+<% end %>
+
+<div clas="row"><div class="span12 text-center" >
+  <br/>
+<%= render "shared/ads970" %>
+</div></div>
+
+<a name="icd10s"></a>
+    <h3>ICD10 Diagnosis Codes Associated with this Inpatient Procedure</h3>  
+    <p>The follow ICD10 codes are associated with the <%= @drg.description %> diagnosis related group. You can search others at the <%= link_to "diagnosis", controller => "diagnosis" %> search page.</p>
+    <ul>
+    <% @icd10s.each do |icd10| %>
+      <li>ICD10 Code: <%= icd10.code %> - <%= icd10.description %></li>
+    <% end %>
+  </ul>
+
+<h3>Discuss <%= @drg.uc_description %></h3>
+<%= render "shared/disqus" %>
+
+<script>
+$(document).ready(function() { 
+  $(function () {
+    $("[rel='tooltip']").tooltip();
+    $("a.link").click(function() {
+      return false;
+    });
+  });
+
+});
+
+$(document).ready(function() {
+  // call the tablesorter plugin and apply the uitheme widget
+  $("#sortTable").tablesorter({
+    // this will apply the bootstrap theme if "uitheme" widget is included
+    // the widgetOptions.uitheme is no longer required to be set
+    theme : "bootstrap",
+
+    widthFixed: true,
+
+    headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+
+    // widget code contained in the jquery.tablesorter.widgets.js file
+    // use the zebra stripe widget if you plan on hiding any rows (filter widget)
+    widgets : [ "uitheme", "filter", "zebra" ],
+
+    widgetOptions : {
+      // using the default zebra striping class name, so it actually isn't included in the theme variable above
+      // this is ONLY needed for bootstrap theming if you are using the filter widget, because rows are hidden
+      zebra : ["even", "odd"],
+
+      // reset filters button
+      filter_reset : ".reset"
+
+      // set the uitheme widget to use the bootstrap theme class names
+      // this is no longer required, if theme is set
+      // ,uitheme : "bootstrap"
+
+    }
+  })
+});
+
+</script> 
