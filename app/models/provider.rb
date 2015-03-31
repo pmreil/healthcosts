@@ -39,7 +39,7 @@ class Provider < ActiveRecord::Base
   has_many :providers_hospitals, :foreign_key => :npi_id
   has_many :hospitals, :through => :providers_hospitals
 
-  has_many :providers_costs, :primary_key => :npi_id, :foreign_key => :npi_id
+  has_many :providers_costs, :primary_key => :npi, :foreign_key => :npi
 
   has_many :hcpcs, :through => :providers_costs
 

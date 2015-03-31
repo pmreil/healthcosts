@@ -59,7 +59,7 @@ class ProvidersController < ApplicationController
 
   def npi
     #@provider = Provider.includes(:specialties,:hospitals,:providers_costs,:organizations,:addresses).find(params[:id])
-    @provider = Provider.includes(:providers_costs,:hcpcs).find_by_npi_id(params[:id])
+    @provider = Provider.includes(:providers_costs,:hcpcs).find_by_npi(params[:id])
     @provider_name = @provider.cap_name
     @organizations = @provider.organizations
     @organizations.each do |org| 

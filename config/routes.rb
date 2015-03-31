@@ -30,7 +30,11 @@ Healthcosts::Application.routes.draw do
   match "physicians/npi/:id" => "providers#npi"
   post "physicians/search" => "providers#search"
 
+  resources :hcpcss do
+    get :autocomplete_hcpcs_description, :on => :collection
+  end
   resources :hcpcss, :path => "hcpcs", :only => [:index, :show]
+
 
   resources :organizations, :only => [:index, :show]
 

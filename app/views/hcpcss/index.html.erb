@@ -23,13 +23,13 @@
     <th data-placeholder="Type to search procedures">Surgery, Procedure or Diagnosis Related Group (DRG) Description</th>
   </tr>
 </thead>
-<% @hcpcss.each do |hcpcs| %>
-  <tr>
-    <td><%= link_to "HCPCS #{hcpcs.code}", hcpcs_path(hcpcs) %></td>
-    <td><%= link_to hcpcs.uc_description, hcpcs_path(hcpcs) %></td>
-  </tr>
-<% end %>
 </table>
+
+
+
+<%= form_for :hcpcs do |f| %>
+<%=  f.autocomplete_field :hcpcs_description, autocomplete_hcpcs_description_hcpcss_path %>
+<% end %>
 
 </div>
 

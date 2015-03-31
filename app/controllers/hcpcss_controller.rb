@@ -1,8 +1,11 @@
 class HcpcssController < ApplicationController
+
+  autocomplete :hcpcs, :description
+
   # GET /drgs
   # GET /drgs.json
   def index
-    @hcpcss = Hcpcs.find(:all,:order => "description")
+    #@hcpcss = Hcpcs.find(:all,:order => "description")
   end
 
   # GET /drgs/1
