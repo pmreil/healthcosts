@@ -1,4 +1,7 @@
 class HospitalsController < ApplicationController
+
+  autocomplete :hospital, :name, :full => true
+
   # GET /hospitals
   # GET /hospitals.json
   def index

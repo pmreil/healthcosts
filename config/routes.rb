@@ -6,10 +6,14 @@ Healthcosts::Application.routes.draw do
   resources :apcs, :only => [:index, :show]
   match 'apcs/:id/state/:state_id' => 'apcs#state', :as => "apcs_state"
   match 'apcs/:id/region/:region_id' => 'apcs#region'
+  resources :hospitals do
+    get :autocomplete_hospital_name, :on => :collection
+  end
   resources :hospitals, :only => [:index, :show]
   match 'hospitals/:id/metrics' => 'hospitals#metrics', :as => "hospital_metrics"
   match 'hospitals/:id/inpatient' => 'hospitals#inpatient', :as => "hospital_inpatient"
   match 'hospitals/:id/outpatient' => 'hospitals#outpatient', :as => "hospital_outpatient"
+
   resources :costs, :only => [:index, :show]
   match '/compare_drg_costs' => 'costs#compare', :via => [:post]
   resources :apc_costs, :only => [:index, :show]
@@ -36,6 +40,9 @@ Healthcosts::Application.routes.draw do
   resources :hcpcss, :path => "hcpcs", :only => [:index, :show]
 
 
+  resources :organizations do
+    get :autocomplete_organization_name, :on => :collection
+  end
   resources :organizations, :only => [:index, :show]
 
   # The priority is based upon order of creation:

@@ -1,5 +1,7 @@
 class OrganizationsController < ApplicationController
 
+  autocomplete :organization, :name
+
   def index
   end
 

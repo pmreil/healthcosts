@@ -17,12 +17,12 @@
     <div class="text-center lead" style="margin:0;">
     <i class="icon-search" style="color:#ffffff;top:-12px;position:relative;"></i> 
     <span class="input-append">
-<%= form_tag({controller: "providers", action: "search"}, method: "post") do %>
-  <%= text_field_tag(:q) %>
-  <%= select_tag(:specialty, options_for_select(@specialties_array)) %>
-  <%= select_tag(:state, options_for_select(@states_array)) %>
-  <%= submit_tag "Search", :class => "btn btn-primary" %>
+
+
+<%= form_for :organization do |f| %>
+<%=  f.autocomplete_field :organization_name, autocomplete_organization_name_organizations_path %>
 <% end %>
+
 
     </span>
     </div>

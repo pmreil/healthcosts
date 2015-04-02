@@ -17,6 +17,22 @@
     <div class="text-center lead" style="margin:0;">
     <i class="icon-search" style="color:#ffffff;top:-12px;position:relative;"></i> 
     <span class="input-append">
+<%= form_for :hospital do |f| %>
+<%=  f.autocomplete_field :hospital_name, autocomplete_hospital_name_hospitals_path, :id_element => '#hospital_id' %>
+    <% end %>
+    </span>
+    </div>
+
+<script>
+$('#hospital_hospital_name').bind('railsAutocomplete.select', function(event, data){
+  /* Do something here */
+  alert(data.item.id);
+});
+</script>
+
+    <div class="text-center lead" style="margin:0;">
+    <i class="icon-search" style="color:#ffffff;top:-12px;position:relative;"></i> 
+    <span class="input-append">
     <%= form_tag("/search", :method => :post) do %>
     <%= text_field_tag :q, nil, :class => "input-large" %>
     <%= submit_tag "Search hospitals by name", :class => "btn btn-primary"  %>
