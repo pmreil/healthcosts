@@ -176,6 +176,3 @@ DEPENDENCIES
   therubyracer
   uglifier (>= 1.0.3)
   webrat (= 0.7.1)
-
-BUNDLED WITH
-   1.10.6

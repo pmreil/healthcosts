@@ -15,15 +15,15 @@
 
 <table id="sortTable" class="table table-striped table-hover table-bordered">
 <thead>
-  <th>Name</th>
-  <th>Organizations</th>
-  <th>Gender</th>
-  <th>Credential</th>
-  <th>Medical School</th>
-  <th><a href="#" class="link" rel="tooltip" data-original-title="Accepts Medicare Assignment?">Medicare</a></th>
-  <th><a href="#" class="link" rel="tooltip" data-original-title="Participates in e-prescribing?">ERX</a></th>
-  <th><a href="#" class="link" rel="tooltip" data-original-title="Participates in the Physician Quality Reporting System">PQRS</a></th>
-  <th><a href="#" class="link" rel="tooltip" data-original-title="Participates in the CMS EHR Program">EHR</a></th>
+  <th class="name">Name</th>
+  <th class="organizations">Organizations</th>
+  <th class="gender">Gender</th>
+  <th class="credential">Credential</th>
+  <th class="medical_school">Medical School</th>
+  <th><a href="#" class="link medicare" rel="tooltip" data-original-title="Accepts Medicare Assignment?">Medicare</a></th>
+  <th><a href="#" class="link erx" rel="tooltip" data-original-title="Participates in e-prescribing?">ERX</a></th>
+  <th><a href="#" class="link pqrs" rel="tooltip" data-original-title="Participates in the Physician Quality Reporting System">PQRS</a></th>
+  <th><a href="#" class="link ehr" rel="tooltip" data-original-title="Participates in the CMS EHR Program">EHR</a></th>
 </thead>
 <tbody>
 <% @physicians.each do |physician| %>
@@ -62,7 +62,7 @@
 $(document).ready(function() {
 
   $(function () {
-    $("[rel='tooltip']").tooltip();
+    $("#sortTable > TH").tooltip();
     $("a.link").click(function() {
       return false;
     });
@@ -80,6 +80,15 @@ $(document).ready(function() {
     theme : "bootstrap",
 
     widthFixed: true,
+
+
+    headers: {
+      // disable sorting of the first & second column - before we would have to had made two entries
+      // note that "first-name" is a class on the span INSIDE the first column th cell
+      '.medicare, .erx, .credential, .gender, .ehr, .pqrs' : {
+        // disable it by setting the property sorter to false
+        sorter: false
+    }},
 
     headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
 
