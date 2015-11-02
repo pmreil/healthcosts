@@ -13,6 +13,7 @@ Healthcosts::Application.routes.draw do
   match 'hospitals/:id/metrics' => 'hospitals#metrics', :as => "hospital_metrics"
   match 'hospitals/:id/inpatient' => 'hospitals#inpatient', :as => "hospital_inpatient"
   match 'hospitals/:id/outpatient' => 'hospitals#outpatient', :as => "hospital_outpatient"
+  match 'hospitals/:id/physicians' => 'hospitals#physicians', :as => "hospital_physicians"
 
   resources :costs, :only => [:index, :show]
   match '/compare_drg_costs' => 'costs#compare', :via => [:post]
