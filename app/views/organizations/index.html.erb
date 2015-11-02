@@ -24,6 +24,15 @@
 <% end %>
 
 
+<script type="text/javascript">
+  $('#organization_organization_name').railsAutocomplete();
+  $('#organization_organization_name').bind('railsAutocomplete.select', function(event, data){
+    //alert('asdf');
+    alert(data.item.id);
+  });
+</script>
+
+
     </span>
     </div>
 

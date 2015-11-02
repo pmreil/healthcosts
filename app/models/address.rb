@@ -18,7 +18,8 @@
 #
 
 class Address < ActiveRecord::Base
-	set_primary_key :pacid
+	#set_primary_key :pacid
+  self.primary_key = "pacid"
 	#belongs_to :addressable, polymorphic: true
 	#has_many :providers
 	#has_many :providers, through: :organizations

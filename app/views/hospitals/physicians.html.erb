@@ -12,31 +12,40 @@
 <br/>
 <div class="row">
 <div class="span10">
-<table id="sortTable2" class="table table-striped table-hover table-bordered">
+
+<table id="sortTable" class="table table-striped table-hover table-bordered">
 <thead>
-  <th data-placeholder="Type to search procedures">Diagnosis or Procedure Description</th>
-  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount hospital charged for this diagnoses/procedure in 2011 over total discharges">Hospital's Average Medical Billing for the Procedure</a></th>
-  <th><a href="#" class="link" rel="tooltip" data-original-title="Difference between what this hospital charged and Medicare paid the hospital for the procedure">Hospital's Charge vs. Medicare Reimbursement Difference<!--<br/>(% Markup)--></a></th>
-  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount nationally charged for this DRG in 2011 over total discharges">National Average Covered Charge for Procedure</a></th>
-  <!--<th><a href="#" class="link" rel="tooltip" data-original-title="Percentage this Hospital charged for the procedure above or below the national average">Hospital's charge compared to the national average</a></th>-->
-  <th><a href="#" class="link" rel="tooltip" data-original-title="How many hospitals are more expensive for this diagnosis or procedure">Hospital's Rank for this diagnosis <!--(Percent of hospitals that are more expensive)--></a></th>
-  <th>Details</th>
+  <th>Name</th>
+  <th>Organizations</th>
+  <th>Gender</th>
+  <th>Credential</th>
+  <th>Medical School</th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Accepts Medicare Assignment?">Medicare</a></th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Participates in e-prescribing?">ERX</a></th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Participates in the Physician Quality Reporting System">PQRS</a></th>
+  <th><a href="#" class="link" rel="tooltip" data-original-title="Participates in the CMS EHR Program">EHR</a></th>
 </thead>
 <tbody>
-<% @hospital_physicians.each do |physician| %>
+<% @physicians.each do |physician| %>
 <tr>
-  <td><%= link_to physician.last_name, physician %></td>
-  <td style="text-align:right;"><%= number_to_currency(cost.average_estimated_submitted_charges, :unit => "$") %></td>
-  <td align="right"><%= number_to_currency((cost.average_estimated_submitted_charges - cost.average_total_payments), :unit => '$') %> <!--(<%#= number_to_percentage(((cost.average_estimated_submitted_charges*100)/cost.average_total_payments), :precision => 0) %>)--></td>
-  <td style="text-align:right;"><%= number_to_currency(cost.apc.avg_estimated_submitted_charges, :unit => "$") %></td>
-  <!--<td align="right"><%#= number_to_percentage((((cost.average_estimated_submitted_charges-cost.apc.avg_estimated_submitted_charges)*100).abs/cost.apc.avg_estimated_submitted_charges), :precision => 0) %>
-    <%# if ((cost.average_estimated_submitted_charges-cost.apc.avg_estimated_submitted_charges)*100/cost.apc.avg_estimated_submitted_charges) > 0 %> higher <%# else %> lower <%# end %></td>-->
-  <td><%= cost.position %> out of <%= cost.count %> <%#= number_to_percentage(cost.percentile*100, :precision => 0) %></td>
-  <td><%= link_to "Details", cost, :class=>'btn btn-small' %></td>
+  <td><%= link_to "#{physician.first_name} #{physician.last_name}", physician %></td>
+  <td><% physician.organizations.each do |org| %>
+        <%= link_to(org.name.titleize,org) %><br/>
+      <% end %></td>
+  <td><%= physician.gender %></td>
+  <td><%= physician.credential %></td>
+  <td><%= physician.medical_school_name %>, <%= physician.graduation_year %></td>
+  <td style="text-align:center;"><% if physician.professional_accepts_medicare_assignment %><i class="icon-check"></i> <% end %></td>
+  <td style="text-align:center;"><% if physician.participating_in_erx %><i class="icon-check"></i> <% end %></td>
+  <td style="text-align:center;"><% if physician.participating_in_pqrs %><i class="icon-check"></i> <% end %></td>
+  <td style="text-align:center;"><% if physician.participating_in_ehr %><i class="icon-check"></i> <% end %></td>
 </tr>
 <% end %>
 </tbody>
 </table>
+
+<%= render "shared/pager" %>
+
 </div>
 <div class="span2">
 <%= render "shared/ads160" %>
@@ -61,5 +70,56 @@ $(document).ready(function() {
 
 
 });
+
+$(document).ready(function() {
+  // call the tablesorter plugin and apply the uitheme widget
+  $("#sortTable")
+  .tablesorter({
+    // this will apply the bootstrap theme if "uitheme" widget is included
+    // the widgetOptions.uitheme is no longer required to be set
+    theme : "bootstrap",
+
+    widthFixed: true,
+
+    headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+
+    // widget code contained in the jquery.tablesorter.widgets.js file
+    // use the zebra stripe widget if you plan on hiding any rows (filter widget)
+    widgets : [ "uitheme", "filter", "zebra" ],
+
+    widgetOptions : {
+      // using the default zebra striping class name, so it actually isn't included in the theme variable above
+      // this is ONLY needed for bootstrap theming if you are using the filter widget, because rows are hidden
+      zebra : ["even", "odd"],
+
+      // reset filters button
+      filter_reset : ".reset"
+
+      // set the uitheme widget to use the bootstrap theme class names
+      // this is no longer required, if theme is set
+      // ,uitheme : "bootstrap"
+
+    }
+  }).tablesorterPager({
+
+    // target the pager markup - see the HTML block below
+    container: $(".pager"),
+
+    size: 15,
+
+    // target the pager page select dropdown - choose a page
+    cssGoto  : ".pagenum",
+
+    // remove rows from the table to speed up the sort of large tables.
+    // setting this to false, only hides the non-visible rows; needed if you plan to add/remove rows with the pager enabled.
+    removeRows: false,
+
+    // output string - default is '{page}/{totalPages}';
+    // possible variables: {page}, {totalPages}, {filteredPages}, {startRow}, {endRow}, {filteredRows} and {totalRows}
+    output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'
+
+  });
+});
+
 
 </script> 

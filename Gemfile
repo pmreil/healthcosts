@@ -11,7 +11,7 @@ gem 'meta-tags', :require => 'meta_tags'
 gem 'google-analytics-rails'
 gem 'sitemap_generator'
 gem 'therubyracer'
-gem 'rails3-jquery-autocomplete'
+gem 'rails-jquery-autocomplete'
 gem 'nokogiri', '~> 1.5.10'
 
 gem 'acts_as_indexed'
@@ -42,7 +42,7 @@ end
 
 
 group :development do
-  gem 'mysql2'
+  gem "mysql2", "~> 0.3.11"
   gem 'rspec-rails'#, '2.5.0'
   gem 'annotate', ">=2.5.0"
   gem 'rb-readline', '~> 0.4.2'
@@ -50,7 +50,7 @@ end
 
 group :production do
   #gem 'activerecord-postgresql-adapter'
-  gem 'mysql2'
+  gem "mysql2", "~> 0.3.11"
   #gem 'pg'
   gem 'newrelic_rpm'
 end

@@ -17,18 +17,6 @@
     <div class="text-center lead" style="margin:0;">
     <i class="icon-search" style="color:#ffffff;top:-12px;position:relative;"></i> 
     <span class="input-append">
-<%= form_for :hospital do |f| %>
-<%=  f.autocomplete_field :hospital_name, autocomplete_hospital_name_hospitals_path, :id_element => '#hospital_id' %>
-    <% end %>
-    </span>
-    </div>
-
-<script>
-$('#hospital_hospital_name').bind('railsAutocomplete.select', function(event, data){
-  /* Do something here */
-  alert(data.item.id);
-});
-</script>
 
     <div class="text-center lead" style="margin:0;">
     <i class="icon-search" style="color:#ffffff;top:-12px;position:relative;"></i> 
@@ -39,6 +27,34 @@ $('#hospital_hospital_name').bind('railsAutocomplete.select', function(event, da
     <% end %>
     </span>
     </div>
+
+
+    <div class="text-center lead" style="margin:0;">
+    <i class="icon-search" style="color:#ffffff;top:-12px;position:relative;"></i> 
+    <span class="input-append">
+    <%= form_for :hospital do |f| %>
+    <%= f.autocomplete_field :hospital_name, autocomplete_hospital_name_hospitals_path, 'data-auto-focus' => true, :name => 'hospital_name', :type => "input", :class => "input-large" %>
+    <%= submit_tag "Search hospitals by name", :class => "btn btn-primary"  %>
+    <% end %>
+    </span>
+    </div>
+
+<script type="text/javascript">
+
+  $('#hospital_hospital_name').railsAutocomplete();
+  $('#hospital_hospital_name').bind('railsAutocomplete.select', function(event, data){
+    //alert(data.item.id);
+    var url = "/hospitals/"+data.item.id; // get selected value
+    if (url) { // require a URL
+      window.location = url; // redirect
+    }
+    return false;
+  });
+</script>
+
+
+
+
 
     <div class="text-center lead">
     <i class="icon-map-marker" style="color:#ffffff;top:-12px;position:relative;"></i> 

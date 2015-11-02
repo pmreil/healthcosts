@@ -77,4 +77,9 @@ class HospitalsController < ApplicationController
     @apc_costs = @hospital.apc_costs.includes(:apc => :aliases)
   end
 
+  def physicians
+    @hospital = Hospital.find(params[:id])
+    @physicians = @hospital.providers.order(:last_name).includes(:organizations)
+  end
+
 end

@@ -25,13 +25,14 @@
   <th data-placeholder="Type to search procedures">Diagnosis or Procedure Description</th>
   <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount hospital charged for this diagnoses/procedure in 2011 over total discharges">Hospital's average charge</a></th>
   <th><a href="#" class="link" rel="tooltip" data-original-title="Difference between what this hospital charged and Medicare paid the hospital for the procedure">Markup based on medicare reimbursement</a></th>
-  <th><a href="#" class="link" rel="tooltip" data-original-title="Average amount nationally charged for this DRG in 2011 over total discharges">National average charge</a></th>
+  <th><a href="#" class="link" rel="tooltip" data-toggle="tooltip" title="Average amount nationally charged for this DRG in 2011 over total discharges">National average charge</a></th>
   <!--<th><a href="#" class="link" rel="tooltip" data-original-title="Percentage this Hospital charged for the procedure above or below the national average">Charge compared to national average</a></th>-->
   <th><a href="#" class="link" rel="tooltip" data-original-title="How many hospitals are more expensive for this diagnosis or procedure">Hospital's Rank</a></th>
   <th>Details</th>
 </thead>
 <tbody>
 <% @costs.each do |cost| %>
+<% if !cost.drg.nil? %>
 <tr>
   <td><%= link_to cost.drg.uc_description, cost.drg %></td>
   <td style="text-align:right;"><%= number_to_currency(cost.average_covered_charges, :unit => "$") %></td>
@@ -42,6 +43,7 @@
   <td><%= cost.position %> out of <%= cost.count %></td>
   <td><%= link_to "Details", cost, :class=>'btn btn-small' %></td>
 </tr>
+<% end %>
 <% end %>
 </tbody>
 </table>
@@ -65,6 +67,7 @@
 $(document).ready(function() {
 
   $(function () {
+    //$('[data-toggle="tooltip"]').tooltip();
     $("[rel='tooltip']").tooltip();
     $("a.link").click(function() {
       return false;
