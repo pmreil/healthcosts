@@ -18,7 +18,7 @@
       <i class="icon-search" style="color:#ffffff;top:-12px;position:relative;"></i> 
       <span class="input-append">
       <%= form_tag("/search", :method => :post) do %>
-      <%= text_field_tag :q, nil, :class => "input-large", :placeholder => "enter a hospital name to" %>
+      <%= text_field_tag :q, nil, :class => "input-lg", :placeholder => "enter a hospital name to" %>
       <%= submit_tag "Search Hospitals by name", :class => "btn btn-primary"  %>
       <% end %>
       </span><br/>
@@ -26,7 +26,7 @@
       <i class="icon-search" style="color:#ffffff;top:-12px;position:relative;"></i> 
       <span class="input-append">
       <%= form_tag("/icd10s/search", :method => :post) do %>
-      <%= text_field_tag :q, nil, :class => "input-large", :placeholder => "enter a diagnosis to" %>
+      <%= text_field_tag :q, nil, :class => "input-lg", :placeholder => "enter a diagnosis to" %>
       <%= submit_tag "Search Diagoses by name", :class => "btn btn-primary"  %>
       <% end %>
       </span><br/>

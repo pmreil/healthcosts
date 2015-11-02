@@ -1,3 +1,7 @@
+
+
+<% if Rails.env.production? %>
+
 <script type="text/javascript">var switchTo5x=true;</script>
 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 <script type="text/javascript">stLight.options({publisher: "ur-e6c947a7-b355-1a2f-f145-525b62e8cc91", doNotHash: true, doNotCopy: true, hashAddressBar: false});</script>
@@ -10,3 +14,9 @@
 <span class='st_linkedin_large' displayText='LinkedIn'></span>
 <span class='st_googleplus_large' displayText='Google +'></span>
 <span class='st_email_large' displayText='Email'></span>
+
+<% else %>
+
+<div style="width:332px;height:33px;background-color:#666;color:white;">SHARE LINKS HERE</div>
+
+<% end %>

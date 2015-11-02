@@ -22,7 +22,8 @@
 #
 
 class Hospital < ActiveRecord::Base
-  set_primary_key :ext_id
+  #set_primary_key :ext_id
+  self.primary_key = "ext_id"
   #attr_accessible :address, :city, :ext_id, :name, :referral_region, :state, :zipcode
   has_many :costs, :foreign_key => 'hospital_ext_id'
   has_many :apc_costs, :foreign_key => 'hospital_ext_id'

@@ -12,7 +12,8 @@
 #
 
 class Drg < ActiveRecord::Base
-  set_primary_key :code
+  #set_primary_key :code
+  self.primary_key = "code"
   has_many :costs, :foreign_key => 'drg_code'
 
   #has_and_belongs_to_many :icd10s, :uniq => true

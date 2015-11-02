@@ -79,7 +79,7 @@ class HospitalsController < ApplicationController
 
   def physicians
     @hospital = Hospital.find(params[:id])
-    @hospital_physicians = @hospital.providers
+    @physicians = @hospital.providers.order(:last_name).includes(:organizations)
   end
 
 end

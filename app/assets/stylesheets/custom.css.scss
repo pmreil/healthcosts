@@ -1,3 +1,9 @@
+@import "bootstrap";
+@import "bootstrap-responsive";
+@import "font-awesome";
+
+
+
 $navbarBackgroundHighlight:       #000000;
 $navbarText:                      #ffffff;
 $navbarLinkColor:                 #ffffff;
@@ -8,9 +14,7 @@ $linkColor:                       #036AB2;
 $linkColorHover:                  #D26800;
 $footerBackground:                #036AB2;
 
-@import "bootstrap";
-@import "bootstrap-responsive";
-@import "font-awesome";
+
 
 //$navbarBackground: #5CBC00;
 $navbarBackground: $footerBackground;
