@@ -11,16 +11,15 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 
-//= require jquery
+// require_tree .
+
+// require jquery
 //= require jquery_ujs
 //= require jquery.ui.tooltip
 //= require jquery.ui.autocomplete
 //= require jquery-tablesorter
 //= require jquery-tablesorter/addons/pager/jquery.tablesorter.pager
-
 //= require autocomplete-rails
-
-//= require_tree .
 
 $(function() {
 

@@ -20,10 +20,10 @@
   <th class="gender">Gender</th>
   <th class="credential">Credential</th>
   <th class="medical_school">Medical School</th>
-  <th><a href="#" class="link medicare" rel="tooltip" data-original-title="Accepts Medicare Assignment?">Medicare</a></th>
-  <th><a href="#" class="link erx" rel="tooltip" data-original-title="Participates in e-prescribing?">ERX</a></th>
-  <th><a href="#" class="link pqrs" rel="tooltip" data-original-title="Participates in the Physician Quality Reporting System">PQRS</a></th>
-  <th><a href="#" class="link ehr" rel="tooltip" data-original-title="Participates in the CMS EHR Program">EHR</a></th>
+  <th><a href="#" class="link medicare" rel="tooltip" title="Accepts Medicare Assignment?">Medicare</a></th>
+  <th><span class="erx" title="Participates in e-prescribing?">ERX</span></th>
+  <th><a href="#" class="link pqrs" rel="tooltip" title="Participates in the Physician Quality Reporting System">PQRS</a></th>
+  <th><a href="#" class="link ehr" rel="tooltip" title="Participates in the CMS EHR Program">EHR</a></th>
 </thead>
 <tbody>
 <% @physicians.each do |physician| %>
@@ -61,13 +61,14 @@
 
 $(document).ready(function() {
 
-  $(function () {
-    $("#sortTable > TH").tooltip();
+    //$(document).tooltip();
+
+    //alert($(".erx").;
+    $(".erx").tooltip();
+    $("[rel=tooltip]").tooltip();
     $("a.link").click(function() {
       return false;
     });
-  });
-
 
 });
 

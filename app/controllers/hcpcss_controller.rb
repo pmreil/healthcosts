@@ -11,7 +11,7 @@ class HcpcssController < ApplicationController
   # GET /hcpcs/1
   def show
     @hcpcs = Hcpcs.find(params[:id])
-    @thetitle = "Compare Medical billing costs for "+@Hcpcs.uc_description+" by U.S. Physicians"
+    @thetitle = "Compare Medical billing costs for "+@hcpcs.uc_description+" by U.S. Physicians"
     @count = @hcpcs.providers_costs.count
     #@costs =  @hcpcs.providers_costs.order('average_covered_charges desc').includes(:physician).limit(10)
     #@average_covered_charges = @costs.average('average_covered_charges')

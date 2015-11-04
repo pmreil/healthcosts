@@ -20,4 +20,5 @@ class Hcpcs < ActiveRecord::Base
   end
 
 
+
 end
