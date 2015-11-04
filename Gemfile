@@ -13,6 +13,7 @@ gem 'sitemap_generator'
 gem 'therubyracer'
 gem 'rails-jquery-autocomplete'
 gem 'nokogiri', '~> 1.5.10'
+gem 'soda-ruby', :require => 'soda'
 
 gem 'acts_as_indexed'
 

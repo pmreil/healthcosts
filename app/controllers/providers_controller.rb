@@ -54,6 +54,8 @@ class ProvidersController < ApplicationController
         addr.update_lat_lng
       end
     end
+    client = SODA::Client.new({:domain => 'https://openpaymentsdata.cms.gov', :app_token => 'ppNX1qcrRdJ0p31TJbl7Vu23F'})
+    #@payment_data = client.get("sb72-gakb", {:physician_first_name => @provider.first_name, :physician_last_name => @provider_last_name})
 
   end
 
