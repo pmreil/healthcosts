@@ -10,11 +10,11 @@
   <div class="span8">
     <h1><%= @provider_name %></h1>
 
-    <p><%= @provider_name %> is a member of <%= @provider.organizations.count %> practices</p>    
+    <p><%= @provider_name %> is a member of <%= @organizations.count %> practices</p>    
 
     <div class="row">
       <div class="span4">
-        <% @provider.organizations.each do |org| %>
+        <% @organizations.each do |org| %>
           <p><%= org.uc_name %></p>
           <p><% org.addresses.each do |addr| %>
             <%= addr.address1 %>
@@ -51,9 +51,20 @@
 
 <p><b>Hospitals</b><br/>
 <% @provider.hospitals.each do |hosp| %>
-	<%= hosp.name %>
+	<%= link_to(hosp.name,hosp) %><br/>
 <% end %>
 </p>
+
+
+<p><b>Provider Kickbacks</b><br/>
+
+<% puts @payment_data %>
+<%= @payment_data.count %>
+<% @payment_data.each do |payment| %>
+  <%= puts payment %><br/>
+<% end %>
+</p>
+
 
 <p><b>Costs</b>
 

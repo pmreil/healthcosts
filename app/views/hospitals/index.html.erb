@@ -40,7 +40,7 @@
 
 <script type="text/javascript">
 
-  $('#hospital_hospital_name').railsAutocomplete();
+  //$('#hospital_hospital_name').railsAutocomplete();
   $('#hospital_hospital_name').bind('railsAutocomplete.select', function(event, data){
     //alert(data.item.id);
     var url = "/hospitals/"+data.item.id; // get selected value
