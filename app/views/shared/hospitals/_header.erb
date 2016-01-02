@@ -18,7 +18,8 @@
         <b>Type:</b> <%= @hospital.hospital_type %><br/>
         <b>Ownership:</b> <%= @hospital.ownership %><br/>
         <b>Emergency Services:</b> <%= @hospital.emergency.nil? ? "Yes" : "No" %><br/>
-
+        <b>Associated Physicians:</b> <%= @physicians %><br/>
+        <b>Associated Physician Practices:</b> <%= @organizations %><br/>
       </div>
     </div>
     <br/>

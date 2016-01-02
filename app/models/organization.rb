@@ -20,6 +20,10 @@ class Organization < ActiveRecord::Base
   #has_many :addresses, as: :addressable
   has_many :addresses, :primary_key => :pacid, :foreign_key => :pacid
 
+  has_many :hospitals, :through => :providers, :uniq => true
+  has_many :providers_costs, :through => :providers
+
+
   def uc_name
     return self.name.split(' ').map(&:capitalize).join(' ')
   end

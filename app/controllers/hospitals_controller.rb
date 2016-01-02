@@ -58,8 +58,10 @@ class HospitalsController < ApplicationController
   def show
     @hospital = Hospital.find(params[:id])
     @hospital.update_lat_lng
-    @costs = @hospital.costs.includes(:drg => :aliases)
-    @apc_costs = @hospital.apc_costs.includes(:apc => :aliases)
+    @physicians = @hospital.providers.count
+    @organizations = @hospital.organizations.count
+    #@costs = @hospital.costs.includes(:drg => :aliases)
+    #@apc_costs = @hospital.apc_costs.includes(:apc => :aliases)
   end
 
   def metrics

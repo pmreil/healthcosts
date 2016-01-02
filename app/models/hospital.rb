@@ -33,6 +33,7 @@ class Hospital < ActiveRecord::Base
   has_many :providers_hospitals, :foreign_key => :hospital_id
   has_many :providers, :through => :providers_hospitals
 
+  has_many :organizations, :through => :providers, :uniq => true
 
 
   reverse_geocoded_by :latitude, :longitude

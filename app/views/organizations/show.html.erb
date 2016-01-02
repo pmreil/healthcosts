@@ -40,20 +40,27 @@
 </div>
 
 <p><b>Physicians</b><br/>
-<% @organization.providers.sort_by{|last_name| last_name}.each do |phys| %>
+<% @organization.providers.sort_by{|last_name| last_name.last_name}.each do |phys| %>
 	<%= link_to phys.cap_name, phys %><br/>
 <% end %>
 </p>
 
-<p><b>Hospitals</b><br/>
-<% @organization.providers.each do |phys| %>
-  <% phys.hospitals.each do |hosp| %>
-  	<%= link_to hosp.name, hosp %><br/>
-  <% end %>
+<p><b>Hospitals that <%= @org_name %> is associated with:</b><br/>
+<% @organization.hospitals.sort_by{|a| a.name}.each do |hosp| %>
+  	<%= link_to hosp.uc_name, hosp %><br/>
 <% end %>
 </p>
 
-<p><b>Costs</b>
+<p><b>Most Frequent Medicare Charges for <%= @org_name %></b><br/>
+<table>
+<% @organization_costs_sorted.each do |cost| %>
+  <tr>
+    <td><%= cost[0] %></td>
+    <td><%= Hcpcs.find(cost[0]).description %></td>
+    <td><%= cost[1] %></td>
+  </tr>
+<% end %> 
+</table>
 
 <div class="text-center">
 <%= render "shared/ads970" %>

@@ -30,11 +30,12 @@ class OrganizationsController < ApplicationController
   end
 
   def show
-    @organization = Organization.includes(:providers).find(params[:id])
+    @organization = Organization.includes(:providers,:hospitals).find(params[:id])
     @org_name = @organization.uc_name
     @organization.addresses.each do |addr|
         addr.update_lat_lng
     end
+    @organization_costs_sorted = @organization.providers_costs.includes(:hcspcs).group(:hcpcs_code).count.sort_by {|key,value| value}.reverse!
   end
 
 end

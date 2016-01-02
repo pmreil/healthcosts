@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150118153039) do
+ActiveRecord::Schema.define(:version => 20160102191612) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "pacid",            :limit => 8
@@ -216,7 +216,7 @@ ActiveRecord::Schema.define(:version => 20150118153039) do
     t.datetime "updated_at",                               :null => false
   end
 
-  add_index "providers", ["npi"], :name => "index_providers_on_npi", :unique => true
+  add_index "providers", ["npi"], :name => "index_providers_on_npi"
 
   create_table "providers_costs", :force => true do |t|
     t.integer  "npi"
@@ -257,7 +257,7 @@ ActiveRecord::Schema.define(:version => 20150118153039) do
   create_table "providers_specialties", :id => false, :force => true do |t|
     t.integer "npi_id",       :null => false
     t.integer "specialty_id", :null => false
-    t.boolean "primary"
+    t.boolean "primary_flag"
   end
 
   add_index "providers_specialties", ["npi_id"], :name => "index_providers_specialties_on_npi_id"
