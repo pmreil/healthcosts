@@ -22,8 +22,11 @@
 <% @organizations.each do |org| %>
 <tr>
   <td><%= link_to org.name.capitalize, org %></td>
-  <td><% org.addresses.each do |addr| %>
-        <%=  addr.id %><br/>
+  <td><% org.addresses.uniq.each do |addr| %>
+        <%=  addr.address1.capitalize %><br/>
+        <% if !addr.address2.empty? %><%= addr.address2.capitalize %><br/><% end %>
+            <%= addr.city.capitalize %>, <%= State.find(addr.state_id).abbrev %> <%= addr.zipcode %><br/>
+            <a target="_blank" href="https://maps.google.com/maps?daddr=<%= CGI::escape(addr.address1) %>+<%= addr.city %>+<%= State.find(addr.state_id).abbrev %>&hl=en&mra=ls&t=m&z=11">Get Directions</a></p>
       <% end %></td>
 </tr>
 <% end %>
