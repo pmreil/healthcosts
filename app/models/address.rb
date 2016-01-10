@@ -51,5 +51,16 @@ class Address < ActiveRecord::Base
   	end
   end
 
+  def uc_address1
+    return self.address1.split(' ').map(&:capitalize).join(' ')
+  end
+
+  def uc_address2
+    return self.address2.split(' ').map(&:capitalize).join(' ')
+  end
+
+  def uc_city
+    return self.city.split(' ').map(&:capitalize).join(' ')
+  end
 
 end
